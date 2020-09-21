@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<ScrollPane stylesheets="@mainComponentCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="646.0">
+         <top>
+            <Label text="Super Duper Market" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <VBox focusTraversable="true" prefHeight="400.0" prefWidth="216.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Load XML" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Show Information" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Show Stores" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Show Items" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Make New Order" />
+                  <Button layoutX="10.0" layoutY="195.0" mnemonicParsing="false" styleClass="leftMenuItem" text="One Store Order" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="BuyWise Order" />
+                  <Button mnemonicParsing="false" styleClass="leftMenuItem" text="Show Orders" />
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </VBox>
+         </left>
+      </BorderPane>
+   </content>
+</ScrollPane>
