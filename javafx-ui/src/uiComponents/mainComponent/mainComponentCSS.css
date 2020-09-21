@@ -12,12 +12,18 @@
     -fx-color: white;
 }
 
+.label.leftMenuItem {
+    -fx-font-weight: bold;
+}
+
 .leftMenuItem {
     -fx-pref-width: 200px;
     -fx-font-size: 16px;
     -fx-alignment: center-left;
 
 }
+
+
 
 #leftMenuVBox{
 

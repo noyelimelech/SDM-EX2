@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/SDM-EX2.iml" filepath="$PROJECT_DIR$/SDM-EX2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SDM-Engine/SDM-Engine.iml" filepath="$PROJECT_DIR$/SDM-Engine/SDM-Engine.iml" />
       <module fileurl="file://$PROJECT_DIR$/javafx-ui/javafx-ui.iml" filepath="$PROJECT_DIR$/javafx-ui/javafx-ui.iml" />
     </modules>
   </component>
