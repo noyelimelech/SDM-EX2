@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<ScrollPane stylesheets="@mainComponentCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.mainComponent.MainComponentController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="646.0">
+         <top>
+            <Label text="Super Duper Market" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </top>
+         <left>
+            <VBox focusTraversable="true" prefHeight="400.0" prefWidth="216.0" spacing="5.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Separator prefWidth="200.0" />
+                  <Button fx:id="loadXMLButton" mnemonicParsing="false" onAction="#loadXMLButtonAction" styleClass="leftMenuItem" text="Load XML" />
+                  <Separator prefWidth="200.0" />
+                  <Label text="Show Information">
+                     <styleClass>
+                        <String fx:value="leftMenuItem" />
+                        <String fx:value="label" />
+                     </styleClass>
+                  </Label>
+                  <Button fx:id="showStoresButton" mnemonicParsing="false" onAction="#showStoresButtonAction" styleClass="leftMenuItem" text="Show Stores" />
+                  <Button fx:id="showItemsButton" mnemonicParsing="false" onAction="#showItemsButtonAction" styleClass="leftMenuItem" text="Show Items" />
+                  <Button fx:id="showOrderButton" mnemonicParsing="false" onAction="#showOrderButtonAction" styleClass="leftMenuItem" text="Show Orders" />
+                  <Separator prefWidth="200.0" />
+                  <Label text="Make New Order">
+                     <styleClass>
+                        <String fx:value="leftMenuItem" />
+                        <String fx:value="label" />
+                     </styleClass>
+                  </Label>
+                  <Button fx:id="oneStoreButton" layoutX="10.0" layoutY="195.0" mnemonicParsing="false" onAction="#oneStoreButtonAction" styleClass="leftMenuItem" text="One Store Order" />
+                  <Button fx:id="buyWiseOrderButton" mnemonicParsing="false" onAction="#buyWiseOrderButtonAction" styleClass="leftMenuItem" text="BuyWise Order" />
+                  <Separator prefWidth="200.0" />
+               </children>
+               <padding>
+                  <Insets left="5.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <ScrollPane BorderPane.alignment="CENTER">
+               <content>
+                  <FlowPane fx:id="dynamicAreaFlowPane" prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </ScrollPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
