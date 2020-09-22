@@ -14,7 +14,7 @@
 
 <ScrollPane stylesheets="@mainComponentCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.mainComponent.MainComponentController">
    <content>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="441.0" prefWidth="646.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0">
          <top>
             <Label text="Super Duper Market" BorderPane.alignment="CENTER">
                <font>
@@ -54,9 +54,9 @@
             </VBox>
          </left>
          <center>
-            <ScrollPane BorderPane.alignment="CENTER">
+            <ScrollPane fitToHeight="true" fitToWidth="true" BorderPane.alignment="CENTER">
                <content>
-                  <FlowPane fx:id="dynamicAreaFlowPane" prefHeight="200.0" prefWidth="200.0" />
+                  <FlowPane fx:id="dynamicAreaFlowPane" prefHeight="200.0" prefWidth="404.0" />
                </content>
             </ScrollPane>
          </center>

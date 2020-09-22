@@ -1,8 +1,9 @@
+import SDM.SDMEngine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import uiComponents.mainComponent.MainComponentController;
 
@@ -26,17 +27,17 @@ public class Main extends Application {
         // load main fxml
         URL mainFXML = getClass().getResource("/uiComponents/mainComponent/mainComponentFXML.fxml");
         loader.setLocation(mainFXML);
-        ScrollPane root = loader.load();
+        Parent root = loader.load();
 
         // wire up controller
-        MainComponentController histogramController = loader.getController();
-        SDMEgine businessLogic = new SDMEgine(histogramController);
-        histogramController.setPrimaryStage(primaryStage);
-        histogramController.setBusinessLogic(businessLogic);
+        MainComponentController mainComponentController = loader.getController();
+        SDMEngine sdmEngine = new SDMEngine(/*MainComponentController -- Model doesnt know controller*/);
+        mainComponentController.setPrimaryStage(primaryStage);
+        mainComponentController.setSdmEngine(sdmEngine);
 
         // set stage
         primaryStage.setTitle("Super Duper Market");
-        Scene scene = new Scene(root, 1050, 600);
+        Scene scene = new Scene(root, 1060, 650);
         primaryStage.setScene(scene);
         primaryStage.show();
 
