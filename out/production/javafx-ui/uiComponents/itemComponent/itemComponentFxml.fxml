@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="195.0" prefWidth="226.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.itemComponent.itemComponentController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label text="ID:">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="itemIdLabel" text="[Item ID]" GridPane.columnIndex="1">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label GridPane.rowIndex="1" />
+      <Label text=" type:" GridPane.rowIndex="2">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label text="name:" GridPane.rowIndex="1">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </Label>
+      <Label fx:id="itemNameLable" text="[item name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="itemTypeLable" text="[item type]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="number of stores that salles this item:" GridPane.rowIndex="3" />
+      <Label fx:id="numOfStoresLable" text="[number of stores]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="avarage price:" GridPane.rowIndex="4" />
+      <Label fx:id="avgPriceLable" text="[avg price]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label text="amount of order this item:" GridPane.rowIndex="5" />
+      <Label fx:id="amountOfOrder" text="[amount of order this item]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+   </children>
+   <padding>
+      <Insets top="5.0" />
+   </padding>
+</GridPane>
