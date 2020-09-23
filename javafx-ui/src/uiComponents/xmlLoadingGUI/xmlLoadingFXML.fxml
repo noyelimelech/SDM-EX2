@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="437.0" prefWidth="643.0" stylesheets="@xmlLoadingCSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.xmlLoadingGUI.XmlLoadingController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="173.0" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="333.0" minWidth="10.0" prefWidth="150.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="433.0" minWidth="10.0" prefWidth="412.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="120.0" minWidth="0.0" prefWidth="0.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="21.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="128.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="159.0" minHeight="10.0" prefHeight="134.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="54.0" minHeight="0.0" prefHeight="2.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="141.0" minHeight="10.0" prefHeight="101.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="132.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="47.0" minHeight="0.0" prefHeight="0.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Button fx:id="openXMLFileButton" mnemonicParsing="false" onAction="#openXMLFileButtonAction" prefHeight="25.0" prefWidth="601.0" text="Open XML File" GridPane.columnIndex="1" GridPane.columnSpan="2" />
+      <ProgressIndicator fx:id="loadingProgressBar" prefHeight="128.0" prefWidth="292.0" progress="0.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <Label text="XML File Loading Progress:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextArea id="loadingStatusArea" fx:id="statusTextArea" editable="false" prefHeight="133.0" prefWidth="280.0" text="Loading Status:" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="2" />
+      <Label text="File:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="filePathLabel" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</GridPane>
