@@ -6,11 +6,13 @@ import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import uiComponents.itemComponent.itemUIController;
+import uiComponents.xmlLoadingGUI.XmlLoadingController;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -40,21 +42,24 @@ public class MainComponentController {
     }
 
     @FXML
-    void loadXMLButtonAction() throws IOException, DuplicateStoreItemException, DuplicateStoreIDException, DuplicateItemException, StoreWithNoItemException, ItemNoOneSellException, FileNotEndWithXMLException, LocationIsOutOfBorderException, TryingToGivePriceOfItemWhichIDNotExistException, JAXBException, TryingToGiveDifferentPricesForSameStoreItemException
+    void loadXMLButtonAction()
     {
-        FileChooser fileChooser = new FileChooser();
-        File selectedFile = fileChooser.showOpenDialog(primaryStage);
-
-        sdmEngine.updateAllStoresAndAllItems(selectedFile.getPath());
-/*
-
         FXMLLoader loader = new FXMLLoader();
-        URL fxmlLocation = getClass().getResource("/uiComponents/mainComponent/mainComponentFXML.fxml");
+        URL fxmlLocation = getClass().getResource("/uiComponents/xmlLoadingGUI/xmlLoadingFXML.fxml");
         loader.setLocation(fxmlLocation);
-        Node xxx = loader.load();
+        Node xmlLoadingGUI = null;
+        try {
+            xmlLoadingGUI = loader.load();
+        } catch (IOException e) {
+            Alert loadingAlert = new Alert(Alert.AlertType.ERROR);
+            loadingAlert.setTitle("FXML Loading ERROR");
+            loadingAlert.setHeaderText("Seems like we got a problem on our error loading... Nothing you can do...");
 
-        dynamicAreaFlowPane.getChildren().add(xxx);
-*/
+        }
+        XmlLoadingController xmlLoadingController = loader.getController();
+        xmlLoadingController.setSdmEngine(sdmEngine);
+        xmlLoadingController.setStage(primaryStage);
+        dynamicAreaFlowPane.getChildren().add(xmlLoadingGUI);
 
 
     }
