@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -28,6 +29,7 @@ public class MainComponentController {
     @FXML private Button oneStoreButton;
     @FXML private Button buyWiseOrderButton;
     @FXML private FlowPane dynamicAreaFlowPane;
+    @FXML private ScrollPane innerScrollPane;
 
     private Stage primaryStage;
     private SDMEngine sdmEngine;
