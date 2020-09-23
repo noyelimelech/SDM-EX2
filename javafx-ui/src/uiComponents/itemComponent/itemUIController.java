@@ -6,17 +6,11 @@ import javafx.scene.control.Label;
 
 public class itemUIController
 {
-
     @FXML private Label itemIdLabel;
-
     @FXML private Label itemNameLable;
-
     @FXML private Label itemTypeLable;
-
     @FXML private Label numOfStoresLable;
-
     @FXML private Label avgPriceLable;
-
     @FXML private Label amountOfOrder;
 
 

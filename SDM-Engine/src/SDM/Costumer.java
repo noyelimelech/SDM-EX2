@@ -46,4 +46,24 @@ public class Costumer implements  Locatable
     public void setLocation(Location location) {
         this.location = location;
     }
+
+    public int getNumOfCostumerOrders() {
+        return (historyOrders.size());
+    }
+
+    public double getPriceOfCostumerOrders() {
+        double totalPriceOfItems=0;
+        for (Order order:historyOrders.values()) {
+            totalPriceOfItems+= order.getPriceOfAllItems();
+        }
+        return(totalPriceOfItems);
+    }
+
+    public double getPriceOfCostumerOrdersDeliveries() {
+        double totalPriceOfDeliveries =0;
+        for (Order order:historyOrders.values()) {
+            totalPriceOfDeliveries += order.getDeliveryPrice();
+        }
+        return(totalPriceOfDeliveries);
+    }
 }
