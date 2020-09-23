@@ -1,6 +1,7 @@
 package uiComponents.mainComponent;
 
 import SDM.Exception.*;
+import SDM.Item;
 import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,7 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import uiComponents.itemComponent.itemComponentController;
+import uiComponents.itemComponent.itemUIController;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -76,16 +77,20 @@ public class MainComponentController {
     void showItemsButtonAction() throws IOException {
 
 
-        for (int i = 0; i < 4; i++) {
-            FXMLLoader loader = new FXMLLoader();
-            URL fxmlLocation = getClass().getResource("/uiComponents/itemComponent/itemComponentFxml.fxml");
-            loader.setLocation(fxmlLocation);
-            Node itemUI = loader.load();
-            itemComponentController itemController = loader.getController();
-            itemController.setItemIdLabel((String.format("%d",i)));
 
-            dynamicAreaFlowPane.getChildren().add(itemUI);
-        }
+            for (Item item:sdmEngine.getAllItems())
+            {
+                FXMLLoader loader = new FXMLLoader();
+                URL fxmlLocation = getClass().getResource("/uiComponents/itemComponent/itemUIFxml.fxml");
+                loader.setLocation(fxmlLocation);
+                Node itemUI = loader.load();
+                itemUIController itemController = loader.getController();
+
+                itemController.setItemLables(item);
+                dynamicAreaFlowPane.getChildren().add(itemUI);
+
+            }
+
     }
 
     @FXML
