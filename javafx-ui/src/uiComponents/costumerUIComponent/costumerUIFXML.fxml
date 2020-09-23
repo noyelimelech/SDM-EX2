@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="463.0" stylesheets="@itemUICSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.itemComponent.itemUIController">
+<GridPane gridLinesVisible="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="204.0" prefWidth="463.0" stylesheets="@costumerUICSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.costumerUIComponent.costumerUIController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.3333282470703" minWidth="10.0" prefWidth="243.3333282470703" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="213.6666717529297" minWidth="10.0" prefWidth="191.6666717529297" />
@@ -25,18 +25,18 @@
             <Insets />
          </GridPane.margin>
       </Label>
-      <Label fx:id="itemIdLabel" text="[Item ID]" GridPane.columnIndex="1" />
+      <Label fx:id="costumerIdLabel" text="[costumer ID]" GridPane.columnIndex="1" />
       <Label GridPane.rowIndex="1" />
-      <Label text=" type:" GridPane.rowIndex="2" />
+      <Label text="location:" GridPane.rowIndex="2" />
       <Label text="name:" GridPane.rowIndex="1" />
-      <Label fx:id="itemNameLable" text="[item name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label fx:id="itemTypeLable" text="[item type]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <Label text="number of stores that salles this item:" GridPane.rowIndex="3" />
-      <Label fx:id="numOfStoresLable" text="[number of stores]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="avarage price:" GridPane.rowIndex="4" />
-      <Label fx:id="avgPriceLable" text="[avg price]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="amount of order this item:" GridPane.rowIndex="5" />
-      <Label fx:id="amountOfOrder" text="[amount of order this item]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="costumerNameLabel" text="[costumer name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="costumerLocationLabel" text="[costumer location]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="number of orders:" GridPane.rowIndex="3" />
+      <Label fx:id="numOfOrderesLabel" text="[number of orders]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label text="avarage price of orders:" GridPane.rowIndex="4" />
+      <Label fx:id="avgPriceOfOrdersLabel" text="[avg price of orders]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label text="avarage price of deliveries:" GridPane.rowIndex="5" />
+      <Label fx:id="avgPriceOfDeliveriesLabel" text="[avg price of deliveries]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
    <padding>
       <Insets top="5.0" />
