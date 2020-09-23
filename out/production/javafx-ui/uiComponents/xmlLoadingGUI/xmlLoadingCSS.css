@@ -1,0 +1,8 @@
+#mainGridPane{
+    -fx-background-image: url("Resources/background.png");
+    -fx-background-repeat: stretch;
+}
+
+.label {
+    -fx-text-fill: white;
+}
