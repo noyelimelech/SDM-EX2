@@ -3,6 +3,7 @@ package uiComponents.mainComponent;
 import SDM.Exception.*;
 import SDM.Item;
 import SDM.SDMEngine;
+import SDM.Store;
 import com.sun.xml.internal.bind.v2.TODO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import uiComponents.FXMLLoaderProxy;
 import uiComponents.itemComponent.itemUIController;
+import uiComponents.storeGUI.StoreGUIController;
 import uiComponents.xmlLoadingGUI.XmlLoadingController;
 
 import javax.xml.bind.JAXBException;
@@ -47,6 +50,7 @@ public class MainComponentController {
     @FXML
     void loadXMLButtonAction()
     {
+        dynamicAreaFlowPane.getChildren().clear();
         FXMLLoader loader = new FXMLLoader();
         URL fxmlLocation = getClass().getResource("/uiComponents/xmlLoadingGUI/xmlLoadingFXML.fxml");
         loader.setLocation(fxmlLocation);
@@ -83,6 +87,7 @@ public class MainComponentController {
 
     @FXML
     void showItemsButtonAction() throws IOException {
+        dynamicAreaFlowPane.getChildren().clear();
 
 
 
@@ -108,6 +113,22 @@ public class MainComponentController {
 
     @FXML
     void showStoresButtonAction() {
+        dynamicAreaFlowPane.getChildren().clear();
+
+        for (Store store : sdmEngine.getAllStores())
+        {
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/storeGUI/storeGUIFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node itemUI = loader.load();
+            StoreGUIController storeGUIController = loader.getController();
+
+            storeGUIController.setStore(store);
+
+            dynamicAreaFlowPane.getChildren().add(itemUI);
+
+        }
 
     }
 
