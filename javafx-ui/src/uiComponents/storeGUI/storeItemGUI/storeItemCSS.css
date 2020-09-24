@@ -1,9 +1,9 @@
 .leftSideLabel {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 0 0 0 20;
 }
 
-.rightSideLabel {
+.label {
     -fx-padding: 0 0 0 20;
+
 }
