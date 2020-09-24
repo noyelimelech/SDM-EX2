@@ -1,4 +1,11 @@
+#mainGridPane{
+    -fx-background-image: url("../Resources/background.png");
+    -fx-background-repeat: stretch;
+}
 
+.label {
+    -fx-text-fill: white;
+}
 .label {
     -fx-padding: 0 0 0 20;
 }
