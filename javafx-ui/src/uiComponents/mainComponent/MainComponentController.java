@@ -3,6 +3,7 @@ package uiComponents.mainComponent;
 import SDM.Exception.*;
 import SDM.Item;
 import SDM.SDMEngine;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -108,6 +109,26 @@ public class MainComponentController {
     @FXML
     void showStoresButtonAction() {
 
+    }
+
+    //TODO
+    @FXML
+    void showCostumersButtonAction() {
+        /*
+        for (Item item:sdmEngine.get)
+        {
+
+            FXMLLoader loader = new FXMLLoader();
+            URL fxmlLocation = getClass().getResource("/uiComponents/itemComponent/itemUIFxml.fxml");
+            loader.setLocation(fxmlLocation);
+            Node itemUI = loader.load();
+            itemUIController itemController = loader.getController();
+
+            itemController.setItemLables(item);
+            dynamicAreaFlowPane.getChildren().add(itemUI);
+
+        }
+        */
     }
 
 

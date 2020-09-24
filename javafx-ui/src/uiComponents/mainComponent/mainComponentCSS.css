@@ -6,6 +6,18 @@
 }
  */
 
+#BorderPaneMain{
+    -fx-background-image: url("../Resources/background.png");
+    -fx-background-repeat: stretch;
+}
+
+
+.label {
+    -fx-text-fill: white;
+}
+
+
+
 .leftMenuItem:hover {
     -fx-pref-width: 220px;
     -fx-background-color: #bac4bb; /* Green */
