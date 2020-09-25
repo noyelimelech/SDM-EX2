@@ -36,10 +36,13 @@ public class XMLHandlerBaseOnSchema
         return items;
     }
 
-    public void updateStoresAndItems(String stPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
+    public void updateStoresAndItemsAndCostumers(String stPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
         SuperDuperMarketDescriptor sdmDescriptor=this.fromStringPathToDescriptor(stPath);
         parseFromSDMItemToItem(sdmDescriptor);
         parseFromSDMStoresToStores(sdmDescriptor);
+
+
+
     }
     private SuperDuperMarketDescriptor fromStringPathToDescriptor(String inpPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException
     {

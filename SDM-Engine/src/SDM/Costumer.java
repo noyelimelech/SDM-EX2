@@ -3,7 +3,7 @@ package SDM;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Costumer implements  Locatable
+public class Costumer implements Locatable
 {
     private int id;
     private String name;
@@ -48,22 +48,14 @@ public class Costumer implements  Locatable
     }
 
     public int getNumOfCostumerOrders() {
-        return (historyOrders.size());
+        return 0;
     }
 
     public double getPriceOfCostumerOrders() {
-        double totalPriceOfItems=0;
-        for (Order order:historyOrders.values()) {
-            totalPriceOfItems+= order.getPriceOfAllItems();
-        }
-        return(totalPriceOfItems);
+        return 0;
     }
 
     public double getPriceOfCostumerOrdersDeliveries() {
-        double totalPriceOfDeliveries =0;
-        for (Order order:historyOrders.values()) {
-            totalPriceOfDeliveries += order.getDeliveryPrice();
-        }
-        return(totalPriceOfDeliveries);
+        return 0;
     }
 }

@@ -1,7 +1,6 @@
 package uiComponents.costumerUIComponent;
 
 import SDM.Costumer;
-import SDM.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 

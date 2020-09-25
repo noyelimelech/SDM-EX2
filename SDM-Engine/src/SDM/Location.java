@@ -21,7 +21,7 @@ public class Location
 
     public static boolean checkIfIsLegalLocation(int x, int y)
     {
-        return((x>=Location.minBorder&&x<=Location.maxBorder) && (y>=Location.minBorder&&y<=Location.maxBorder));
+        return((x>= Location.minBorder&&x<= Location.maxBorder) && (y>= Location.minBorder&&y<= Location.maxBorder));
     }
 
     public static double distanceBetweenLocations(Location location1, Location location2) {

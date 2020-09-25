@@ -36,6 +36,7 @@
                   <Button fx:id="showStoresButton" mnemonicParsing="false" onAction="#showStoresButtonAction" styleClass="leftMenuItem" text="Show Stores" />
                   <Button fx:id="showItemsButton" mnemonicParsing="false" onAction="#showItemsButtonAction" styleClass="leftMenuItem" text="Show Items" />
                   <Button fx:id="showOrderButton" mnemonicParsing="false" onAction="#showOrderButtonAction" styleClass="leftMenuItem" text="Show Orders" />
+                  <Button fx:id="showOrderButton1" layoutX="15.0" layoutY="182.0" mnemonicParsing="false" onAction="#showCostumersButtonAction" styleClass="leftMenuItem" text="Show  costumers" />
                   <Separator prefWidth="200.0" />
                   <Label text="Make New Order">
                      <styleClass>
@@ -55,7 +56,7 @@
          <center>
             <ScrollPane fx:id="innerScrollPane" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                <content>
-                  <FlowPane fx:id="dynamicAreaFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" snapToPixel="false" />
+                  <FlowPane fx:id="dynamicAreaFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="828.0" snapToPixel="false" />
                </content>
             </ScrollPane>
          </center>

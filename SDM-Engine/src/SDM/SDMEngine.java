@@ -54,7 +54,7 @@ public class SDMEngine {
         Map<Integer, Store> tempAllStores = new HashMap<>();
 
         XMLHandlerBaseOnSchema xmlHandler = new XMLHandlerBaseOnSchema();
-        xmlHandler.updateStoresAndItems(stPath);
+        xmlHandler.updateStoresAndItemsAndCostumers(stPath);
 
         tempAllItems = xmlHandler.getItems();
 
