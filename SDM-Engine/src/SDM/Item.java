@@ -61,7 +61,7 @@ public class Item {
     public void checkAndUpdateItemType(String purchaseCategory)
     {
         purchaseCategory=purchaseCategory.toUpperCase();
-        this.type=ItemType.valueOf(purchaseCategory);
+        this.type= ItemType.valueOf(purchaseCategory);
     }
 
     public double getAveragePrice() {
