@@ -5,6 +5,7 @@ import SDM.Item;
 import SDM.SDMEngine;
 import SDM.Store;
 import com.sun.xml.internal.bind.v2.TODO;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -38,6 +39,22 @@ public class MainComponentController {
     private Stage primaryStage;
     private SDMEngine sdmEngine;
 
+    private SimpleBooleanProperty isXMLFileLoaded;
+    private SimpleBooleanProperty isAnyOrderMade;
+
+    public MainComponentController() {
+        isXMLFileLoaded = new SimpleBooleanProperty(false);
+        isAnyOrderMade = new SimpleBooleanProperty(false);
+    }
+
+    public SimpleBooleanProperty isXMLFileLoadedProperty() {
+        return isXMLFileLoaded;
+    }
+
+    public SimpleBooleanProperty isAnyOrderMadeProperty() {
+        return isAnyOrderMade;
+    }
+
     public void setPrimaryStage(Stage primaryStage) {
         this.primaryStage=primaryStage;
     }
@@ -45,6 +62,16 @@ public class MainComponentController {
 
     public void setSdmEngine(SDMEngine sdmEngine) {
         this.sdmEngine=sdmEngine;
+    }
+
+    @FXML
+    public void initialize() {
+        showItemsButton.disableProperty().bind(isXMLFileLoaded.not());
+        showStoresButton.disableProperty().bind(isXMLFileLoaded.not());
+        oneStoreButton.disableProperty().bind(isXMLFileLoaded.not());
+        buyWiseOrderButton.disableProperty().bind(isXMLFileLoaded.not());
+        showOrderButton.disableProperty().bind(isXMLFileLoaded.not().or(isAnyOrderMade.not()));
+
     }
 
     @FXML
@@ -67,6 +94,9 @@ public class MainComponentController {
         xmlLoadingController.setSdmEngine(sdmEngine);
         xmlLoadingController.setStage(primaryStage);
         dynamicAreaFlowPane.getChildren().add(xmlLoadingGUI);
+
+        //TODO here only for testing, should not be here. Binding should be done to property of SDMEngine
+        isXMLFileLoaded.set(true);
 
 
     }
