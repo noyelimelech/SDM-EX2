@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="497.0" prefWidth="532.0" stylesheets="@storeGUICSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.StoreGUIController">
+<GridPane id="gridPane" prefHeight="497.0" prefWidth="532.0" stylesheets="@storeGUICSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.StoreGUIController">
   <columnConstraints>
     <ColumnConstraints maxWidth="284.6666717529297" minWidth="10.0" prefWidth="278.6666717529297" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="236.33334350585938" minWidth="10.0" prefWidth="198.3333282470703" />

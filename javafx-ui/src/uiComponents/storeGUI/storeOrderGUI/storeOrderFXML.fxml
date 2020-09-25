@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="345.0" stylesheets="@storeOrderCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.storeOrderGUI.StoreOrderController">
+<GridPane id="#topGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="345.0" stylesheets="@storeOrderCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.storeOrderGUI.StoreOrderController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.3333282470703" minWidth="10.0" prefWidth="124.66666412353516" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.99999237060547" minWidth="10.0" prefWidth="220.33333587646484" />

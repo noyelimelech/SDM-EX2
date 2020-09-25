@@ -56,7 +56,7 @@
          <center>
             <ScrollPane fx:id="innerScrollPane" fitToHeight="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
                <content>
-                  <FlowPane fx:id="dynamicAreaFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" snapToPixel="false" />
+                  <FlowPane fx:id="dynamicAreaFlowPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="828.0" snapToPixel="false" />
                </content>
             </ScrollPane>
          </center>

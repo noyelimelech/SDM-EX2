@@ -7,3 +7,8 @@
 .rightSideLabel {
     -fx-padding: 0 0 0 20;
 }
+
+#gridPane {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
