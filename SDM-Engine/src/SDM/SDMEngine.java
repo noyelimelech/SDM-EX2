@@ -11,11 +11,15 @@ public class SDMEngine {
 
     private Map<Integer, Store> allStores = new HashMap<>();
     private Map<Integer, Item> allItems = new HashMap<>();
-    private final Map<Integer, Costumer> allCostumers = new HashMap<>();
+    private Map<Integer, Customer> allCustomers = new HashMap<>();
     private List<Order> allOrders;
     private Order currentOrder;
     private Map<Integer, StoreItem> allStoreItemsWithPriceForSpecificStore = new HashMap<>(); //private Map for storeItems to show to UI
     private boolean xmlFileLoaded = false;
+
+    public List<Customer> getAllCustomers() {
+        return (new ArrayList<>(allCustomers.values()));
+    }
 
     public Map<Integer, Store> getAllStoresMap() {
         return this.allStores;
@@ -49,14 +53,17 @@ public class SDMEngine {
         return allItems.get(itemID).getType();
     }
 
-    public void updateAllStoresAndAllItems(String stPath) throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException {
+    public void updateAllStoresAndAllItemsAndAllCustomers(String stPath) throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException {
         Map<Integer, Item> tempAllItems;
         Map<Integer, Store> tempAllStores = new HashMap<>();
+        Map<Integer, Customer> tempAllCustomers ;
 
         XMLHandlerBaseOnSchema xmlHandler = new XMLHandlerBaseOnSchema();
         xmlHandler.updateStoresAndItemsAndCostumers(stPath);
 
         tempAllItems = xmlHandler.getItems();
+
+        tempAllCustomers= xmlHandler.getCostumers();
 
         //convert List of store to Map of<int id,Store)
         for (Store st : xmlHandler.getStores()) {
@@ -70,7 +77,11 @@ public class SDMEngine {
         xmlFileLoaded = true;
         allStores = tempAllStores;
         allItems = tempAllItems;
+
+        allCustomers = tempAllCustomers;
+
         allOrders = new LinkedList<>();
+
     }
 
     private void updateAllItemWithTheStoresWhoSellThem(Map<Integer, Item> tempAllItems, Map<Integer, Store> tempAllStores) {
@@ -121,8 +132,8 @@ public class SDMEngine {
 
     }
 
-    public void createNewOrder(Costumer costumerEX1, Date dateOrder, Store store) {
-        currentOrder = Order.makeNewOrder(costumerEX1, dateOrder, store);
+    public void createNewOrder(Customer customerEX1, Date dateOrder, Store store) {
+        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, store);
     }
 
     public void updateAllStoreItemsForSaleInCurrentStoreOrder(Store store) {

@@ -2,10 +2,8 @@ package SDM.jaxb.schema;
 
 import SDM.*;
 import SDM.Exception.*;
-import SDM.jaxb.schema.generated.SDMItem;
-import SDM.jaxb.schema.generated.SDMSell;
-import SDM.jaxb.schema.generated.SDMStore;
-import SDM.jaxb.schema.generated.SuperDuperMarketDescriptor;
+import SDM.Location;
+import SDM.jaxb.schema.generated.*;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -24,7 +22,13 @@ public class XMLHandlerBaseOnSchema
 {
     private List<Store> stores = null;
     private Map<Integer,Item> items =null;
+    //NOY 25/9
+    private Map<Integer,Customer> costumers =null;
 
+    public Map<Integer, Customer> getCostumers() {
+        return costumers;
+    }
+    //
 
     public List<Store> getStores()
     {
@@ -41,9 +45,10 @@ public class XMLHandlerBaseOnSchema
         parseFromSDMItemToItem(sdmDescriptor);
         parseFromSDMStoresToStores(sdmDescriptor);
 
-
+        parseFromSDMCustomersToCustomers(sdmDescriptor);
 
     }
+
     private SuperDuperMarketDescriptor fromStringPathToDescriptor(String inpPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException
     {
         File inputFile = new File(inpPath);
@@ -70,6 +75,34 @@ public class XMLHandlerBaseOnSchema
         Unmarshaller u=jc.createUnmarshaller();
         return (SuperDuperMarketDescriptor) u.unmarshal(in);
     }
+
+
+    ///////NOY JOB 25/9
+    private void parseFromSDMCustomersToCustomers(SuperDuperMarketDescriptor sdmObj) throws DuplicateItemException {
+
+        List<SDMCustomer> sdmCustomers= sdmObj.getSDMCustomers().getSDMCustomer();
+        this.costumers=new HashMap<>();
+
+        Customer customer;
+
+        for (SDMCustomer sdmCustomer:sdmCustomers)
+        {
+            if(this.costumers.containsKey(sdmCustomer.getId()))
+            {
+                throw (new DuplicateItemException(sdmCustomer.getId()));
+            }
+
+            //else
+            SDM.Location customerLocation =new SDM.Location(new Point(sdmCustomer.getLocation().getX(),sdmCustomer.getLocation().getY()));
+            customer=new Customer(sdmCustomer.getId(),sdmCustomer.getName(),customerLocation);
+            this.costumers.put(customer.getId(), customer);
+        }
+
+    }
+
+
+
+
 
     private void parseFromSDMItemToItem(SuperDuperMarketDescriptor sdmObj) throws DuplicateItemException
     {

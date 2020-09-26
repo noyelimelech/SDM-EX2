@@ -8,7 +8,7 @@ public class Location
     public static final int minBorder=1;
     public static int maxBorder=50;
 
-    private final Point location;
+    private Point location;
 
     public Location(Point p)
     {
@@ -41,5 +41,16 @@ public class Location
     public int hashCode() {
         return Objects.hash(location);
     }
+
+    public int getXLocation()
+    {
+        return (int)(this.location.getX());
+    }
+
+    public int getYLocation()
+    {
+        return (int)(this.location.getY());
+    }
+
 }
 

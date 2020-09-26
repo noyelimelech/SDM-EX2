@@ -12,14 +12,14 @@ public class Order
     private final int id;
     private final Map<Integer, OrderItem> orderItemCart;
     private final Store storeOrderMadeFrom;
-    private final Costumer costumer;
+    private final Customer customer;
     private final Date date;
     private final double deliveryPrice;
     private double priceOfAllItems;
     private double totalPrice;
 
-    private Order(Costumer costumer, Date date, Store storeOrderMadeFrom) {
-        this.costumer = costumer;
+    private Order(Customer customer, Date date, Store storeOrderMadeFrom) {
+        this.customer = customer;
         this.date = date;
         this.id = idCounter;
         this.storeOrderMadeFrom = storeOrderMadeFrom;
@@ -27,8 +27,8 @@ public class Order
         orderItemCart = new HashMap<>();
     }
 
-    public static Order makeNewOrder(Costumer costumer, Date date, Store storeOrderMadeFrom) {
-        return new Order(costumer, date, storeOrderMadeFrom);
+    public static Order makeNewOrder(Customer customer, Date date, Store storeOrderMadeFrom) {
+        return new Order(customer, date, storeOrderMadeFrom);
     }
 
     public int getId() {
@@ -43,8 +43,8 @@ public class Order
         return storeOrderMadeFrom;
     }
 
-    public Costumer getCostumer() {
-        return costumer;
+    public Customer getCustomer() {
+        return customer;
     }
 
     public Date getDate() {
@@ -90,7 +90,7 @@ public class Order
                 orderItem.clearAmount();
             }
         });
-        costumer.addNewOrder(this);
+        customer.addNewOrder(this);
         storeOrderMadeFrom.getOrders().add(this);
     }
 
@@ -99,7 +99,7 @@ public class Order
     }
 
     public double distanceBetweenCostumerAndStore() {
-        return Location.distanceBetweenLocations(costumer.getLocation(), storeOrderMadeFrom.getLocation());
+        return Location.distanceBetweenLocations(customer.getLocation(), storeOrderMadeFrom.getLocation());
     }
 
     public int getTotalItemsInOrder()

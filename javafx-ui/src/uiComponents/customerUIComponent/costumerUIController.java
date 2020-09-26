@@ -1,6 +1,7 @@
-package uiComponents.costumerUIComponent;
+package uiComponents.customerUIComponent;
 
-import SDM.Costumer;
+import SDM.Customer;
+import SDM.Store;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
@@ -12,6 +13,9 @@ public class costumerUIController {
     @FXML private Label numOfOrdersLabel;
     @FXML private Label avgPriceOfOrdersLabel;
     @FXML private Label avgPriceOfDeliveriesLabel;
+
+    private Customer customer;
+
 
     public void setCostumerIdLabel(String costumerId) {
         this.costumerIdLabel.setText(costumerId);
@@ -37,13 +41,20 @@ public class costumerUIController {
         this.avgPriceOfDeliveriesLabel.setText(avgPriceOfDeliveries);
     }
 
-    public void setCostumerAllLabels(Costumer costumer) {
-        setCostumerIdLabel(toString().format("%d", costumer.getId()));
-        setCostumerNameLabel(costumer.getName());
-        setCostumerLocationLabel(costumer.getLocation().toString());
-        setNumOfOrdersLabel(toString().format("%d", costumer.getNumOfCostumerOrders()));
-        setAvgPriceOfOrdersLabel((toString().format("%1$,.2f", costumer.getPriceOfCostumerOrders())));
-        setAvgPriceOfDeliveriesLabel((toString().format("%1$,.2f", costumer.getPriceOfCostumerOrdersDeliveries())));
+    public void setCostumerAllLabels(Customer customer) {
+        setCostumerIdLabel(String.format("%d", customer.getId()));
+        setCostumerNameLabel(customer.getName());
+        setCostumerLocationLabel(String.format("x=%d, y=%d", customer.getLocation().getXLocation(), customer.getLocation().getYLocation()));
+        setNumOfOrdersLabel(String.format("%d", customer.getNumOfCostumerOrders()));
+        setAvgPriceOfOrdersLabel((String.format("%1$,.2f", customer.getPriceOfCostumerOrders())));
+        setAvgPriceOfDeliveriesLabel((String.format("%1$,.2f", customer.getPriceOfCostumerOrdersDeliveries())));
     }
+
+    public void setCustomer(Customer customer)
+    {
+        this.customer = customer;
+        setCostumerAllLabels(customer);
+    }
+
 }
 
