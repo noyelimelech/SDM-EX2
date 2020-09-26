@@ -1,16 +1,15 @@
 
+#topGridPane {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
 
 .leftSideLabel {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
 }
 
+
 .label {
     -fx-padding: 0 0 0 20;
-
-}
-
-#topGridPane {
-    -fx-border-color: black;
-    -fx-border-width: 2;
 }

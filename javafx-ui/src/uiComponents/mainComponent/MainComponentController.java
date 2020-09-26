@@ -1,5 +1,6 @@
 package uiComponents.mainComponent;
 
+import SDM.Customer;
 import SDM.Exception.*;
 import SDM.Item;
 import SDM.SDMEngine;
@@ -16,6 +17,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
+import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
 import uiComponents.storeGUI.StoreGUIController;
 import uiComponents.xmlLoadingGUI.XmlLoadingController;
@@ -162,24 +164,28 @@ public class MainComponentController {
 
     }
 
-    //TODO
+    //NOY 25.9
     @FXML
     void showCostumersButtonAction() {
-        /*
-        for (Item item:sdmEngine.get)
+
+        dynamicAreaFlowPane.getChildren().clear();
+
+        for (Customer customer : sdmEngine.getAllCustomers())
         {
-
-            FXMLLoader loader = new FXMLLoader();
-            URL fxmlLocation = getClass().getResource("/uiComponents/itemComponent/itemUIFxml.fxml");
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/customerUIComponent/costumerUIFXML.fxml");
             loader.setLocation(fxmlLocation);
-            Node itemUI = loader.load();
-            itemUIController itemController = loader.getController();
 
-            itemController.setItemLables(item);
-            dynamicAreaFlowPane.getChildren().add(itemUI);
+            Node customerUI = loader.load();
 
+            costumerUIController customerUIController= loader.getController();
+            customerUIController.setCustomer(customer);
+
+            dynamicAreaFlowPane.getChildren().add(customerUI);
         }
-        */
+
+
+
     }
 
 

@@ -59,7 +59,7 @@ public class XmlLoadingController {
         statusTextArea.clear();
 
         try {
-                sdmEngine.updateAllStoresAndAllItems(selectedFile.getAbsolutePath());
+                sdmEngine.updateAllStoresAndAllItemsAndAllCustomers(selectedFile.getAbsolutePath());
                 isLoadingSucceeded = true;
         }
         catch (FileNotFoundException ex) {

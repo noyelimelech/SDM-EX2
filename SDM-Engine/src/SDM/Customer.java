@@ -3,14 +3,14 @@ package SDM;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Costumer implements Locatable
+public class Customer implements Locatable
 {
     private int id;
     private String name;
     private Map<Integer, Order> historyOrders;
     private Location location;
 
-    public Costumer(int id, String name, Location location) {
+    public Customer(int id, String name, Location location) {
         this.id = id;
         this.name = name;
         this.historyOrders = new HashMap<>();
