@@ -8,15 +8,14 @@ import SDM.jaxb.schema.generated.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.bind.annotation.XmlAttribute;
 import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class XMLHandlerBaseOnSchema
 {
@@ -28,7 +27,7 @@ public class XMLHandlerBaseOnSchema
     public Map<Integer, Customer> getCostumers() {
         return costumers;
     }
-    //
+
 
     public List<Store> getStores()
     {
@@ -152,10 +151,74 @@ public class XMLHandlerBaseOnSchema
             }
             
             st.setLocation(new Location(new Point(sdmSt.getLocation().getX(),sdmSt.getLocation().getY())));
+
             Map<Integer,StoreItem> itemsInStStore= this.getStoreItemesFromsdmPrices(sdmSt,st);
             st.setItemsThatSellInThisStore(itemsInStStore);
+
+            //NOY 26/9
+            List<Discount> discountsOfStore=this.getDiscountsFromSDMDiscounts(sdmSt,st);
+            st.setDiscounts(discountsOfStore);
+
+
             this.stores.add(st);
         }
+    }
+
+
+    //NOY 26/9
+    private List<Discount> getDiscountsFromSDMDiscounts(SDMStore sdmSt, Store st)
+    {
+        List<Discount> storeDiscountsRetList=new LinkedList<>();
+        Discount discount;
+
+        if (sdmSt.getSDMDiscounts()==null)//no discounts in this store
+        {
+            discount=null;
+        }
+
+        else {//have discounts in this store
+            for (SDMDiscount sdmDiscount : sdmSt.getSDMDiscounts().getSDMDiscount()) {
+
+
+                discount = new Discount();
+                discount.setName(sdmDiscount.getName());
+                discount.setIfBuy(getClassIfBuyFromClassIfYouBuy(sdmDiscount.getIfYouBuy(), st));
+                discount.setThenGet(getClassThanGetFromClassThanYouGet(sdmDiscount.getThenYouGet(), st));
+
+                storeDiscountsRetList.add(discount);
+            }
+        }
+
+        return(storeDiscountsRetList);
+    }
+
+
+    //Noy 26/9
+    private ThenGet getClassThanGetFromClassThanYouGet(ThenYouGet thenYouGet, Store st){
+
+        List<Offer> offersList=new LinkedList<>();
+
+        //convert SDMOffer to Offer//maybe function?
+        for (SDMOffer sdmOffer:thenYouGet.getSDMOffer()) {
+            Offer offer = new Offer();
+            offer.setItemId(sdmOffer.getItemId());
+            offer.setAmount(sdmOffer.getQuantity());
+            offer.setForAdditionalPrice(sdmOffer.getForAdditional());
+            offersList.add(offer);
+        }
+
+        ThenGet thenGetRes=new ThenGet(thenYouGet.getOperator(),offersList);
+        return (thenGetRes);
+    }
+
+
+    //Noy 26/9
+    //get the class IfBuy from the class IfYouBuy
+    private IfBuy getClassIfBuyFromClassIfYouBuy(IfYouBuy ifYouBuy, Store st) {
+        StoreItem storeItem=st.getItemsThatSellInThisStore().get(ifYouBuy.getItemId());
+        IfBuy ifBuyRet=new IfBuy(storeItem, ifYouBuy.getQuantity());
+        return(ifBuyRet);
+
     }
 
     //convert sdmPrices to storeItem

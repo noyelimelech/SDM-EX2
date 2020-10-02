@@ -1,5 +1,8 @@
 package SDM;
 
+import SDM.jaxb.schema.generated.SDMDiscount;
+import SDM.jaxb.schema.generated.SDMDiscounts;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,6 +17,13 @@ public class Store implements Locatable
     private Location location;
     private Map<Integer, StoreItem> itemsThatSellInThisStore=new HashMap<>();
     private List<Order> orders= new LinkedList<>();
+    //NOY 26/9
+    private List<Discount> discounts= new LinkedList<>();
+
+    public List<Discount> getDiscounts() {
+        return discounts;
+    }
+
 
     public int getId()
     {
@@ -84,4 +94,13 @@ public class Store implements Locatable
         }
         return (retAmountOfDeliveries);
     }
+
+
+    //NOY 26/9
+    public void setDiscounts(List<Discount> discountsOfStore)
+    {
+        this.discounts=discountsOfStore;
+    }
+
+
 }

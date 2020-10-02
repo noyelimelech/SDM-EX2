@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="447.0" prefWidth="643.0" stylesheets="@discountCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.discountGui.discountGuiController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.3333282470703" minWidth="10.0" prefWidth="137.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="505.0" minWidth="10.0" prefWidth="505.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label styleClass="leftSideTitle" text="discount: ">
+         <GridPane.margin>
+            <Insets />
+         </GridPane.margin>
+      </Label>
+      <Label fx:id="discountNameLabel" text="[discount name]" GridPane.columnIndex="1" />
+      <Label styleClass="leftSideLabel" text="with id:" GridPane.rowIndex="2" />
+      <Label styleClass="leftSideTitle" stylesheets="@discountCSS.css" text="if you buy:" GridPane.rowIndex="1" />
+      <Label styleClass="leftSideLabel" text="amount:" GridPane.rowIndex="4" />
+      <Label styleClass="leftSideLabel" text="price:" GridPane.rowIndex="3" />
+      <Label styleClass="leftSideTitle" text="then you get:" GridPane.rowIndex="5" />
+      <Label fx:id="itemNameLabel" text="[item name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="itemIdLabel" text="[item id]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="amountLabel" text="[amount]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="itemPriceLabel" text="[item price]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.rowSpan="2">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="225.0" prefWidth="509.0">
+               <children>
+                  <VBox fx:id="discountPane" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <VBox fx:id="discountPane" prefHeight="296.0" prefWidth="552.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+   <padding>
+      <Insets top="5.0" />
+   </padding>
+</GridPane>
