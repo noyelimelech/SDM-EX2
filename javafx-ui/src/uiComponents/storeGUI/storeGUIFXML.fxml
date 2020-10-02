@@ -11,15 +11,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane id="gridPane" prefHeight="497.0" prefWidth="532.0" stylesheets="@storeGUICSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.StoreGUIController">
+<GridPane id="gridPane" prefHeight="768.0" prefWidth="895.0" stylesheets="@storeGUICSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.StoreGUIController">
   <columnConstraints>
     <ColumnConstraints maxWidth="284.6666717529297" minWidth="10.0" prefWidth="278.6666717529297" />
     <ColumnConstraints hgrow="ALWAYS" maxWidth="236.33334350585938" minWidth="10.0" prefWidth="198.3333282470703" />
       <ColumnConstraints hgrow="ALWAYS" maxWidth="177.6666717529297" minWidth="10.0" prefWidth="55.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="177.6666717529297" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="ALWAYS" maxWidth="177.6666717529297" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="5.0" prefHeight="5.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="10.0" vgrow="SOMETIMES" />
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -90,14 +92,10 @@
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ScrollPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="225.0" prefWidth="509.0">
-                                 <children>
-                                    <VBox prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                          </content>
+                        <ScrollPane layoutX="18.6" layoutY="19.6" prefHeight="200.0" prefWidth="507.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="10.0">
+                           <content>
+                              <VBox fx:id="discountPane" prefHeight="200.0" prefWidth="100.0" />
+                           </content>
                         </ScrollPane>
                      </children>
                   </AnchorPane>

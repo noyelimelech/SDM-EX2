@@ -1,5 +1,6 @@
 package uiComponents.storeGUI;
 
+import SDM.Discount;
 import SDM.Order;
 import SDM.Store;
 import SDM.StoreItem;
@@ -10,6 +11,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
+import uiComponents.discountGui.discountGuiController;
 import uiComponents.storeGUI.storeItemGUI.StoreItemController;
 import uiComponents.storeGUI.storeOrderGUI.StoreOrderController;
 
@@ -24,8 +26,11 @@ public class StoreGUIController {
     @FXML private Label amountOfOrder;
     @FXML private VBox storeItemPlaceHolder;
     @FXML private VBox ordersPlaceHolder;
+    @FXML private VBox discountPane;
 
     private Store store;
+
+
 
     public Store getStore() {
         return store;
@@ -43,9 +48,31 @@ public class StoreGUIController {
         amountOfOrder.setText(String.format("%.2f",store.getTotalAmountForDeliveries()));
         updateGUIWithStoreItems();
         updateGUIWithStoreOrders();
+        //noy 1/10
+        updateGUIWithStoreDiscounts();
     }
 
-    private void updateGUIWithStoreItems() {
+    //noy 1/10
+    private void updateGUIWithStoreDiscounts()
+    {
+        for(Discount discount : store.getDiscounts()) {
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/discountGui/discountGuiFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node discountGUI = loader.load();
+            discountGuiController discountGuiController = loader.getController();
+
+
+            discountGuiController.setDiscount(discount);
+            discountPane.getChildren().add(discountGUI);
+        }
+
+
+
+    }
+
+    private void updateGUIWithStoreItems(){
         for(StoreItem storeItem : store.getItemsThatSellInThisStore().values()) {
             FXMLLoaderProxy loader = new FXMLLoaderProxy();
             URL fxmlLocation = getClass().getResource("/uiComponents/storeGUI/storeItemGUI/storeItemFXML.fxml");
@@ -59,7 +86,7 @@ public class StoreGUIController {
         }
     }
 
-    private void updateGUIWithStoreOrders() {
+    private void updateGUIWithStoreOrders(){
         for(Order order : store.getOrders()) {
             FXMLLoaderProxy loader = new FXMLLoaderProxy();
             URL fxmlLocation = getClass().getResource("/uiComponents/storeGUI/storeOrderGUI/storeOrderFXML.fxml");
