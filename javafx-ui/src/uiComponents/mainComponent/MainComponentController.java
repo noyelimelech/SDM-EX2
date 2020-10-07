@@ -19,6 +19,7 @@ import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
+import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
 import uiComponents.storeGUI.StoreGUIController;
 import uiComponents.xmlLoadingGUI.XmlLoadingController;
 
@@ -70,8 +71,6 @@ public class MainComponentController {
     public void initialize() {
         showItemsButton.disableProperty().bind(isXMLFileLoaded.not());
         showStoresButton.disableProperty().bind(isXMLFileLoaded.not());
-        oneStoreButton.disableProperty().bind(isXMLFileLoaded.not());
-        buyWiseOrderButton.disableProperty().bind(isXMLFileLoaded.not());
         showOrderButton.disableProperty().bind(isXMLFileLoaded.not().or(isAnyOrderMade.not()));
 
     }
@@ -103,17 +102,27 @@ public class MainComponentController {
 
     }
 
-
     @FXML
-    void buyWiseOrderButtonAction() {
+    void makeNewOrderAction() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        URL fxmlLocation = getClass().getResource("/uiComponents/makeNewOrderGUI/makeNewOrderGUIFXML.fxml");
+        loader.setLocation(fxmlLocation);
 
 
-    }
 
+        Node makeNewOrderGui = loader.load();
+        makeNewOrderGUIController makeNewOrderGUIController = loader.getController();
+        makeNewOrderGUIController.setCustomerComboBoxes();
 
+        dynamicAreaFlowPane.getChildren().add(makeNewOrderGui);
+        /*
+        Node itemUI = loader.load();
+        itemUIController itemController = loader.getController();
 
-    @FXML
-    void oneStoreButtonAction() {
+        itemController.setItemLables(item);
+        dynamicAreaFlowPane.getChildren().add(itemUI);
+
+         */
 
     }
 

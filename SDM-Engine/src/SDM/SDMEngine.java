@@ -179,5 +179,10 @@ public class SDMEngine {
     public boolean checkIfItemPriceIsNotZero(int choosedItemNumber) {
         return (allStoreItemsWithPriceForSpecificStore.get(choosedItemNumber).getPrice()) != 0;
     }
+
+    public void addNewItemToStore(int storeID, Item itemToAdd, int priceOfItem) {
+        //Store storeToAddItem = allStores.get(storeID).addNewItem();
+        //storeToAddItem.getItemsThatSellInThisStore().
+    }
 }
 

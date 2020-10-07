@@ -13,7 +13,7 @@
 
 <ScrollPane stylesheets="@mainComponentCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.mainComponent.MainComponentController">
    <content>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1050.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="966.0" prefWidth="1382.0">
          <top>
             <Label text="Super Duper Market" BorderPane.alignment="CENTER">
                <font>
@@ -44,8 +44,7 @@
                         <String fx:value="label" />
                      </styleClass>
                   </Label>
-                  <Button fx:id="oneStoreButton" layoutX="10.0" layoutY="195.0" mnemonicParsing="false" onAction="#oneStoreButtonAction" styleClass="leftMenuItem" text="One Store Order" />
-                  <Button fx:id="buyWiseOrderButton" mnemonicParsing="false" onAction="#buyWiseOrderButtonAction" styleClass="leftMenuItem" text="BuyWise Order" />
+                  <Button fx:id="makeNewOrderButtom" mnemonicParsing="false" onAction="#makeNewOrderAction" styleClass="leftMenuItem" text="Make new order" />
                   <Separator prefWidth="200.0" />
                </children>
                <padding>

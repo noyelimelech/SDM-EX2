@@ -53,6 +53,7 @@
             </AnchorPane>
          </content>
       </ScrollPane>
+      <Label GridPane.columnIndex="1" GridPane.rowIndex="5" />
    </children>
    <padding>
       <Insets top="5.0" />
