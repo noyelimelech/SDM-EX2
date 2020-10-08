@@ -56,6 +56,7 @@ public class DynamicOrder extends Order{
             Store cheapestStore = getCheapestSellerOfItem(dynamicOrderItem);
             if(!innerOneStoreOrderMap.containsKey(cheapestStore.getId())) {
                 innerOneStoreOrderMap.put(cheapestStore.getId(), new OneStoreOrder(customer, date, cheapestStore));
+                innerOneStoreOrderMap.get(cheapestStore.getId()).setPartOfDynamicOrder(true);
             }
             addItemToExistOneStoreOrder(dynamicOrderItem, cheapestStore);
         }

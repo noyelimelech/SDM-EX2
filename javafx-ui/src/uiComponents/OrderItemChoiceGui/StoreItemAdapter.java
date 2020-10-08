@@ -5,12 +5,14 @@ import SDM.StoreItem;
 
 public class StoreItemAdapter {
 
+    private Item itemToAdapt;
     private Integer id;
     private String name;
     private Item.ItemType type;
     private Integer price;
 
     public StoreItemAdapter(Item itemToAdapt) {
+        this.itemToAdapt = itemToAdapt;
         this.id = itemToAdapt.getId();
         this.name = itemToAdapt.getName();
         this.type = itemToAdapt.getType();
@@ -52,5 +54,13 @@ public class StoreItemAdapter {
 
     public void setPrice(Integer price) {
         this.price = price;
+    }
+
+    public Item getItemToAdapt() {
+        return itemToAdapt;
+    }
+
+    public void setItemToAdapt(Item itemToAdapt) {
+        this.itemToAdapt = itemToAdapt;
     }
 }

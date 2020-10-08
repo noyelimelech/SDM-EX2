@@ -1,5 +1,6 @@
 package uiComponents.OrderItemChoiceGui;
 
+import SDM.Exception.NegativeAmountOfItemInException;
 import SDM.Item;
 import SDM.SDMEngine;
 import SDM.StoreItem;
@@ -7,6 +8,8 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+
+import javax.xml.crypto.dsig.SignatureMethod;
 
 public class OrderItemChoiceController {
 
@@ -18,6 +21,8 @@ public class OrderItemChoiceController {
     @FXML private Button addItemsButton;
     @FXML private Button finishOrderButton;
     @FXML private TextField itemsCounterTextField;
+    @FXML private Label succesLabel;
+    @FXML private Label textFieldErrorLabel;
 
     private SDMEngine sdmEngine;
     private SimpleBooleanProperty buyWiseOrder = new SimpleBooleanProperty(true);
@@ -28,12 +33,19 @@ public class OrderItemChoiceController {
         nameCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, String>("name"));
         typeCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Item.ItemType>("type"));
         priceCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Integer>("price"));
+
         priceCol.visibleProperty().bind(buyWiseOrder);
+
         itemTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         itemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             itemsCounterTextField.disableProperty().set(newSelection == null);
             addItemsButton.disableProperty().set(newSelection == null);
         });
+
+        itemsCounterTextField.textProperty().addListener((observable -> {
+                textFieldErrorLabel.visibleProperty().set(!textFieldVerified());
+                addItemsButton.disableProperty().set(!textFieldVerified());
+        }));
     }
 
     public SDMEngine getSdmEngine() {
@@ -59,12 +71,28 @@ public class OrderItemChoiceController {
 
     @FXML
     void addItemButtonAction() {
-        //TODO adding item to current cart in sdmEngine
+        if(textFieldVerified()) {
+            try {
+                sdmEngine.addItemToCurrentOrder(itemTableView.getSelectionModel().getSelectedItem().getId(), Double.parseDouble(itemsCounterTextField.getText()));
+            } catch (NegativeAmountOfItemInException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private boolean textFieldVerified() {
+        if(itemTableView.getSelectionModel().selectedItemProperty().get().getType() == Item.ItemType.QUANTITY) {
+            return itemsCounterTextField.textProperty().get().matches("^\\d+$");
+            }
+        else {
+            return itemsCounterTextField.textProperty().get().matches("^\\d+(\\.\\d+)?$");
+        }
     }
 
     @FXML
-    void finishOrderButtonAction() {
-        //TODO finishOrder in sdmEngine
+    void finishOrderButtonAction() throws NegativeAmountOfItemInException {
+        sdmEngine.completeCurrentOrder();
+        //TODO continue to next page
 
     }
 
