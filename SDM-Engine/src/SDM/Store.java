@@ -102,5 +102,15 @@ public class Store implements Locatable
         this.discounts=discountsOfStore;
     }
 
+    public Integer getPriceOfItemInStore(Item itemToSearch) {
+        Integer resultPrice = null;
+
+        if(itemsThatSellInThisStore.containsKey(itemToSearch.getId())) {
+            resultPrice = itemsThatSellInThisStore.get(itemToSearch.getId()).getPrice();
+        }
+
+        return resultPrice;
+    }
+
 
 }

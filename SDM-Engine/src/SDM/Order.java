@@ -6,29 +6,35 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Order
+public abstract class Order
 {
     private static int idCounter = 1;
-    private final int id;
-    private final Map<Integer, OrderItem> orderItemCart;
-    private final Store storeOrderMadeFrom;
-    private final Customer customer;
-    private final Date date;
-    private final double deliveryPrice;
-    private double priceOfAllItems;
-    private double totalPrice;
+    protected final int id;
+    protected final Map<Integer, OrderItem> orderItemCart;
+    protected final Customer customer;
+    protected final Date date;
+    protected double deliveryPrice;
+    protected double priceOfAllItems;
+    protected double totalPrice;
 
-    private Order(Customer customer, Date date, Store storeOrderMadeFrom) {
+    public Order(Customer customer, Date date) {
         this.customer = customer;
         this.date = date;
         this.id = idCounter;
-        this.storeOrderMadeFrom = storeOrderMadeFrom;
-        deliveryPrice = storeOrderMadeFrom.getDeliveryPPK() * distanceBetweenCostumerAndStore();
         orderItemCart = new HashMap<>();
     }
 
-    public static Order makeNewOrder(Customer customer, Date date, Store storeOrderMadeFrom) {
-        return new Order(customer, date, storeOrderMadeFrom);
+    //Might be better in an order factory class
+    public static Order makeNewOrder(Customer customer, Date date, Store storeOrderMadeFrom, OrderType orderType) {
+        if(orderType == OrderType.ONE_STORE_ORDER) {
+            return new OneStoreOrder(customer, date, storeOrderMadeFrom);
+        }
+        else if (orderType == OrderType.DYNAMIC_ORDER) {
+            return new DynamicOrder(customer, date);
+        }
+        else {
+            return null;
+        }
     }
 
     public int getId() {
@@ -37,10 +43,6 @@ public class Order
 
     public Map<Integer, OrderItem> getOrderItemCart() {
         return orderItemCart;
-    }
-
-    public Store getStoreOrderMadeFrom() {
-        return storeOrderMadeFrom;
     }
 
     public Customer getCustomer() {
@@ -67,60 +69,13 @@ public class Order
         return orderItemCart.size() == 0;
     }
 
-    public void addItemToOrder(StoreItem itemToAdd, String amountToAdd) throws NegativeAmountOfItemInException {
-        if(orderItemCart.containsKey(itemToAdd.getItem().getId())) {
-            orderItemCart.get(itemToAdd.getItem().getId()).addAmount(amountToAdd);
-        }
-        else {
-            OrderItem newItemInOrder = OrderItem.Factory.makeNewOrderItem(itemToAdd);
-            newItemInOrder.addAmount(amountToAdd);
-            orderItemCart.put(itemToAdd.getItem().getId(), newItemInOrder);
-        }
-    }
-
-    public void completeOrder() {
+    protected void incIdCounter() {
         idCounter++;
-        priceOfAllItems = calculatePriceOfOrderItems();
-        totalPrice = priceOfAllItems + deliveryPrice;
-        orderItemCart.forEach((orderItemID, orderItem) -> {
-            try {
-                orderItem.updateItemAmountSold();
-                orderItem.updateStoreItemAmountSold();
-            } catch (NegativeAmountOfItemInException e) {
-                orderItem.clearAmount();
-            }
-        });
-        customer.addNewOrder(this);
-        storeOrderMadeFrom.getOrders().add(this);
     }
 
-    private double calculatePriceOfOrderItems() {
-        return orderItemCart.values().stream().mapToDouble(OrderItem::getTotalPrice).sum();
-    }
-
-    public double distanceBetweenCostumerAndStore() {
-        return Location.distanceBetweenLocations(customer.getLocation(), storeOrderMadeFrom.getLocation());
-    }
-
-    public int getTotalItemsInOrder()
-    {
-        int totalItems=0;
-
-        for (Map.Entry<Integer, OrderItem> iterator : orderItemCart.entrySet())
-        {
-            OrderItem orderItem = iterator.getValue();
-            Item.ItemType type=orderItem.getItemInOrder().getItem().getType();
-
-            switch (type)
-            {
-                case QUANTITY:
-                    totalItems+=((OrderQuantityItem)orderItem).getQuantity();
-                    break;
-                case WEIGHT:
-                    totalItems+=1;
-                    break;
-            }
-        }
-        return (totalItems);
-    }
+    protected abstract void calculateDeliveryPrice();
+    public abstract void addItemToOrder(Item itemToAdd, double amountToAdd) throws NegativeAmountOfItemInException;
+    public abstract void completeOrder() throws NegativeAmountOfItemInException;
+    protected abstract double calculatePriceOfOrderItems();
+    public abstract int getTotalItemsInOrder();
 }
