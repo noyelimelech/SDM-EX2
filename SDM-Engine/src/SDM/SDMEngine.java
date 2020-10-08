@@ -146,17 +146,20 @@ public class SDMEngine {
         }
     }
 
-    public void createNewOrder(Customer customerEX1, Date dateOrder, Store store) {
-        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, store);
+    public void createNewDynamicOrder(Customer customerEX1, Date dateOrder) {
+        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, null, OrderType.DYNAMIC_ORDER);
     }
 
-    public void addItemToCurrentOrder(int choosedItem, String choosedAmountOfItem) throws NegativeAmountOfItemInException
+    public void createNewOneStoreOrder(Customer customerEX1, Date dateOrder, Store store) {
+        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, store, OrderType.ONE_STORE_ORDER);
+    }
+
+    public void addItemToCurrentOrder(int choosedItemId, double choosedAmountOfItem) throws NegativeAmountOfItemInException
     {
-        StoreItem storeItemToAddToOrder = currentOrder.getStoreOrderMadeFrom().getItemsThatSellInThisStore().get(choosedItem);
-        this.currentOrder.addItemToOrder(storeItemToAddToOrder,choosedAmountOfItem);
+        this.currentOrder.addItemToOrder(allItems.get(choosedItemId),choosedAmountOfItem);
     }
 
-    public void completeCurrentOrder() {
+    public void completeCurrentOrder() throws NegativeAmountOfItemInException {
         currentOrder.completeOrder();
         allOrders.add(currentOrder);
         currentOrder = null;
