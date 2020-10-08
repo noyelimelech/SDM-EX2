@@ -1,11 +1,9 @@
 package uiComponents.mainComponent;
 
 import SDM.Customer;
-import SDM.Exception.*;
 import SDM.Item;
 import SDM.SDMEngine;
 import SDM.Store;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +12,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.FlowPane;
-import javafx.stage.FileChooser;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.customerUIComponent.costumerUIController;
@@ -23,8 +21,6 @@ import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
 import uiComponents.storeGUI.StoreGUIController;
 import uiComponents.xmlLoadingGUI.XmlLoadingController;
 
-import javax.xml.bind.JAXBException;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -34,20 +30,24 @@ public class MainComponentController {
     @FXML private Button showStoresButton;
     @FXML private Button showItemsButton;
     @FXML private Button showOrderButton;
-    @FXML private Button oneStoreButton;
-    @FXML private Button buyWiseOrderButton;
     @FXML private FlowPane dynamicAreaFlowPane;
     @FXML private ScrollPane innerScrollPane;
+    @FXML private Button showCustomersButton;
+    @FXML private Button makeNewOrderButton;
+    @FXML private VBox leftMainMenu;
+
 
     private Stage primaryStage;
     private SDMEngine sdmEngine;
 
     private SimpleBooleanProperty isXMLFileLoaded;
     private SimpleBooleanProperty isAnyOrderMade;
+    private SimpleBooleanProperty isInProcessOfOrder;
 
     public MainComponentController() {
         isXMLFileLoaded = new SimpleBooleanProperty(false);
         isAnyOrderMade = new SimpleBooleanProperty(false);
+        isInProcessOfOrder=new SimpleBooleanProperty(false);
     }
 
     public SimpleBooleanProperty isXMLFileLoadedProperty() {
@@ -72,6 +72,10 @@ public class MainComponentController {
         showItemsButton.disableProperty().bind(isXMLFileLoaded.not());
         showStoresButton.disableProperty().bind(isXMLFileLoaded.not());
         showOrderButton.disableProperty().bind(isXMLFileLoaded.not().or(isAnyOrderMade.not()));
+        showCustomersButton.disableProperty().bind(isXMLFileLoaded.not());
+        makeNewOrderButton.disableProperty().bind(isXMLFileLoaded.not());
+        leftMainMenu.disableProperty().bind(isInProcessOfOrder);
+
 
     }
 
@@ -94,16 +98,17 @@ public class MainComponentController {
         XmlLoadingController xmlLoadingController = loader.getController();
         xmlLoadingController.setSdmEngine(sdmEngine);
         xmlLoadingController.setStage(primaryStage);
+
+        xmlLoadingController.setUpdateWhenLoadingIsFinishedConsumer(
+                (loadingResult) -> isXMLFileLoaded.set(loadingResult));
+
         dynamicAreaFlowPane.getChildren().add(xmlLoadingGUI);
-
-        //TODO here only for testing, should not be here. Binding should be done to property of SDMEngine
-        isXMLFileLoaded.set(true);
-
-
     }
 
     @FXML
     void makeNewOrderAction() throws IOException {
+        dynamicAreaFlowPane.getChildren().clear();
+        isInProcessOfOrder.set(true);
         FXMLLoader loader = new FXMLLoader();
         URL fxmlLocation = getClass().getResource("/uiComponents/makeNewOrderGUI/makeNewOrderGUIFXML.fxml");
         loader.setLocation(fxmlLocation);
@@ -112,7 +117,9 @@ public class MainComponentController {
 
         Node makeNewOrderGui = loader.load();
         makeNewOrderGUIController makeNewOrderGUIController = loader.getController();
-        makeNewOrderGUIController.setCustomerComboBoxes();
+        makeNewOrderGUIController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        makeNewOrderGUIController.setSdmEngine(sdmEngine);
+        makeNewOrderGUIController.setCustomerComboBox();
 
         dynamicAreaFlowPane.getChildren().add(makeNewOrderGui);
         /*

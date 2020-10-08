@@ -132,10 +132,6 @@ public class SDMEngine {
 
     }
 
-    public void createNewOrder(Customer customerEX1, Date dateOrder, Store store) {
-        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, store);
-    }
-
     public void updateAllStoreItemsForSaleInCurrentStoreOrder(Store store) {
         allStoreItemsWithPriceForSpecificStore = new HashMap<>();
 
@@ -148,6 +144,10 @@ public class SDMEngine {
             storeItem.setPrice(priceOfItem);
             allStoreItemsWithPriceForSpecificStore.put(item.getId(), storeItem);
         }
+    }
+
+    public void createNewOrder(Customer customerEX1, Date dateOrder, Store store) {
+        currentOrder = Order.makeNewOrder(customerEX1, dateOrder, store);
     }
 
     public void addItemToCurrentOrder(int choosedItem, String choosedAmountOfItem) throws NegativeAmountOfItemInException
