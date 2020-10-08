@@ -1,9 +1,7 @@
 package uiComponents.OrderItemChoiceGui;
 
+import SDM.*;
 import SDM.Exception.NegativeAmountOfItemInException;
-import SDM.Item;
-import SDM.SDMEngine;
-import SDM.StoreItem;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -29,10 +27,9 @@ public class OrderItemChoiceController {
 
     @FXML
     public void initialize() {
-        iDCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Integer>("id"));
-        nameCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, String>("name"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Item.ItemType>("type"));
-        priceCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Integer>("price"));
+        setTableColValueFactory();
+
+        buyWiseOrder.set(sdmEngine.getCurrentOrder() instanceof DynamicOrder);
 
         priceCol.visibleProperty().bind(buyWiseOrder);
 
@@ -40,12 +37,24 @@ public class OrderItemChoiceController {
         itemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             itemsCounterTextField.disableProperty().set(newSelection == null);
             addItemsButton.disableProperty().set(newSelection == null);
+            if(newSelection != null) {
+                succesLabel.visibleProperty().set(false);
+            }
         });
 
         itemsCounterTextField.textProperty().addListener((observable -> {
                 textFieldErrorLabel.visibleProperty().set(!textFieldVerified());
                 addItemsButton.disableProperty().set(!textFieldVerified());
         }));
+
+
+    }
+
+    private void setTableColValueFactory() {
+        iDCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Integer>("id"));
+        nameCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, String>("name"));
+        typeCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Item.ItemType>("type"));
+        priceCol.setCellValueFactory(new PropertyValueFactory<StoreItemAdapter, Integer>("price"));
     }
 
     public SDMEngine getSdmEngine() {
@@ -74,6 +83,8 @@ public class OrderItemChoiceController {
         if(textFieldVerified()) {
             try {
                 sdmEngine.addItemToCurrentOrder(itemTableView.getSelectionModel().getSelectedItem().getId(), Double.parseDouble(itemsCounterTextField.getText()));
+                itemTableView.getSelectionModel().clearSelection();
+                succesLabel.visibleProperty().set(true);
             } catch (NegativeAmountOfItemInException e) {
                 e.printStackTrace();
             }
@@ -97,9 +108,8 @@ public class OrderItemChoiceController {
     }
 
     private void populateTableViewWithItems() {
-        /*
         if(!getBuyWiseOrder()) {
-            for(StoreItem storeItem : sdmEngine.getCurrentOrder().getStoreOrderMadeFrom().getItemsThatSellInThisStore().values()) {
+            for(StoreItem storeItem : ((OneStoreOrder)sdmEngine.getCurrentOrder()).getStoreOrderMadeFrom().getItemsThatSellInThisStore().values()) {
                 itemTableView.getItems().add(new StoreItemAdapter(storeItem));
             }
         }
@@ -108,7 +118,5 @@ public class OrderItemChoiceController {
                 itemTableView.getItems().add(new StoreItemAdapter(item));
             }
         }
-
-         */
     }
 }
