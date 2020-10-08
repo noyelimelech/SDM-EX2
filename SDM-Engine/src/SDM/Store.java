@@ -113,4 +113,8 @@ public class Store implements Locatable
     }
 
 
+    @Override
+    public String toString() {
+        return String.format("Id: %d      Name: %s      location: x= %d , y=%d", id, name,location.getXLocation(),location.getYLocation());
+    }
 }

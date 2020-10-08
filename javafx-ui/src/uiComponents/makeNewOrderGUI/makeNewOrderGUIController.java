@@ -11,10 +11,15 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import uiComponents.OrderItemChoiceGui.OrderItemChoiceController;
 import uiComponents.staticOrderGUI.staticOrderGUIController;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 public class makeNewOrderGUIController {
@@ -30,7 +35,28 @@ public class makeNewOrderGUIController {
 
 
     @FXML
-    void dynamicOrderButtonAction() {
+    void dynamicOrderButtonAction() throws IOException {
+        //noy 8/10
+        //convert LocalDate to Date
+        LocalDate localDate = datePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+
+        sdmEngine.createNewDynamicOrder(chooseCustomerComboBox.getSelectionModel().getSelectedItem(), date);
+
+        dynamicAreaFlowPane.getChildren().clear();
+
+        FXMLLoader loader = new FXMLLoader();
+        URL fxmlLocation = getClass().getResource("/uiComponents/OrderItemChoiceGui/OrderItemChoiceFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node orderItemChoiceGui = loader.load();
+        OrderItemChoiceController orderItemChoiceController=loader.getController();
+        orderItemChoiceController.setSdmEngine(sdmEngine);
+
+        dynamicAreaFlowPane.getChildren().add(orderItemChoiceGui);
+
+
         //TODO chooseCustomerComboBox.getSelectionModel().getSelectedItem();
     }
 
@@ -51,7 +77,19 @@ public class makeNewOrderGUIController {
         staticOrderGUIController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
         staticOrderGUIController.setStoreComboBox();
 
+        //NOY 8/10
+        //convert LocalDate to Date
+        LocalDate localDate = datePicker.getValue();
+        Instant instant = Instant.from(localDate.atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+
+        staticOrderGUIController.setCustomer(chooseCustomerComboBox.getSelectionModel().getSelectedItem());
+        staticOrderGUIController.setOrderDate(date);
+
+
         dynamicAreaFlowPane.getChildren().add(staticOrderGui);
+
+
 
     }
     public void setSdmEngine(SDMEngine sdmEngine)

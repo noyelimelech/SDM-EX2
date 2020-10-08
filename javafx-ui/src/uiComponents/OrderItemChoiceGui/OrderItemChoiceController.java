@@ -29,8 +29,6 @@ public class OrderItemChoiceController {
     public void initialize() {
         setTableColValueFactory();
 
-        buyWiseOrder.set(sdmEngine.getCurrentOrder() instanceof DynamicOrder);
-
         priceCol.visibleProperty().bind(buyWiseOrder);
 
         itemTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
@@ -46,8 +44,6 @@ public class OrderItemChoiceController {
                 textFieldErrorLabel.visibleProperty().set(!textFieldVerified());
                 addItemsButton.disableProperty().set(!textFieldVerified());
         }));
-
-
     }
 
     private void setTableColValueFactory() {
@@ -63,6 +59,7 @@ public class OrderItemChoiceController {
 
     public void setSdmEngine(SDMEngine sdmEngine) {
         this.sdmEngine = sdmEngine;
+        buyWiseOrder.set(sdmEngine.getCurrentOrder() instanceof DynamicOrder);
         populateTableViewWithItems();
     }
 
