@@ -58,4 +58,9 @@ public class Customer implements Locatable
     public double getPriceOfCostumerOrdersDeliveries() {
         return 0;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Id: %d      Name: %s", id, name);
+    }
 }
