@@ -22,7 +22,7 @@
             </Label>
          </top>
          <left>
-            <VBox focusTraversable="true" prefHeight="400.0" prefWidth="216.0" spacing="5.0" BorderPane.alignment="CENTER">
+            <VBox fx:id="leftMainMenu" focusTraversable="true" prefHeight="400.0" prefWidth="216.0" spacing="5.0" BorderPane.alignment="CENTER">
                <children>
                   <Separator prefWidth="200.0" />
                   <Button fx:id="loadXMLButton" mnemonicParsing="false" onAction="#loadXMLButtonAction" styleClass="leftMenuItem" text="Load XML" />
@@ -36,7 +36,7 @@
                   <Button fx:id="showStoresButton" mnemonicParsing="false" onAction="#showStoresButtonAction" styleClass="leftMenuItem" text="Show Stores" />
                   <Button fx:id="showItemsButton" mnemonicParsing="false" onAction="#showItemsButtonAction" styleClass="leftMenuItem" text="Show Items" />
                   <Button fx:id="showOrderButton" mnemonicParsing="false" onAction="#showOrderButtonAction" styleClass="leftMenuItem" text="Show Orders" />
-                  <Button fx:id="showOrderButton1" layoutX="15.0" layoutY="182.0" mnemonicParsing="false" onAction="#showCostumersButtonAction" styleClass="leftMenuItem" text="Show  costumers" />
+                  <Button fx:id="showCustomersButton" layoutX="15.0" layoutY="182.0" mnemonicParsing="false" onAction="#showCostumersButtonAction" styleClass="leftMenuItem" text="Show  customers" />
                   <Separator prefWidth="200.0" />
                   <Label text="Make New Order">
                      <styleClass>
@@ -44,8 +44,7 @@
                         <String fx:value="label" />
                      </styleClass>
                   </Label>
-                  <Button fx:id="oneStoreButton" layoutX="10.0" layoutY="195.0" mnemonicParsing="false" onAction="#oneStoreButtonAction" styleClass="leftMenuItem" text="One Store Order" />
-                  <Button fx:id="buyWiseOrderButton" mnemonicParsing="false" onAction="#buyWiseOrderButtonAction" styleClass="leftMenuItem" text="BuyWise Order" />
+                  <Button fx:id="makeNewOrderButton" mnemonicParsing="false" onAction="#makeNewOrderAction" styleClass="leftMenuItem" text="Make new order" />
                   <Separator prefWidth="200.0" />
                </children>
                <padding>

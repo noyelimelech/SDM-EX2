@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+
+<GridPane alignment="CENTER_LEFT" prefHeight="302.0" prefWidth="604.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.makeNewOrderGUI.makeNewOrderGUIController">
+  <columnConstraints>
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="759.0" minWidth="10.0" prefWidth="227.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="759.0" minWidth="10.0" prefWidth="341.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="759.0" minWidth="10.0" prefWidth="48.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="759.0" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="281.0" minHeight="0.0" prefHeight="47.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="539.0" minHeight="0.0" prefHeight="49.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="656.0" minHeight="0.0" prefHeight="50.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="733.0" minHeight="1.0" prefHeight="156.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <ComboBox fx:id="chooseCustomerComboBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="311.0" promptText="choose customer" GridPane.columnIndex="1" />
+      <DatePicker fx:id="datePicker" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="311.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label text="please choose customer:" />
+      <Label text="please choose date  of order:" GridPane.rowIndex="1" />
+      <Button fx:id="oneStoreOrderButton" mnemonicParsing="false" onAction="#oneStoreOrderButtonAction" prefHeight="25.0" prefWidth="153.0" text="one store order" GridPane.rowIndex="2" />
+      <Button fx:id="dynamicOrderButton" mnemonicParsing="false" onAction="#dynamicOrderButtonAction" prefHeight="25.0" prefWidth="152.0" text="dynamic order" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+   </children>
+</GridPane>

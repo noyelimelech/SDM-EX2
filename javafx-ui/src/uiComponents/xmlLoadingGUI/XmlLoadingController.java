@@ -3,6 +3,7 @@ package uiComponents.xmlLoadingGUI;
 import SDM.Exception.*;
 import SDM.SDMEngine;
 import javafx.concurrent.Task;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -13,6 +14,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.function.Consumer;
 
 public class XmlLoadingController {
 
@@ -23,6 +25,7 @@ public class XmlLoadingController {
 
     private Stage stage;
     private SDMEngine sdmEngine;
+    private Consumer<Boolean> updateWhenLoadingIsFinished;
 
     public Stage getStage() {
         return stage;
@@ -38,6 +41,10 @@ public class XmlLoadingController {
 
     public void setSdmEngine(SDMEngine sdmEngine) {
         this.sdmEngine = sdmEngine;
+    }
+
+    public void setUpdateWhenLoadingIsFinishedConsumer(Consumer<Boolean> updateConsumer) {
+        updateWhenLoadingIsFinished = updateConsumer;
     }
 
     public void bindTaskOfLoading(Task<Boolean> taskToBind) {
@@ -104,6 +111,9 @@ public class XmlLoadingController {
             else{
                 statusTextArea.appendText("\nLoading has been stopped. Please fixed the above issues and try again.");
             }
+        }
+        if(updateWhenLoadingIsFinished != null) {
+            updateWhenLoadingIsFinished.accept(isLoadingSucceeded);
         }
 
     }
