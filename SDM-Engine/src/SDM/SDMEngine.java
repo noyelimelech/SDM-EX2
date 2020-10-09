@@ -2,10 +2,12 @@ package SDM;
 
 import SDM.Exception.*;
 import SDM.jaxb.schema.XMLHandlerBaseOnSchema;
+import tasks.XmlLoadingTask;
 
 import javax.xml.bind.JAXBException;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class SDMEngine {
 
@@ -53,13 +55,14 @@ public class SDMEngine {
         return allItems.get(itemID).getType();
     }
 
-    public void updateAllStoresAndAllItemsAndAllCustomers(String stPath) throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException {
+    public void updateAllStoresAndAllItemsAndAllCustomers(String stPath, Consumer<String> updateGuiWithProgressMessage, Consumer<Double> updateGuiWithProgressPercent)
+            throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException {
         Map<Integer, Item> tempAllItems;
         Map<Integer, Store> tempAllStores = new HashMap<>();
         Map<Integer, Customer> tempAllCustomers ;
 
         XMLHandlerBaseOnSchema xmlHandler = new XMLHandlerBaseOnSchema();
-        xmlHandler.updateStoresAndItemsAndCostumers(stPath);
+        xmlHandler.updateStoresAndItemsAndCostumers(stPath, updateGuiWithProgressMessage, updateGuiWithProgressPercent);
 
         tempAllItems = xmlHandler.getItems();
 
@@ -69,11 +72,24 @@ public class SDMEngine {
         for (Store st : xmlHandler.getStores()) {
             tempAllStores.put(st.getId(), st);
         }
-
+        updateGuiWithProgressMessage.accept("Connecting Item To The Store That Sells Them...");
+        updateGuiWithProgressPercent.accept(0.6);
+        ThreadSleepProxy.goToSleep(1000);
         updateAllItemWithTheStoresWhoSellThem(tempAllItems, tempAllStores);
 
+        updateGuiWithProgressMessage.accept("Verify Every Item is sold by at least one store ...");
+        updateGuiWithProgressPercent.accept(0.7);
+        ThreadSleepProxy.goToSleep(1000);
         verifyEveryItemSoldByAtLeastOneStore(tempAllItems);
+
+        updateGuiWithProgressMessage.accept("Verify Every Store sells at least one item ...");
+        updateGuiWithProgressPercent.accept(0.8);
+        ThreadSleepProxy.goToSleep(1000);
         verifyEveryStoreSellAtLeastOneItem(tempAllStores);
+
+        updateGuiWithProgressMessage.accept("Saving all the information in our data base...");
+        updateGuiWithProgressPercent.accept(0.9);
+        ThreadSleepProxy.goToSleep(1000);
         xmlFileLoaded = true;
         allStores = tempAllStores;
         allItems = tempAllItems;
@@ -164,13 +180,7 @@ public class SDMEngine {
     }
 
     public List<OneStoreOrder> getListOfOneStoreOrdersOfCurrentOrder() {
-        List<OneStoreOrder> listOfInnerOSO = null;
-
-        if(currentOrder instanceof DynamicOrder) {
-            listOfInnerOSO = new ArrayList<OneStoreOrder>(((DynamicOrder) currentOrder).getInnerOneStoreOrderMap().values());
-        }
-
-        return listOfInnerOSO;
+        return currentOrder.getListOfOneStoreOrders();
     }
 
     public List<Discount> getListOfDiscountsOfCurrentOrder() {

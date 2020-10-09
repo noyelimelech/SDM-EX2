@@ -2,10 +2,7 @@ package SDM;
 
 import SDM.Exception.NegativeAmountOfItemInException;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class OneStoreOrder extends Order {
 
@@ -151,6 +148,13 @@ public class OneStoreOrder extends Order {
         }
 
         return true;
+    }
+
+    @Override
+    public List<OneStoreOrder> getListOfOneStoreOrders() {
+        List<OneStoreOrder> listOfOneStoreOrders = new LinkedList<>();
+        listOfOneStoreOrders.add(this);
+        return listOfOneStoreOrders;
     }
 
     private void addOfferItemToCart(Offer offerToAdd) throws NegativeAmountOfItemInException {
