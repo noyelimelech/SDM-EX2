@@ -159,6 +159,20 @@ public class SDMEngine {
         this.currentOrder.addItemToOrder(allItems.get(choosedItemId),choosedAmountOfItem);
     }
 
+    public void continueCurrentOrderToDiscounts() throws NegativeAmountOfItemInException {
+        currentOrder.continueToDiscounts();
+    }
+
+    public List<OneStoreOrder> getListOfOneStoreOrdersOfCurrentOrder() {
+        List<OneStoreOrder> listOfInnerOSO = null;
+
+        if(currentOrder instanceof DynamicOrder) {
+            listOfInnerOSO = new ArrayList<OneStoreOrder>(((DynamicOrder) currentOrder).getInnerOneStoreOrderMap().values());
+        }
+
+        return listOfInnerOSO;
+    }
+
     public void completeCurrentOrder() throws NegativeAmountOfItemInException {
         currentOrder.completeOrder();
         allOrders.add(currentOrder);

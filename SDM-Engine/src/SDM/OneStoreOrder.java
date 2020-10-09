@@ -3,6 +3,8 @@ package SDM;
 import SDM.Exception.NegativeAmountOfItemInException;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class OneStoreOrder extends Order {
@@ -34,15 +36,15 @@ public class OneStoreOrder extends Order {
 
     @Override
     public void addItemToOrder(Item itemToAdd, double amountToAdd) throws NegativeAmountOfItemInException {
-        addStoreItemToOrder(storeOrderMadeFrom.getItemsThatSellInThisStore().get(itemToAdd.getId()), Double.toString(amountToAdd));
+        addStoreItemToOrder(storeOrderMadeFrom.getItemsThatSellInThisStore().get(itemToAdd.getId()), amountToAdd);
     }
 
-    private void addStoreItemToOrder(StoreItem itemToAdd, String amountToAdd) throws NegativeAmountOfItemInException {
+    private void addStoreItemToOrder(StoreItem itemToAdd, double amountToAdd) throws NegativeAmountOfItemInException {
         if(orderItemCart.containsKey(itemToAdd.getItem().getId())) {
             orderItemCart.get(itemToAdd.getItem().getId()).addAmount(amountToAdd);
         }
         else {
-            OrderItem newItemInOrder = OrderItem.Factory.makeNewOrderItem(itemToAdd);
+            OrderItem newItemInOrder = new OrderItem(itemToAdd,false, itemToAdd.getPrice() );
             newItemInOrder.addAmount(amountToAdd);
             orderItemCart.put(itemToAdd.getItem().getId(), newItemInOrder);
         }
@@ -90,7 +92,7 @@ public class OneStoreOrder extends Order {
             switch (type)
             {
                 case QUANTITY:
-                    totalItems+=((OrderQuantityItem)orderItem).getQuantity();
+                    totalItems+=(orderItem).getAmount();
                     break;
                 case WEIGHT:
                     totalItems+=1;
@@ -98,5 +100,61 @@ public class OneStoreOrder extends Order {
             }
         }
         return (totalItems);
+    }
+
+    @Override
+    public void continueToDiscounts() {
+        calculateDiscounts();
+    }
+
+    protected void calculateDiscounts() {
+        for(OrderItem item : orderItemCart.values()) {
+            List<Discount> listOfDiscounts = getDiscountsForOrderItem(item);
+            discountsAvailable.addAll(listOfDiscounts);
+        }
+    }
+
+    private List<Discount> getDiscountsForOrderItem(OrderItem item) {
+        List<Discount> discountList = new LinkedList<>();
+
+        for(Discount discountOfStore : storeOrderMadeFrom.getDiscounts()) {
+            if(discountOfStore.getIfBuy().getStoreItem().getItem().getId() == item.getItemInOrder().getItem().getId()) {
+                for (int i = 0; i < (int) (item.getAmount() / discountOfStore.getIfBuy().getQuantity()); i++) {
+                    discountList.add(discountOfStore);
+                }
+            }
+        }
+
+        return discountList;
+    }
+
+    @Override
+    public boolean useDiscount(Discount discountToUse, Offer offerChosen) throws NegativeAmountOfItemInException {
+        if(!discountsAvailable.contains(discountToUse)) {
+            return false;
+        }
+        switch(discountToUse.getThenGet().getOperator()) {
+            case "IRRELEVANT":
+                addOfferItemToCart(discountToUse.getThenGet().getOffers().get(0));
+                break;
+            case "ALL-OR-NOTHING":
+                for(Offer offerInDiscount : discountToUse.getThenGet().getOffers()) {
+                    addOfferItemToCart(offerInDiscount);
+                }
+                break;
+            case "ONE-OF":
+                addOfferItemToCart(offerChosen);
+                break;
+            default:
+                return false;
+        }
+
+        return true;
+    }
+
+    private void addOfferItemToCart(Offer offerToAdd) throws NegativeAmountOfItemInException {
+        StoreItem itemChosen = storeOrderMadeFrom.getItemsThatSellInThisStore().get((offerToAdd.itemId));
+        orderItemCart.put(itemChosen.getItem().getId(), new OrderItem(itemChosen,true, offerToAdd.forAdditionalPrice));
+        orderItemCart.get(itemChosen.getItem().getId()).addAmount(offerToAdd.Amount);
     }
 }

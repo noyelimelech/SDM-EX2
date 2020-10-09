@@ -2,47 +2,53 @@ package SDM;
 
 import SDM.Exception.NegativeAmountOfItemInException;
 
-public abstract class OrderItem {
+public class OrderItem {
 
-    public static class Factory {
-        public static OrderItem makeNewOrderItem(StoreItem storeItem ) {
-            OrderItem newItemOrder;
+    private StoreItem itemInOrder;
+    private double amount = 0;
+    private boolean isBoughtInDiscount;
+    private double pricePaid;
 
-            switch (storeItem.getItem().getType()) {
-                case QUANTITY:
-                    newItemOrder = new OrderQuantityItem(storeItem);
-                    break;
-                case WEIGHT:
-                    newItemOrder = new OrderWeightItem(storeItem);
-                    break;
-                default:
-                    newItemOrder = null;
-            }
-
-            return newItemOrder;
-        }
-    }
-
-
-    protected StoreItem itemInOrder;
-
-    public OrderItem(StoreItem itemInOrder) {
+    public OrderItem(StoreItem itemInOrder, boolean isBoughtInDiscount, double pricePaid) {
         this.itemInOrder = itemInOrder;
+        this.isBoughtInDiscount = isBoughtInDiscount;
+        this.pricePaid = pricePaid;
     }
 
     public StoreItem getItemInOrder() {
         return itemInOrder;
     }
 
-    public abstract double getTotalPrice();
+    public double getAmount() {
+        return amount;
+    }
 
-    public abstract String getAmount();
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
 
-    public abstract void clearAmount();
+    public double getTotalPrice() {
+        return pricePaid * amount;
+    }
 
-    public abstract void addAmount(String amountToAdd) throws NegativeAmountOfItemInException;
+    public void clearAmount() {
+        amount = 0;
+    }
 
-    public abstract void updateItemAmountSold() throws NegativeAmountOfItemInException;
+    public void addAmount(double amountToAdd) throws NegativeAmountOfItemInException {
+        if(amount + amountToAdd < 0) {
+            throw new NegativeAmountOfItemInException(String.valueOf(amount), Double.toString(amountToAdd));
+        }
+        else {
+            amount += amountToAdd;
+        }
+    }
 
-    public abstract void updateStoreItemAmountSold() throws NegativeAmountOfItemInException;
+    public void updateItemAmountSold() throws NegativeAmountOfItemInException {
+        itemInOrder.getItem().addAmountThatSold(amount);
+    }
+
+    public void updateStoreItemAmountSold() throws NegativeAmountOfItemInException {
+        itemInOrder.addAmountThatSold(amount);
+    }
 }
