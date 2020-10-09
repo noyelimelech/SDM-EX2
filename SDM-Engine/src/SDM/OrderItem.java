@@ -9,6 +9,10 @@ public class OrderItem {
     private boolean isBoughtInDiscount;
     private double pricePaid;
 
+    public boolean isBoughtInDiscount() {
+        return isBoughtInDiscount;
+    }
+
     public OrderItem(StoreItem itemInOrder, boolean isBoughtInDiscount, double pricePaid) {
         this.itemInOrder = itemInOrder;
         this.isBoughtInDiscount = isBoughtInDiscount;
