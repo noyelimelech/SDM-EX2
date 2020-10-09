@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="393.0" stylesheets="@afterOrderStoreWeBuyFromGuiCSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.afterOrderStoreWeBuyFromGui.afterOrderStoreWeBuyFromGuiController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="175.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="218.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="127.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="267.0" minHeight="6.0" prefHeight="39.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="6.0" prefHeight="36.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="0.0" prefHeight="34.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="6.0" prefHeight="36.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="38.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label styleClass="leftSideLabel" text="Store Id:" />
+      <Label styleClass="leftSideLabel" text="Name:" GridPane.rowIndex="1" />
+      <Label styleClass="leftSideLabel" text="Location:" GridPane.rowIndex="2" />
+      <Label styleClass="leftSideLabel" text="Distance:" GridPane.rowIndex="3" />
+      <Label styleClass="leftSideLabel" text="PPK:" GridPane.rowIndex="4" />
+      <Label styleClass="leftSideLabel" text="Cost of delivery:" GridPane.rowIndex="5" />
+      <Label styleClass="leftSideLabel" text="Number of all items:" GridPane.rowIndex="6" />
+      <Label styleClass="leftSideLabel" text="Cost of all items:" GridPane.rowIndex="7" />
+      <Label fx:id="storeIdLabel" text="[store id]" GridPane.columnIndex="1" />
+      <Label fx:id="nameLabel" text="[name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="locationLabel" text="[location]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="distanceLabel" text="[distance]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="ppkLabel" text="[ppk]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="costDeliveryLabel" text="[cost of delivery]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="numOfAllItemsLabel" text="[number of all items]" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label fx:id="costOfAllItemsLabel" text="[cost of all items]" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+   </children>
+</GridPane>
