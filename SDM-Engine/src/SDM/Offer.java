@@ -31,4 +31,9 @@ public class Offer
     public void setForAdditionalPrice(int forAdditionalPrice) {
         this.forAdditionalPrice = forAdditionalPrice;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " +  itemId  + " Amount: " + getAmount() + " for: " + forAdditionalPrice;
+    }
 }

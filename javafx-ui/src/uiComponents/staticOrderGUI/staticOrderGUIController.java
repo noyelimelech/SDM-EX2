@@ -33,6 +33,11 @@ public class staticOrderGUIController {
     Customer customer;
     Store store;
 
+    @FXML
+    public void initialize() {
+        continueButton.disableProperty().bind(chooseStoreComboBox.getSelectionModel().selectedItemProperty().isNull());
+    }
+
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
     }
@@ -43,6 +48,7 @@ public class staticOrderGUIController {
 
     public void setStore(Store store) {
         this.store = store;
+
     }
 
     @FXML
@@ -61,6 +67,7 @@ public class staticOrderGUIController {
         Node orderItemChoiceGui = loader.load();
         OrderItemChoiceController orderItemChoiceController=loader.getController();
         orderItemChoiceController.setSdmEngine(sdmEngine);
+        orderItemChoiceController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
 
         dynamicAreaFlowPane.getChildren().add(orderItemChoiceGui);
 
@@ -79,7 +86,14 @@ public class staticOrderGUIController {
 
 
         public void setSDMEngine (SDMEngine sdmEngine){
+
             this.sdmEngine = sdmEngine;
+            chooseStoreComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                if(newValue != null) {
+                    ppkLabel.setText(Integer.toString(newValue.getDeliveryPPK()));
+                    ppkLabel.setVisible(true);
+                }
+            });
         }
 
         public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane){

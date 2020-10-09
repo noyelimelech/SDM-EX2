@@ -69,6 +69,10 @@ public abstract class Order
         return orderItemCart.size() == 0;
     }
 
+    public LinkedList<Discount> getDiscountsAvailable() {
+        return discountsAvailable;
+    }
+
     protected void incIdCounter() {
         idCounter++;
     }

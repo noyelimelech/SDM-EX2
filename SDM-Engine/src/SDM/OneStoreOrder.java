@@ -104,6 +104,7 @@ public class OneStoreOrder extends Order {
 
     @Override
     public void continueToDiscounts() {
+        priceOfAllItems = calculatePriceOfOrderItems();
         calculateDiscounts();
     }
 

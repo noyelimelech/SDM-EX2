@@ -7,13 +7,13 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="490.0" prefWidth="604.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.staticOrderGUI.staticOrderGUIController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="491.0" prefWidth="648.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.staticOrderGUI.staticOrderGUIController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="705.0" minWidth="10.0" prefWidth="133.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="293.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="10.0" prefWidth="34.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="0.0" prefWidth="43.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="10.0" prefWidth="124.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="795.0" minWidth="10.0" prefWidth="369.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="10.0" prefWidth="23.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="0.0" prefWidth="35.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="470.0" minWidth="10.0" prefWidth="84.0" />
   </columnConstraints>
   <rowConstraints>
     <RowConstraints maxHeight="123.0" minHeight="0.0" prefHeight="97.0" vgrow="SOMETIMES" />
@@ -25,7 +25,7 @@
       <Label text="please choose store:" />
       <ComboBox fx:id="chooseStoreComboBox" prefHeight="22.0" prefWidth="376.0" promptText="choose store" GridPane.columnIndex="1" />
       <Label fx:id="ppkLable" text="ppk:" GridPane.columnIndex="3" />
-      <Label fx:id="ppkLabel" text="[ppk]" GridPane.columnIndex="4" />
+      <Label fx:id="ppkLabel" text="[ppk]" visible="false" GridPane.columnIndex="4" />
       <Button fx:id="continueButton" mnemonicParsing="false" onAction="#continueButtonAction" prefHeight="25.0" prefWidth="80.0" text="continue" GridPane.rowIndex="1" />
    </children>
 </GridPane>

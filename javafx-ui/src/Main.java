@@ -36,7 +36,7 @@ public class Main extends Application {
 
         // set stage
         primaryStage.setTitle("Super Duper Market");
-        Scene scene = new Scene(root, 1060, 650);
+        Scene scene = new Scene(root, 1500, 1000);
         primaryStage.setScene(scene);
         primaryStage.show();
 

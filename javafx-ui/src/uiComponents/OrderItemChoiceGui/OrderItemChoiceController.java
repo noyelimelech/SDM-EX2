@@ -4,10 +4,17 @@ import SDM.*;
 import SDM.Exception.NegativeAmountOfItemInException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.FlowPane;
+import uiComponents.FXMLLoaderProxy;
+import uiComponents.afterOrderStoresGui.afterOrderStoresGuiController;
+import uiComponents.discountsInOrderHolder.DiscountsInOrderHolderController;
 
 import javax.xml.crypto.dsig.SignatureMethod;
+import java.net.URL;
 
 public class OrderItemChoiceController {
 
@@ -24,6 +31,8 @@ public class OrderItemChoiceController {
 
     private SDMEngine sdmEngine;
     private SimpleBooleanProperty buyWiseOrder = new SimpleBooleanProperty(true);
+    FlowPane dynamicAreaFlowPane;
+
 
     @FXML
     public void initialize() {
@@ -42,7 +51,7 @@ public class OrderItemChoiceController {
 
         itemsCounterTextField.textProperty().addListener((observable -> {
                 textFieldErrorLabel.visibleProperty().set(!textFieldVerified());
-                addItemsButton.disableProperty().set(!textFieldVerified());
+                addItemsButton.disableProperty().set(!textFieldVerified() ||  itemTableView.getSelectionModel().selectedItemProperty().isNull().get());
         }));
     }
 
@@ -75,12 +84,21 @@ public class OrderItemChoiceController {
         this.buyWiseOrder.set(buyWiseOrder);
     }
 
+    public FlowPane getDynamicAreaFlowPane() {
+        return dynamicAreaFlowPane;
+    }
+
+    public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane) {
+        this.dynamicAreaFlowPane = dynamicAreaFlowPane;
+    }
+
     @FXML
     void addItemButtonAction() {
         if(textFieldVerified()) {
             try {
                 sdmEngine.addItemToCurrentOrder(itemTableView.getSelectionModel().getSelectedItem().getId(), Double.parseDouble(itemsCounterTextField.getText()));
                 itemTableView.getSelectionModel().clearSelection();
+                itemsCounterTextField.textProperty().set("");
                 succesLabel.visibleProperty().set(true);
             } catch (NegativeAmountOfItemInException e) {
                 e.printStackTrace();
@@ -89,6 +107,9 @@ public class OrderItemChoiceController {
     }
 
     private boolean textFieldVerified() {
+        if(itemTableView.getSelectionModel().selectedItemProperty().isNull().get()){
+            return true;
+        }
         if(itemTableView.getSelectionModel().selectedItemProperty().get().getType() == Item.ItemType.QUANTITY) {
             return itemsCounterTextField.textProperty().get().matches("^\\d+$");
             }
@@ -99,8 +120,32 @@ public class OrderItemChoiceController {
 
     @FXML
     void finishOrderButtonAction() throws NegativeAmountOfItemInException {
-        sdmEngine.completeCurrentOrder();
-        //TODO continue to next page
+        dynamicAreaFlowPane.getChildren().clear();
+        sdmEngine.continueCurrentOrderToDiscounts();
+        if(buyWiseOrder.get()) {
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/afterOrderStoresGui/afterOrderStoresGuiFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node afterOrderStoresGui = loader.load();
+            afterOrderStoresGuiController controller=loader.getController();
+            controller.setSdmEngine(sdmEngine);
+            controller.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+
+            dynamicAreaFlowPane.getChildren().add(afterOrderStoresGui);
+        }
+        else {
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/discountsInOrderHolder/discountsInOrderHolderFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node discountsInOrderHolder = loader.load();
+            DiscountsInOrderHolderController discountsInOrderHolderController=loader.getController();
+            discountsInOrderHolderController.setSdmEngine(sdmEngine);
+            discountsInOrderHolderController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+
+            dynamicAreaFlowPane.getChildren().add(discountsInOrderHolder);
+        }
 
     }
 
