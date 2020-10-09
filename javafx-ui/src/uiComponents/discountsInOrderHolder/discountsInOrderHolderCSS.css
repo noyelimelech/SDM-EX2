@@ -1,0 +1,9 @@
+.continueButton:hover {
+    -fx-background-color: linear-gradient(darkblue, aqua);
+    -fx-text-fill: white;
+}
+
+.continueButton:pressed {
+    -fx-background-color: linear-gradient(orange, darkred);
+    -fx-text-fill: white;
+}

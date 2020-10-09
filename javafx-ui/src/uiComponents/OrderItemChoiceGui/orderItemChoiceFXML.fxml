@@ -47,9 +47,9 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="addItemsButton" mnemonicParsing="false" onAction="#addItemButtonAction" prefHeight="25.0" prefWidth="312.0" text="Add Item(s) To Cart" GridPane.columnIndex="1" />
+                  <Button fx:id="addItemsButton" disable="true" mnemonicParsing="false" onAction="#addItemButtonAction" prefHeight="25.0" prefWidth="312.0" text="Add Item(s) To Cart" GridPane.columnIndex="1" />
                   <Button fx:id="continueButton" mnemonicParsing="false" onAction="#finishOrderButtonAction" prefHeight="25.0" prefWidth="349.0" text="Continue" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <TextField fx:id="itemsCounterTextField" promptText="How much of that item do you want?" />
+                  <TextField fx:id="itemsCounterTextField" disable="true" promptText="How much of that item do you want?" />
                   <Label fx:id="succesLabel" text="Item added suucesfully!" textFill="#009a0a" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <font>
                         <Font size="14.0" />

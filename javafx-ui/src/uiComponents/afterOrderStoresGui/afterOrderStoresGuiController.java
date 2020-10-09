@@ -6,10 +6,12 @@ import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.afterOrderStoreWeBuyFromGui.afterOrderStoreWeBuyFromGuiController;
 import uiComponents.discountGui.discountGuiController;
+import uiComponents.discountsInOrderHolder.DiscountsInOrderHolderController;
 
 import java.net.URL;
 
@@ -19,12 +21,30 @@ public class afterOrderStoresGuiController {
     @FXML private VBox dynamicVBox;
 
     SDMEngine sdmEngine;
+    private FlowPane dynamicAreaFlowPane;
 
+    public SDMEngine getSdmEngine() {
+        return sdmEngine;
+    }
 
+    public void setSdmEngine(SDMEngine sdmEngine) {
+        this.sdmEngine = sdmEngine;
+        updateGuiWithStoresWeBuyFrom();
+    }
 
     @FXML
     public void continueButtonAction() {
+        dynamicAreaFlowPane.getChildren().clear();
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/discountsInOrderHolder/discountsInOrderHolderFXML.fxml");
+        loader.setLocation(fxmlLocation);
 
+        Node discountsInOrderHolder = loader.load();
+        DiscountsInOrderHolderController discountsInOrderHolderController=loader.getController();
+        discountsInOrderHolderController.setSdmEngine(sdmEngine);
+        discountsInOrderHolderController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+
+        dynamicAreaFlowPane.getChildren().add(discountsInOrderHolder);
     }
 
     public void updateGuiWithStoresWeBuyFrom()
@@ -34,7 +54,7 @@ public class afterOrderStoresGuiController {
         {
 
                 FXMLLoaderProxy loader = new FXMLLoaderProxy();
-                URL fxmlLocation = getClass().getResource("/uiComponents/afterOrderStoreWeBuyFromGui/afterOrderStoreWeBuyFromGuiFXML.fxml");
+                URL fxmlLocation = getClass().getResource("/uiComponents/afterOrderStoreWeBuyFromGui/afetrOrderStoreWeBuyFromGuiFXML.fxml");
                 loader.setLocation(fxmlLocation);
 
                 Node storeWeBuyFromGui = loader.load();
@@ -47,15 +67,14 @@ public class afterOrderStoresGuiController {
     }
 
 
-
-
-
-
-
-
-
-
+    public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane) {
+        this.dynamicAreaFlowPane = dynamicAreaFlowPane;
     }
+
+    public FlowPane getDynamicAreaFlowPane() {
+        return dynamicAreaFlowPane;
+    }
+}
 
 
 

@@ -10,3 +10,8 @@
 .offersPlaceHolder:hover {
     -fx-border-width: 4px;
 }
+
+#topGridPane {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}

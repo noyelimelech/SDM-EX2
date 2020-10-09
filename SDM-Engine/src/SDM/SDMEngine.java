@@ -173,6 +173,18 @@ public class SDMEngine {
         return listOfInnerOSO;
     }
 
+    public List<Discount> getListOfDiscountsOfCurrentOrder() {
+        return currentOrder.getDiscountsAvailable();
+    }
+
+    public boolean useDiscountOfCurrentOrder(Discount discountToUse) throws NegativeAmountOfItemInException {
+        return currentOrder.useDiscount(discountToUse, null);
+    }
+
+    public boolean useDiscountOfCurrentOrder(Discount discountToUse, Offer offerChosen) throws NegativeAmountOfItemInException {
+        return currentOrder.useDiscount(discountToUse, offerChosen);
+    }
+
     public void completeCurrentOrder() throws NegativeAmountOfItemInException {
         currentOrder.completeOrder();
         allOrders.add(currentOrder);

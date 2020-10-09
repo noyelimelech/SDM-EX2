@@ -16,6 +16,7 @@ public class FXMLLoaderProxy extends FXMLLoader{
             Alert loadingAlert = new Alert(Alert.AlertType.ERROR);
             loadingAlert.setTitle("FXML Loading ERROR");
             loadingAlert.setHeaderText("Seems like we got a problem on our error loading... Nothing you can do...");
+            loadingAlert.show();
         }
 
         return node;

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="393.0" stylesheets="@afterOrderStoreWeBuyFromGuiCSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.afterOrderStoreWeBuyFromGui.afterOrderStoreWeBuyFromGuiController">
+<GridPane id="topGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="286.0" prefWidth="393.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.afterOrderStoreWeBuyFromGui.afterOrderStoreWeBuyFromGuiController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="293.0" minWidth="10.0" prefWidth="175.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="456.0" minWidth="10.0" prefWidth="218.0" />
@@ -38,4 +39,8 @@
       <Label fx:id="numOfAllItemsLabel" text="[number of all items]" GridPane.columnIndex="1" GridPane.rowIndex="6" />
       <Label fx:id="costOfAllItemsLabel" text="[cost of all items]" GridPane.columnIndex="1" GridPane.rowIndex="7" />
    </children>
+   <stylesheets>
+      <URL value="@afterOrderStoreWeBuyFromGuiCSS.css" />
+      <URL value="@afterOrderStoreWeBuyFromGuiCSS.css" />
+   </stylesheets>
 </GridPane>

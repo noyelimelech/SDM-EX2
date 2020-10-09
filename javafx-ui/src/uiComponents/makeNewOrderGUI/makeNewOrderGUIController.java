@@ -33,6 +33,12 @@ public class makeNewOrderGUIController {
     SDMEngine sdmEngine;
     FlowPane dynamicAreaFlowPane;
 
+    @FXML
+    public void initialize() {
+        oneStoreOrderButton.disableProperty().bind(chooseCustomerComboBox.getSelectionModel().selectedItemProperty().isNull().or(datePicker.valueProperty().isNull()));
+        dynamicOrderButton.disableProperty().bind(chooseCustomerComboBox.getSelectionModel().selectedItemProperty().isNull().or(datePicker.valueProperty().isNull()));
+    }
+
 
     @FXML
     void dynamicOrderButtonAction() throws IOException {
@@ -53,6 +59,7 @@ public class makeNewOrderGUIController {
         Node orderItemChoiceGui = loader.load();
         OrderItemChoiceController orderItemChoiceController=loader.getController();
         orderItemChoiceController.setSdmEngine(sdmEngine);
+        orderItemChoiceController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
 
         dynamicAreaFlowPane.getChildren().add(orderItemChoiceGui);
 
