@@ -84,4 +84,5 @@ public abstract class Order
     public abstract int getTotalItemsInOrder();
     public abstract void continueToDiscounts() throws NegativeAmountOfItemInException;
     public abstract boolean useDiscount(Discount discountToUse, Offer offerChosen) throws NegativeAmountOfItemInException;
+    public abstract List<OneStoreOrder> getListOfOneStoreOrders();
 }

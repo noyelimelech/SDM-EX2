@@ -16,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.*;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class XMLHandlerBaseOnSchema
 {
@@ -23,6 +24,8 @@ public class XMLHandlerBaseOnSchema
     private Map<Integer,Item> items =null;
     //NOY 25/9
     private Map<Integer,Customer> costumers =null;
+    private Consumer<String> updateGuiWithProgressMessage;
+    private Consumer<Double> updateGuiWithProgressPercent;
 
     public Map<Integer, Customer> getCostumers() {
         return costumers;
@@ -39,11 +42,25 @@ public class XMLHandlerBaseOnSchema
         return items;
     }
 
-    public void updateStoresAndItemsAndCostumers(String stPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
-        SuperDuperMarketDescriptor sdmDescriptor=this.fromStringPathToDescriptor(stPath);
-        parseFromSDMItemToItem(sdmDescriptor);
-        parseFromSDMStoresToStores(sdmDescriptor);
+    public void updateStoresAndItemsAndCostumers(String stPath, Consumer<String> updateGuiWithProgressMessage, Consumer<Double> updateGuiWithProgressPercent) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
+        this.updateGuiWithProgressMessage = updateGuiWithProgressMessage;
+        this.updateGuiWithProgressPercent = updateGuiWithProgressPercent;
 
+        this.updateGuiWithProgressMessage.accept("Fetching File...");
+        this.updateGuiWithProgressPercent.accept(0.0);
+        ThreadSleepProxy.goToSleep(1000);
+        SuperDuperMarketDescriptor sdmDescriptor=this.fromStringPathToDescriptor(stPath);
+        this.updateGuiWithProgressMessage.accept("Fetching Items...");
+        this.updateGuiWithProgressPercent.accept(0.1);
+        ThreadSleepProxy.goToSleep(1000);
+        parseFromSDMItemToItem(sdmDescriptor);
+        this.updateGuiWithProgressMessage.accept("Fetching Stores...");
+        this.updateGuiWithProgressPercent.accept(0.2);
+        ThreadSleepProxy.goToSleep(1000);
+        parseFromSDMStoresToStores(sdmDescriptor);
+        this.updateGuiWithProgressMessage.accept("Fetching Customers...");
+        this.updateGuiWithProgressPercent.accept(0.5);
+        ThreadSleepProxy.goToSleep(1000);
         parseFromSDMCustomersToCustomers(sdmDescriptor);
 
     }
@@ -126,6 +143,12 @@ public class XMLHandlerBaseOnSchema
         List<SDMStore> sdmStores=  sdmObj.getSDMStores().getSDMStore();
         this.stores=new ArrayList<>();
         Store st;
+        this.updateGuiWithProgressMessage.accept("Fetching Items in Stores...");
+        this.updateGuiWithProgressPercent.accept(0.3);
+        ThreadSleepProxy.goToSleep(1000);
+        this.updateGuiWithProgressMessage.accept("Fetching Discounts of Stores...");
+        this.updateGuiWithProgressPercent.accept(0.4);
+        ThreadSleepProxy.goToSleep(1000);
 
         for (SDMStore sdmSt:sdmStores)
         {
@@ -152,10 +175,12 @@ public class XMLHandlerBaseOnSchema
             
             st.setLocation(new Location(new Point(sdmSt.getLocation().getX(),sdmSt.getLocation().getY())));
 
+
             Map<Integer,StoreItem> itemsInStStore= this.getStoreItemesFromsdmPrices(sdmSt,st);
             st.setItemsThatSellInThisStore(itemsInStStore);
 
             //NOY 26/9
+
             List<Discount> discountsOfStore=this.getDiscountsFromSDMDiscounts(sdmSt,st);
             st.setDiscounts(discountsOfStore);
 

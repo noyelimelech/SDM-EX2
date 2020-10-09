@@ -123,4 +123,9 @@ public class DynamicOrder extends Order{
 
         return innerOneStoreOrderMap.get(discountToUse.getStoreOfDiscount().getId()).useDiscount(discountToUse, offerChosen);
     }
+
+    @Override
+    public List<OneStoreOrder> getListOfOneStoreOrders() {
+        return new LinkedList<OneStoreOrder>(innerOneStoreOrderMap.values());
+    }
 }

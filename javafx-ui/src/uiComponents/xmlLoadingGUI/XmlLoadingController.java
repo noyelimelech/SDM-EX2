@@ -3,7 +3,6 @@ package uiComponents.xmlLoadingGUI;
 import SDM.Exception.*;
 import SDM.SDMEngine;
 import javafx.concurrent.Task;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,7 +10,9 @@ import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import tasks.XmlLoadingTask;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.function.Consumer;
@@ -59,63 +60,54 @@ public class XmlLoadingController {
     @FXML
     private void openXMLFileButtonAction() {
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Select XML file to load");
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("xml files", "*.xml"));
         File selectedFile = fileChooser.showOpenDialog(stage);
-        boolean isLoadingSucceeded = false;
+
+        if(selectedFile == null) {
+            return;
+        }
+        XmlLoadingTask taskOfXMLLoading = new XmlLoadingTask();
+        taskOfXMLLoading.setSdmEngine(sdmEngine);
+        taskOfXMLLoading.setFileAbsolutePath(selectedFile.getAbsolutePath());
+        taskOfXMLLoading.setUpdateWhenLoadingIsFinished(updateWhenLoadingIsFinished);
+        bindTaskOfLoading(taskOfXMLLoading);
+
+        taskOfXMLLoading.setOnFailed((observable -> {
+            handleException(taskOfXMLLoading.getException());
+        }));
 
         filePathLabel.setText(selectedFile.getAbsolutePath());
         statusTextArea.clear();
 
-        try {
-                sdmEngine.updateAllStoresAndAllItemsAndAllCustomers(selectedFile.getAbsolutePath());
-                isLoadingSucceeded = true;
-        }
-        catch (FileNotFoundException ex) {
-            statusTextArea.appendText("\nERROR: The file does not exist in the path given, please try again.");
-        }
-        catch(FileNotEndWithXMLException ex) {
-            statusTextArea.appendText("\nERROR: The file you given extension is" + ex.getFileType() + " and not an XML file, please make sure it ends with .xml and try again.");
-        }
-        catch(LocationIsOutOfBorderException ex) {
-            statusTextArea.appendText("\nERROR: The object of type " +  ex.getLocatableType()+
-                    " with id of: " + ex.getId() + " is located out of allowed borders which are between "
-                    + ex.getMinBorder() + "to " + ex.getMaxBorder() + ".Please fix this.");
-        }
-        catch(DuplicateStoreItemException ex) {
-            statusTextArea.appendText("\nERROR: The store item with ID of " + ex.getId() + " appears more than once in the XML file.");
-        }
-        catch(DuplicateItemException ex) {
-            statusTextArea.appendText("\nERROR: The item with ID of " + ex.getId() + " appears more than once in the XML file.");
-        }
-        catch (TryingToGiveDifferentPricesForSameStoreItemException e) {
-            statusTextArea.appendText("\nERROR: The file has store with ID" + e.getStoreId() + "that try to give an item price multiple time. ");
-        }
-        catch (TryingToGivePriceOfItemWhichIDNotExistException ex) {
-            statusTextArea.appendText("\nERROR: The file has store which trying to give a price of item which is ID "+ex.getId()+" does not exist");
-        }
-        catch(DuplicateStoreIDException ex) {
-            statusTextArea.appendText("\nERROR: The store with ID of " + ex.getId() + " appears more than once in the XML file");
-        }
-        catch (ItemNoOneSellException ex) {
-            statusTextArea.appendText("\nERROR: The item with ID " + ex.getId() + " doesnt sold by any store.");
-        }
-        catch (StoreWithNoItemException ex) {
-            statusTextArea.appendText("\nERROR: The store with ID " + ex.getId() + " doesnt sell any items");
-        }
-        catch(Exception ex) {
-            statusTextArea.appendText("\nERROR: Unknown error has happen, the error message is: " + ex.getMessage());
-        }
-        finally {
-            if(isLoadingSucceeded) {
-                statusTextArea.appendText("\nLoading is done. All the data loaded from the XML file is updated in the system.");
-            }
-            else{
-                statusTextArea.appendText("\nLoading has been stopped. Please fixed the above issues and try again.");
-            }
-        }
-        if(updateWhenLoadingIsFinished != null) {
-            updateWhenLoadingIsFinished.accept(isLoadingSucceeded);
-        }
-
+        new Thread(taskOfXMLLoading).start();
     }
 
+    private void handleException(Throwable exceptionThrown) {
+        if (exceptionThrown instanceof FileNotFoundException) {
+            addNewLineToText("\nERROR: The file does not exist in the path given, please try again.");
+        } else if (exceptionThrown instanceof FileNotEndWithXMLException) {
+            addNewLineToText("\nERROR: The file you given extension is" + ((FileNotEndWithXMLException) exceptionThrown).getFileType() + " and not an XML file, please make sure it ends with .xml and try again.");
+        } else if (exceptionThrown instanceof LocationIsOutOfBorderException) {
+            addNewLineToText("\nERROR: The object of type " + ((LocationIsOutOfBorderException) exceptionThrown).getLocatableType() +
+                    " with id of: " + ((LocationIsOutOfBorderException) exceptionThrown).getId() + " is located out of allowed borders which are between "
+                    + ((LocationIsOutOfBorderException) exceptionThrown).getMinBorder() + "to " + ((LocationIsOutOfBorderException) exceptionThrown).getMaxBorder() + ".Please fix this.");
+        } else if (exceptionThrown instanceof DuplicateStoreItemException) {
+            addNewLineToText("\nERROR: The store item with ID of " + ((DuplicateStoreItemException) exceptionThrown).getId() + " appears more than once in the XML file.");
+        } else if (exceptionThrown instanceof DuplicateItemException) {
+            addNewLineToText("\nERROR: The item with ID of " + ((DuplicateItemException) exceptionThrown).getId() + " appears more than once in the XML file.");
+        } else if (exceptionThrown instanceof TryingToGiveDifferentPricesForSameStoreItemException) {
+            addNewLineToText("\nERROR: The file has store with ID" + ((TryingToGiveDifferentPricesForSameStoreItemException) exceptionThrown).getStoreId() + "that try to give an item price multiple time. ");
+        } else if (exceptionThrown instanceof TryingToGivePriceOfItemWhichIDNotExistException) {
+            addNewLineToText("\nERROR: The file has store which trying to give a price of item which is ID " + ((TryingToGivePriceOfItemWhichIDNotExistException)exceptionThrown).getId() + " does not exist");
+        } else if (exceptionThrown instanceof DuplicateStoreIDException) {
+            addNewLineToText("\nERROR: The store with ID of " + ((DuplicateStoreIDException)exceptionThrown).getId() + " appears more than once in the XML file");
+        } else if(exceptionThrown instanceof ItemNoOneSellException) {
+            addNewLineToText("\nERROR: The item with ID " + ((ItemNoOneSellException)exceptionThrown).getId() + " doesnt sold by any store.");
+        } else if(exceptionThrown instanceof StoreWithNoItemException) {
+            addNewLineToText("\nERROR: The store with ID " + ((StoreWithNoItemException)exceptionThrown).getId() + " doesnt sell any items");
+        }else {
+            addNewLineToText("\nERROR: Unknown error has happen, the error message is: " + exceptionThrown.getMessage());
+        }
+    }
 }
