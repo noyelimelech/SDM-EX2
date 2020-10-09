@@ -2,15 +2,14 @@ package SDM;
 
 import SDM.Exception.NegativeAmountOfItemInException;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public abstract class Order
 {
     private static int idCounter = 1;
     protected final int id;
     protected final Map<Integer, OrderItem> orderItemCart;
+    protected final LinkedList<Discount> discountsAvailable;
     protected final Customer customer;
     protected final Date date;
     protected double deliveryPrice;
@@ -22,6 +21,7 @@ public abstract class Order
         this.date = date;
         this.id = idCounter;
         orderItemCart = new HashMap<>();
+        discountsAvailable = new LinkedList<>();
     }
 
     //Might be better in an order factory class
@@ -78,4 +78,6 @@ public abstract class Order
     public abstract void completeOrder() throws NegativeAmountOfItemInException;
     protected abstract double calculatePriceOfOrderItems();
     public abstract int getTotalItemsInOrder();
+    public abstract void continueToDiscounts() throws NegativeAmountOfItemInException;
+    public abstract boolean useDiscount(Discount discountToUse, Offer offerChosen) throws NegativeAmountOfItemInException;
 }

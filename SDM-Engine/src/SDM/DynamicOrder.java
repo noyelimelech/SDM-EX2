@@ -16,11 +16,17 @@ public class DynamicOrder extends Order{
         }
     }
 
+
+
     private Map<Integer, OneStoreOrder> innerOneStoreOrderMap = new HashMap<>();
     private List<DynamicOrderItem> itemsInCart = new LinkedList<>();
 
     public DynamicOrder(Customer customer, Date date) {
         super(customer, date);
+    }
+
+    public Map<Integer, OneStoreOrder> getInnerOneStoreOrderMap() {
+        return innerOneStoreOrderMap;
     }
 
     @Override
@@ -38,12 +44,6 @@ public class DynamicOrder extends Order{
     @Override
     public void completeOrder() throws NegativeAmountOfItemInException {
         incIdCounter();
-        
-        bestPriceAlgorithm();
-        
-        for(OneStoreOrder oneStoreOrder : innerOneStoreOrderMap.values()) {
-            oneStoreOrder.completeOrder();
-        }
 
         priceOfAllItems = calculatePriceOfOrderItems();
         totalPrice = priceOfAllItems + deliveryPrice;
@@ -103,5 +103,24 @@ public class DynamicOrder extends Order{
         }
 
         return totalItemInAllOrders;
+    }
+
+    @Override
+    public void continueToDiscounts() throws NegativeAmountOfItemInException {
+        bestPriceAlgorithm();
+
+        for(OneStoreOrder oneStoreOrder : innerOneStoreOrderMap.values()) {
+            oneStoreOrder.continueToDiscounts();
+            discountsAvailable.addAll(oneStoreOrder.discountsAvailable);
+        }
+    }
+
+    @Override
+    public boolean useDiscount(Discount discountToUse, Offer offerChosen) throws NegativeAmountOfItemInException {
+        if(!innerOneStoreOrderMap.containsKey(discountToUse.getStoreOfDiscount().getId())) {
+            return false;
+        }
+
+        return innerOneStoreOrderMap.get(discountToUse.getStoreOfDiscount().getId()).useDiscount(discountToUse, offerChosen);
     }
 }

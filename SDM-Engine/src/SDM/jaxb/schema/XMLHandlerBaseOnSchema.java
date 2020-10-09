@@ -182,6 +182,7 @@ public class XMLHandlerBaseOnSchema
 
                 discount = new Discount();
                 discount.setName(sdmDiscount.getName());
+                discount.setStoreOfDiscount(st);
                 discount.setIfBuy(getClassIfBuyFromClassIfYouBuy(sdmDiscount.getIfYouBuy(), st));
                 discount.setThenGet(getClassThanGetFromClassThanYouGet(sdmDiscount.getThenYouGet(), st));
 

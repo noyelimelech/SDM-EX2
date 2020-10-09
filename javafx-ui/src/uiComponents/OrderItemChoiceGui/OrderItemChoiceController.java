@@ -17,7 +17,7 @@ public class OrderItemChoiceController {
     @FXML private TableColumn<StoreItemAdapter, Item.ItemType> typeCol;
     @FXML private TableColumn<StoreItemAdapter, Integer> priceCol;
     @FXML private Button addItemsButton;
-    @FXML private Button finishOrderButton;
+    @FXML private Button continueButton;
     @FXML private TextField itemsCounterTextField;
     @FXML private Label succesLabel;
     @FXML private Label textFieldErrorLabel;
@@ -29,7 +29,7 @@ public class OrderItemChoiceController {
     public void initialize() {
         setTableColValueFactory();
 
-        priceCol.visibleProperty().bind(buyWiseOrder);
+        priceCol.visibleProperty().bind(buyWiseOrder.not());
 
         itemTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         itemTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {

@@ -11,6 +11,15 @@ public class Discount
     private String name;
     private IfBuy ifBuy;
     private ThenGet thenGet;
+    private Store storeOfDiscount;
+
+    public Store getStoreOfDiscount() {
+        return storeOfDiscount;
+    }
+
+    public void setStoreOfDiscount(Store storeOfDiscount) {
+        this.storeOfDiscount = storeOfDiscount;
+    }
 
     public String getName() {
         return name;
