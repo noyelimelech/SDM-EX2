@@ -8,6 +8,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
+import uiComponents.FinalDetailsOnStoreAndItemsFromStore.FinalDetailsOnStoreAndItemsFromStoreController;
+import uiComponents.SummaryOfOrderDetails.SummaryOfOrderDetailsController;
 import uiComponents.discountInOrderGUI.DiscountInOrderController;
 
 import java.net.URL;
@@ -53,9 +55,29 @@ public class DiscountsInOrderHolderController {
         }
     }
 
+    ///noy 9/10
     @FXML
     void doneDiscountsAction() {
-        //TODO goto last page of summary!
+
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/SummaryOfOrderDetails/SummaryOfOrderDetailsFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node summaryOfOrderDetails = loader.load();
+
+        SummaryOfOrderDetailsController summaryOfOrderDetailsController=loader.getController();
+        summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
+        summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore();
+        summaryOfOrderDetailsController.setLabels(sdmEngine);
+
+        dynamicAreaFlowPane.getChildren().clear();
+        dynamicAreaFlowPane.getChildren().add(summaryOfOrderDetails);
+
+        //goto last page of summary!
+        //MOVE TO summaryOFoRDERdETAILS
+        //לעשות סט ל- אנגין ודיינמיקפלואופין
+
     }
 
     public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane) {

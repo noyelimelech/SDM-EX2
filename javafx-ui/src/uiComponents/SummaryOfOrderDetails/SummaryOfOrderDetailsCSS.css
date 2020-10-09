@@ -1,0 +1,17 @@
+.mainTitleLabel {
+    -fx-padding: 0 0 0 20;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.leftSideLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.label {
+    -fx-padding: 0 0 0 20;
+    -fx-font-size: 14px;
+}
+
+

@@ -1,0 +1,30 @@
+.leftSideLabel {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 40;
+
+
+}
+
+
+
+.label{
+    -fx-font-size: 14px;
+    -fx-padding: 0 0 0 40;
+}
+
+#topGridPane {
+    -fx-border-color: black;
+    -fx-border-width: 2;
+}
+/*
+.leftSideTitle{
+
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-underline: true;
+    -fx-padding: 0 0 0 20;
+
+
+}
+ */
