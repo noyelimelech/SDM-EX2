@@ -1,5 +1,6 @@
 package uiComponents.SummaryOfOrderDetails;
 
+import SDM.Exception.NegativeAmountOfItemInException;
 import SDM.OneStoreOrder;
 import SDM.SDMEngine;
 import javafx.fxml.FXML;
@@ -72,12 +73,16 @@ public class SummaryOfOrderDetailsController {
 
     @FXML
     void cancelOrderButtonAction() {
-
+        sdmEngine.cancelCurrentOrder();
     }
 
     @FXML
     void confirmButtonAction() {
-
+        try {
+            sdmEngine.completeCurrentOrder();
+        } catch (NegativeAmountOfItemInException e) {
+            e.printStackTrace();
+        }
     }
 
 

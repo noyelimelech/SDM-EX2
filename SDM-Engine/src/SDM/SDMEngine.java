@@ -2,6 +2,7 @@ package SDM;
 
 import SDM.Exception.*;
 import SDM.jaxb.schema.XMLHandlerBaseOnSchema;
+import javafx.beans.property.SimpleBooleanProperty;
 import tasks.XmlLoadingTask;
 
 import javax.xml.bind.JAXBException;
@@ -18,6 +19,7 @@ public class SDMEngine {
     private Order currentOrder;
     private Map<Integer, StoreItem> allStoreItemsWithPriceForSpecificStore = new HashMap<>(); //private Map for storeItems to show to UI
     private boolean xmlFileLoaded = false;
+    private SimpleBooleanProperty anyOrderMade = new SimpleBooleanProperty(false);
 
     public List<Customer> getAllCustomers() {
         return (new ArrayList<>(allCustomers.values()));
@@ -198,6 +200,13 @@ public class SDMEngine {
     public void completeCurrentOrder() throws NegativeAmountOfItemInException {
         currentOrder.completeOrder();
         allOrders.add(currentOrder);
+        currentOrder = null;
+        if(!anyOrderMade.get()) {
+            anyOrderMade.set(true);
+        }
+    }
+
+    public void cancelCurrentOrder() {
         currentOrder = null;
     }
 
