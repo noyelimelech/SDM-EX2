@@ -34,6 +34,11 @@ public class MainComponentController {
     @FXML private Button makeNewOrderButton;
     @FXML private VBox leftMainMenu;
 
+    ////new buttons to aa/remove/update items in store
+    @FXML private Button addItemsButton;
+    @FXML private Button removeItemsButton;
+    @FXML private Button updatePriceButton;
+
 
     private Stage primaryStage;
     private SDMEngine sdmEngine;
@@ -235,6 +240,30 @@ public class MainComponentController {
 
 
     }
+
+
+
+
+/////TODO
+///buttons to aa/remove/update items in store
+    @FXML
+    void addItemsButtonAction() {
+    }
+
+
+    @FXML
+    void removeItemsButtonAction() {
+    }
+
+    @FXML
+    void updatePriceButtonAction() {
+
+    }
+
+
+
+
+
 
 
 }

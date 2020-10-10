@@ -46,6 +46,11 @@
                   </Label>
                   <Button fx:id="makeNewOrderButton" mnemonicParsing="false" onAction="#makeNewOrderAction" styleClass="leftMenuItem" text="Make new order" />
                   <Separator prefWidth="200.0" />
+                  <Label styleClass="leftMenuItem" text="Update items" />
+                  <Button fx:id="addItemsButton" mnemonicParsing="false" onAction="#addItemsButtonAction" prefHeight="36.0" prefWidth="205.0" styleClass="leftMenuItem" text="Add items to store" />
+                  <Button fx:id="removeItemsButton" mnemonicParsing="false" onAction="#removeItemsButtonAction" styleClass="leftMenuItem" text="Remove items from store" />
+                  <Button fx:id="updatePriceButton" mnemonicParsing="false" onAction="#updatePriceButtonAction" styleClass="leftMenuItem" text="Update price of item" />
+                  <Separator prefWidth="200.0" />
                </children>
                <padding>
                   <Insets left="5.0" />
