@@ -42,12 +42,10 @@ public class MainComponentController {
 
     private SimpleBooleanProperty isXMLFileLoaded;
     private SimpleBooleanProperty isAnyOrderMade;
-    private SimpleBooleanProperty isInProcessOfOrder;
 
     public MainComponentController() {
         isXMLFileLoaded = new SimpleBooleanProperty(false);
         isAnyOrderMade = new SimpleBooleanProperty(false);
-        isInProcessOfOrder=new SimpleBooleanProperty(false);
     }
 
     public SimpleBooleanProperty isXMLFileLoadedProperty() {
@@ -65,6 +63,7 @@ public class MainComponentController {
 
     public void setSdmEngine(SDMEngine sdmEngine) {
         this.sdmEngine=sdmEngine;
+        isAnyOrderMade.bind(sdmEngine.anyOrderMadeProperty());
     }
 
     @FXML
@@ -74,9 +73,6 @@ public class MainComponentController {
         showOrderButton.disableProperty().bind(isXMLFileLoaded.not().or(isAnyOrderMade.not()));
         showCustomersButton.disableProperty().bind(isXMLFileLoaded.not());
         makeNewOrderButton.disableProperty().bind(isXMLFileLoaded.not());
-        leftMainMenu.disableProperty().bind(isInProcessOfOrder);
-
-
     }
 
     @FXML
@@ -108,7 +104,7 @@ public class MainComponentController {
     @FXML
     void makeNewOrderAction() throws IOException {
         dynamicAreaFlowPane.getChildren().clear();
-        isInProcessOfOrder.set(true);
+        leftMainMenu.disableProperty().set(true);
         FXMLLoader loader = new FXMLLoader();
         URL fxmlLocation = getClass().getResource("/uiComponents/makeNewOrderGUI/makeNewOrderGUIFXML.fxml");
         loader.setLocation(fxmlLocation);
@@ -117,6 +113,7 @@ public class MainComponentController {
 
         Node makeNewOrderGui = loader.load();
         makeNewOrderGUIController makeNewOrderGUIController = loader.getController();
+        makeNewOrderGUIController.setLeftMenuVBox(leftMainMenu);
         makeNewOrderGUIController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
         makeNewOrderGUIController.setSdmEngine(sdmEngine);
         makeNewOrderGUIController.setCustomerComboBox();

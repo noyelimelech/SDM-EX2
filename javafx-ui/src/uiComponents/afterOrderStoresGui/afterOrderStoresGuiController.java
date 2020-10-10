@@ -22,6 +22,7 @@ public class afterOrderStoresGuiController {
 
     SDMEngine sdmEngine;
     private FlowPane dynamicAreaFlowPane;
+    private VBox leftMenuVBox;
 
     public SDMEngine getSdmEngine() {
         return sdmEngine;
@@ -43,6 +44,7 @@ public class afterOrderStoresGuiController {
         DiscountsInOrderHolderController discountsInOrderHolderController=loader.getController();
         discountsInOrderHolderController.setSdmEngine(sdmEngine);
         discountsInOrderHolderController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        discountsInOrderHolderController.setLeftMenuVBox(leftMenuVBox);
 
         dynamicAreaFlowPane.getChildren().add(discountsInOrderHolder);
     }
@@ -73,6 +75,14 @@ public class afterOrderStoresGuiController {
 
     public FlowPane getDynamicAreaFlowPane() {
         return dynamicAreaFlowPane;
+    }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
+    }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
     }
 }
 

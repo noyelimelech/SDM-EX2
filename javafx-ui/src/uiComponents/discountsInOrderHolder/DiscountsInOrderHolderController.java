@@ -20,6 +20,7 @@ public class DiscountsInOrderHolderController {
 
     private SDMEngine sdmEngine;
     private FlowPane dynamicAreaFlowPane;
+    private VBox leftMenuVBox;
 
 
     public SDMEngine getSdmEngine() {
@@ -68,6 +69,7 @@ public class DiscountsInOrderHolderController {
         SummaryOfOrderDetailsController summaryOfOrderDetailsController=loader.getController();
         summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
         summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
+        summaryOfOrderDetailsController.setLeftMenuVBox(leftMenuVBox);
         summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore();
         summaryOfOrderDetailsController.setLabels(sdmEngine);
 
@@ -86,5 +88,13 @@ public class DiscountsInOrderHolderController {
 
     public FlowPane getDynamicAreaFlowPane() {
         return dynamicAreaFlowPane;
+    }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
+    }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
     }
 }
