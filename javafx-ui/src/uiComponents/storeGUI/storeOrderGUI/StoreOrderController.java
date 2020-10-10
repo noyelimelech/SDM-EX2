@@ -1,5 +1,6 @@
 package uiComponents.storeGUI.storeOrderGUI;
 
+import SDM.OneStoreOrder;
 import SDM.Order;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,13 +15,13 @@ public class StoreOrderController {
     @FXML private Label deliveryPriceLabel;
     @FXML private Label totalPriceLabel;
 
-    private Order storeOrder;
+    private OneStoreOrder storeOrder;
 
-    public Order getStoreOrder() {
+    public OneStoreOrder getStoreOrder() {
         return storeOrder;
     }
 
-    public void setStoreOrder(Order storeOrder) {
+    public void setStoreOrder(OneStoreOrder storeOrder) {
         this.storeOrder = storeOrder;
         updateGUIWithStoreOrderData();
     }
