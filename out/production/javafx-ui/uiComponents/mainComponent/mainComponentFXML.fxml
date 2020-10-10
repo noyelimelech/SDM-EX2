@@ -51,6 +51,8 @@
                   <Button fx:id="removeItemsButton" mnemonicParsing="false" onAction="#removeItemsButtonAction" styleClass="leftMenuItem" text="Remove items from store" />
                   <Button fx:id="updatePriceButton" mnemonicParsing="false" onAction="#updatePriceButtonAction" styleClass="leftMenuItem" text="Update price of item" />
                   <Separator prefWidth="200.0" />
+                  <Label styleClass="leftMenuItem" text="Stores and customers map" />
+                  <Button mnemonicParsing="false" onAction="#showMapAction" styleClass="leftMenuItem" text="Show map" />
                </children>
                <padding>
                   <Insets left="5.0" />

@@ -39,28 +39,7 @@ public class discountGuiController {
         this.storeOfDiscount = storeOfDiscount;
     }
 
-    /*
-    public void setDiscountNameLabel(String discountName) {
-        this.discountNameLabel.setText(discountName);
-    }
 
-    public void setItemNameLabel(String itemName) {
-        this.itemNameLabel.setText(itemName);
-    }
-
-    public void setItemIdLabel(String itemId) {
-        this.itemIdLabel.setText(itemId);
-    }
-
-    public void setAmountLabel(String amount) {
-        this.amountLabel.setText(amount);
-    }
-
-    public void setItemPriceLabel(String itemPrice) {
-        this.itemPriceLabel.setText(itemPrice);
-    }
-
- */
 
     void setDiscountGuiLabels(Discount discount)
     {

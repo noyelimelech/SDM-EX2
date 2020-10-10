@@ -91,5 +91,10 @@ public class Item {
         return totalAmountSoldOnAllStores;
     }
 
+    @Override
+    public String toString() {
+        return String.format("Id: %d      Name: %s      Type:%s", id, name,type.toString());
+    }
+
 }
 

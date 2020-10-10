@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.SummaryOfOrderDetails.SummaryOfOrderDetailsController;
+import uiComponents.UpdateItemsGui.AddItemsToStoreGui.AddItemsToStoreGuiController;
 import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
 import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
@@ -246,9 +247,24 @@ public class MainComponentController {
 
 
 /////TODO
-///buttons to aa/remove/update items in store
+///buttons to add/remove/update items in store
     @FXML
     void addItemsButtonAction() {
+
+        dynamicAreaFlowPane.getChildren().clear();
+
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/UpdateItemsGui/AddItemsToStoreGui/AddItemsToStoreGuiFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node addItemsToStoreGui = loader.load();
+
+        AddItemsToStoreGuiController addItemsToStoreGuiController= loader.getController();
+        addItemsToStoreGuiController.setSdmEngine(sdmEngine);
+        addItemsToStoreGuiController.setGuiComboBoxAndButtons();
+
+        dynamicAreaFlowPane.getChildren().add(addItemsToStoreGui);
+
     }
 
 

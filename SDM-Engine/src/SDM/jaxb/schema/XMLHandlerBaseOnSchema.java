@@ -48,19 +48,19 @@ public class XMLHandlerBaseOnSchema
 
         this.updateGuiWithProgressMessage.accept("Fetching File...");
         this.updateGuiWithProgressPercent.accept(0.0);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         SuperDuperMarketDescriptor sdmDescriptor=this.fromStringPathToDescriptor(stPath);
         this.updateGuiWithProgressMessage.accept("Fetching Items...");
         this.updateGuiWithProgressPercent.accept(0.1);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         parseFromSDMItemToItem(sdmDescriptor);
         this.updateGuiWithProgressMessage.accept("Fetching Stores...");
         this.updateGuiWithProgressPercent.accept(0.2);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         parseFromSDMStoresToStores(sdmDescriptor);
         this.updateGuiWithProgressMessage.accept("Fetching Customers...");
         this.updateGuiWithProgressPercent.accept(0.5);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         parseFromSDMCustomersToCustomers(sdmDescriptor);
 
         verifyNoDuplicatedLocations();

@@ -117,4 +117,15 @@ public class Store implements Locatable
     public String toString() {
         return String.format("Id: %d      Name: %s      location: x= %d , y=%d", id, name,location.getXLocation(),location.getYLocation());
     }
+
+    public void addNewItem(Item item, String priceSt)
+    {
+        StoreItem newStoreItem = new StoreItem();
+        newStoreItem.setItem(item);
+        newStoreItem.setPrice(Integer.parseInt(priceSt));
+        newStoreItem.setStore(this);
+
+        itemsThatSellInThisStore.put(item.getId(),newStoreItem);
+
+    }
 }

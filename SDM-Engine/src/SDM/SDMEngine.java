@@ -76,22 +76,22 @@ public class SDMEngine {
         }
         updateGuiWithProgressMessage.accept("Connecting Item To The Store That Sells Them...");
         updateGuiWithProgressPercent.accept(0.6);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         updateAllItemWithTheStoresWhoSellThem(tempAllItems, tempAllStores);
 
         updateGuiWithProgressMessage.accept("Verify Every Item is sold by at least one store ...");
         updateGuiWithProgressPercent.accept(0.7);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         verifyEveryItemSoldByAtLeastOneStore(tempAllItems);
 
         updateGuiWithProgressMessage.accept("Verify Every Store sells at least one item ...");
         updateGuiWithProgressPercent.accept(0.8);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         verifyEveryStoreSellAtLeastOneItem(tempAllStores);
 
         updateGuiWithProgressMessage.accept("Saving all the information in our data base...");
         updateGuiWithProgressPercent.accept(0.9);
-        ThreadSleepProxy.goToSleep(1000);
+        ThreadSleepProxy.goToSleep(500);
         xmlFileLoaded = true;
         allStores = tempAllStores;
         allItems = tempAllItems;
@@ -236,14 +236,21 @@ public class SDMEngine {
     public boolean checkIfItemPriceIsNotZero(int choosedItemNumber) {
         return (allStoreItemsWithPriceForSpecificStore.get(choosedItemNumber).getPrice()) != 0;
     }
-
+/*
     public void addNewItemToStore(int storeID, Item itemToAdd, int priceOfItem) {
         //Store storeToAddItem = allStores.get(storeID).addNewItem();
         //storeToAddItem.getItemsThatSellInThisStore().
     }
 
+ */
+
     public Item getItemById(int itemId) {
         return allItems.get(itemId);
+    }
+
+    public void addNewItemToStore(Store st, Item item, String priceSt)
+    {
+        st.addNewItem(item,priceSt);
     }
 }
 

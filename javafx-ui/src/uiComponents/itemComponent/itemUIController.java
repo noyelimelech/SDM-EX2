@@ -14,6 +14,7 @@ public class itemUIController
     @FXML private Label amountOfOrder;
 
 
+
     public void setItemIdLabel(String itemId) {
         itemIdLabel.setText(itemId);
     }
