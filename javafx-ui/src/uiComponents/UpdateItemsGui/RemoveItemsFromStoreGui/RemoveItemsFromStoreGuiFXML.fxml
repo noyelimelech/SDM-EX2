@@ -20,10 +20,10 @@
       <RowConstraints maxHeight="267.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Label styleClass="leftMenuItem" text="please choose store that you want to update:" />
-      <Label prefHeight="25.0" prefWidth="256.0" styleClass="leftMenuItem" text="please choose item that you want to remove:" GridPane.rowIndex="1" />
-      <ComboBox prefHeight="25.0" prefWidth="318.0" promptText="choose store:" GridPane.columnIndex="1" />
-      <ComboBox prefHeight="25.0" prefWidth="319.0" promptText="choose item:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Button mnemonicParsing="false" prefHeight="27.0" prefWidth="158.0" text="confirm" GridPane.rowIndex="3" />
+      <Label text="please choose store that you want to update:" />
+      <Label prefHeight="25.0" prefWidth="256.0" text="please choose item that you want to remove:" GridPane.rowIndex="1" />
+      <ComboBox fx:id="chooseStoreComboBox" prefHeight="25.0" prefWidth="318.0" promptText="choose store:" GridPane.columnIndex="1" />
+      <ComboBox fx:id="chooseItemsComboBox" prefHeight="25.0" prefWidth="319.0" promptText="choose item:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Button fx:id="confirmButton" mnemonicParsing="false" onAction="#confirmButtonAction" prefHeight="27.0" prefWidth="158.0" text="confirm" GridPane.rowIndex="3" />
    </children>
 </GridPane>

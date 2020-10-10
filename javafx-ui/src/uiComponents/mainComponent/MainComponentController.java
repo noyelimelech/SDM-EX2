@@ -14,6 +14,8 @@ import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.SummaryOfOrderDetails.SummaryOfOrderDetailsController;
 import uiComponents.UpdateItemsGui.AddItemsToStoreGui.AddItemsToStoreGuiController;
+import uiComponents.UpdateItemsGui.RemoveItemsFromStoreGui.RemoveItemsFromStoreGuiController;
+import uiComponents.UpdateItemsGui.UpdateItemsInStoreGui.UpdateItemsInStoreGuiController;
 import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
 import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
@@ -269,13 +271,45 @@ public class MainComponentController {
 
 
     @FXML
-    void removeItemsButtonAction() {
+    void updatePriceButtonAction() {
+        dynamicAreaFlowPane.getChildren().clear();
+
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/UpdateItemsGui/UpdateItemsInStoreGui/UpdateItemsInStoreGuiFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node updateItemsInStoreGui = loader.load();
+
+        UpdateItemsInStoreGuiController updateItemsInStoreGuiController = loader.getController();
+        updateItemsInStoreGuiController.setSdmEngine(sdmEngine);
+        updateItemsInStoreGuiController.setGuiComboBoxAndButtons();
+
+        dynamicAreaFlowPane.getChildren().add(updateItemsInStoreGui);
+
     }
+
+
+
 
     @FXML
-    void updatePriceButtonAction() {
+    void removeItemsButtonAction() {
+        dynamicAreaFlowPane.getChildren().clear();
 
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/UpdateItemsGui/RemoveItemsFromStoreGui/RemoveItemsFromStoreGuiFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node removeItemsFromStoreGui = loader.load();
+
+        RemoveItemsFromStoreGuiController removeItemsFromStoreGuiController = loader.getController();
+        removeItemsFromStoreGuiController.setSdmEngine(sdmEngine);
+        removeItemsFromStoreGuiController.setGuiComboBoxAndButtons();
+
+        dynamicAreaFlowPane.getChildren().add(removeItemsFromStoreGui);
     }
+
+
+
 
     @FXML
     void showMapAction() {
