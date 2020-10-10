@@ -1,14 +1,12 @@
 package uiComponents.storeGUI;
 
-import SDM.Discount;
-import SDM.Order;
-import SDM.Store;
-import SDM.StoreItem;
+import SDM.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.discountGui.discountGuiController;
@@ -28,6 +26,11 @@ public class StoreGUIController {
     @FXML private VBox ordersPlaceHolder;
     @FXML private VBox discountPane;
 
+    @FXML private TitledPane seeOrderTitlePane;
+    @FXML private TitledPane seeDiscountsTitlePane;
+
+
+
     private Store store;
 
 
@@ -39,6 +42,7 @@ public class StoreGUIController {
     public void setStore(Store store) {
         this.store = store;
         updateGUIWithStoreData();
+
     }
 
     private void updateGUIWithStoreData() {
@@ -47,14 +51,19 @@ public class StoreGUIController {
         ppkLabel.setText(Integer.toString(store.getDeliveryPPK()));
         amountOfOrder.setText(String.format("%.2f",store.getTotalAmountForDeliveries()));
         updateGUIWithStoreItems();
+
         updateGUIWithStoreOrders();
         //noy 1/10
         updateGUIWithStoreDiscounts();
+
+
     }
 
     //noy 1/10
     private void updateGUIWithStoreDiscounts()
     {
+        seeDiscountsTitlePane.disableProperty().set(store.getDiscounts().isEmpty());
+
         for(Discount discount : store.getDiscounts()) {
             FXMLLoaderProxy loader = new FXMLLoaderProxy();
             URL fxmlLocation = getClass().getResource("/uiComponents/discountGui/discountGuiFXML.fxml");
@@ -87,7 +96,8 @@ public class StoreGUIController {
     }
 
     private void updateGUIWithStoreOrders(){
-        for(Order order : store.getOrders()) {
+        seeOrderTitlePane.disableProperty().set(store.getOrders().isEmpty());
+        for(OneStoreOrder order : store.getOrders()) {
             FXMLLoaderProxy loader = new FXMLLoaderProxy();
             URL fxmlLocation = getClass().getResource("/uiComponents/storeGUI/storeOrderGUI/storeOrderFXML.fxml");
             loader.setLocation(fxmlLocation);
