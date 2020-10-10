@@ -1,0 +1,8 @@
+.mainMap {
+    -fx-border-width: 4px;
+    -fx-border-color: black;
+}
+
+.icon:hover {
+    -fx-background-color: deepskyblue;
+}

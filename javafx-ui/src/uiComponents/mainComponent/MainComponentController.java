@@ -16,6 +16,7 @@ import uiComponents.SummaryOfOrderDetails.SummaryOfOrderDetailsController;
 import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
 import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
+import uiComponents.mapGUI.StoresAndCustomersMap;
 import uiComponents.storeGUI.StoreGUIController;
 import uiComponents.xmlLoadingGUI.XmlLoadingController;
 
@@ -259,6 +260,16 @@ public class MainComponentController {
     void updatePriceButtonAction() {
 
     }
+
+    @FXML
+    void showMapAction() {
+        dynamicAreaFlowPane.getChildren().clear();
+        StoresAndCustomersMap map = new StoresAndCustomersMap();
+        map.setSdmEngine(sdmEngine);
+        map.buildMap();
+        dynamicAreaFlowPane.getChildren().add(map.getMap());
+    }
+
 
 
 
