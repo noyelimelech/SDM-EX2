@@ -128,4 +128,24 @@ public class Store implements Locatable
         itemsThatSellInThisStore.put(item.getId(),newStoreItem);
 
     }
+
+    public boolean removeItem(Item item) throws Exception {
+        boolean discountBeenRemoved = false;
+
+        if(itemsThatSellInThisStore.size() == 1) {
+            throw new Exception("This store sell only this item.");
+        }
+        if(item.getStoresSellThisItem().size() == 1) {
+            throw new Exception("This item is sold only by this store");
+        }
+
+        for(Discount discount : discounts) {
+            if(discount.isItemInDiscount(item)) {
+                discounts.remove(discount);
+                discountBeenRemoved = true;
+            }
+        }
+
+        return discountBeenRemoved;
+    }
 }

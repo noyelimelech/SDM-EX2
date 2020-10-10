@@ -42,6 +42,7 @@ public class MainComponentController {
     @FXML private Button addItemsButton;
     @FXML private Button removeItemsButton;
     @FXML private Button updatePriceButton;
+    @FXML private Button showMapButton;
 
 
     private Stage primaryStage;
@@ -80,6 +81,10 @@ public class MainComponentController {
         showOrderButton.disableProperty().bind(isXMLFileLoaded.not().or(isAnyOrderMade.not()));
         showCustomersButton.disableProperty().bind(isXMLFileLoaded.not());
         makeNewOrderButton.disableProperty().bind(isXMLFileLoaded.not());
+        addItemsButton.disableProperty().bind(isXMLFileLoaded.not());
+        removeItemsButton.disableProperty().bind(isXMLFileLoaded.not());
+        updatePriceButton.disableProperty().bind(isXMLFileLoaded.not());
+        showMapButton.disableProperty().bind(isXMLFileLoaded.not());
     }
 
     @FXML
@@ -163,41 +168,23 @@ public class MainComponentController {
         dynamicAreaFlowPane.getChildren().clear();
 
 
-
-        FXMLLoaderProxy loader = new FXMLLoaderProxy();
-        URL fxmlLocation = getClass().getResource("/uiComponents/SummaryOfOrderDetails/SummaryOfOrderDetailsFXML.fxml");
-        loader.setLocation(fxmlLocation);
-
-        Node summaryOfOrderDetails = loader.load();
-
-        SummaryOfOrderDetailsController summaryOfOrderDetailsController=loader.getController();
-        summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
-        summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
-        //summaryOfOrderDetailsController.setLeftMenuVBox(leftMenuVBox);
         for (Order order:sdmEngine.getAllOrders()) {
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/SummaryOfOrderDetails/SummaryOfOrderDetailsFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node summaryOfOrderDetails = loader.load();
+
+            SummaryOfOrderDetailsController summaryOfOrderDetailsController=loader.getController();
+            summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+            summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
+            //summaryOfOrderDetailsController.setLeftMenuVBox(leftMenuVBox);
+
             summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore(order.getListOfOneStoreOrders());
             summaryOfOrderDetailsController.setLabelsShowOrders(order);
+            summaryOfOrderDetailsController.makeUnvisibelButtons();
+            dynamicAreaFlowPane.getChildren().add(summaryOfOrderDetails);
         }
-
-        summaryOfOrderDetailsController.makeUnvisibelButtons();
-
-
-
-
-
-        dynamicAreaFlowPane.getChildren().clear();
-
-        dynamicAreaFlowPane.getChildren().add(summaryOfOrderDetails);
-
-
-
-
-
-
-
-
-
-
     }
 
     @FXML

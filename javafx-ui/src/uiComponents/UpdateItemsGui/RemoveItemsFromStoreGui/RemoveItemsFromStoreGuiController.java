@@ -48,25 +48,26 @@ public class RemoveItemsFromStoreGuiController {
         chooseStoreComboBox.getSelectionModel().clearSelection();
 
 
-        if(sdmEngine.removeItemFromStore(st, item))
-        {
+        try {
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Item removed");
             successAlert.setHeaderText("Item removed");
-            successAlert.setContentText("Item has been removed succesfully");
+            if(sdmEngine.removeItemFromStore(st, item))
+            {
+                successAlert.setContentText("Item has been removed successfully");
+
+            }
+            else{
+                successAlert.setContentText("Item has been removed and had DISCOUNT(S) that also been removed");
+            }
             successAlert.show();
+        } catch (Exception e) {
+            Alert failAlert = new Alert(Alert.AlertType.ERROR);
+            failAlert.setTitle("Failed to delete item");
+            failAlert.setHeaderText("Failed to delete item");
+            failAlert.setContentText(e.getMessage());
+            failAlert.show();
         }
-
-        else
-        {
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Failed to delete item");
-            successAlert.setHeaderText("Failed to delete item");
-            successAlert.setContentText("Failed to delete item");
-            successAlert.show();
-        }
-
-
     }
 
 

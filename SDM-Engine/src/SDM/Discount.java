@@ -45,4 +45,14 @@ public class Discount
         this.thenGet = thenGet;
     }
 
+    public boolean isItemInDiscount(Item item) {
+        boolean itemInDiscount = false;
+
+        itemInDiscount = ifBuy.getStoreItem().getItem().getId() == item.getId();
+        for(Offer offer : thenGet.getOffers()) {
+            itemInDiscount = itemInDiscount || (offer.getItemId() == item.getId());
+        }
+
+        return itemInDiscount;
+    }
 }
