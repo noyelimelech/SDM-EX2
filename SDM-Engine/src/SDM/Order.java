@@ -9,6 +9,7 @@ public abstract class Order
     private static int idCounter = 1;
     protected final int id;
     protected final Map<Integer, OrderItem> orderItemCart;
+    protected final Map<Integer, OrderItem> itemsBoughtWithDiscount;
     protected final LinkedList<Discount> discountsAvailable;
     protected final Customer customer;
     protected final Date date;
@@ -21,6 +22,7 @@ public abstract class Order
         this.date = date;
         this.id = idCounter;
         orderItemCart = new HashMap<>();
+        itemsBoughtWithDiscount = new HashMap<>();
         discountsAvailable = new LinkedList<>();
     }
 
@@ -35,6 +37,10 @@ public abstract class Order
         else {
             return null;
         }
+    }
+
+    public Map<Integer, OrderItem> getItemsBoughtWithDiscount() {
+        return itemsBoughtWithDiscount;
     }
 
     public int getId() {

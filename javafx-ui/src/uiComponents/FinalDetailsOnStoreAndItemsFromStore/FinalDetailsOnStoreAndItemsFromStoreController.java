@@ -59,6 +59,21 @@ public class FinalDetailsOnStoreAndItemsFromStoreController {
 
         }
 
+        for (OrderItem orderItem:oneStoreOrder.getItemsBoughtWithDiscount().values())
+        {
+
+            FXMLLoaderProxy loader = new FXMLLoaderProxy();
+            URL fxmlLocation = getClass().getResource("/uiComponents/FinalDetailsOnItemsFromStore/FinalDetailsOnItemsFromStoreFXML.fxml");
+            loader.setLocation(fxmlLocation);
+
+            Node finalDetailsOnItemsFromStore = loader.load();
+            FinalDetailsOnItemsFromStoreController finalDetailsOnItemsFromStoreController = loader.getController();
+
+            finalDetailsOnItemsFromStoreController.updateLabels(orderItem);
+            dynamicVBoxItemsInStore.getChildren().add(finalDetailsOnItemsFromStore);
+
+        }
+
 
         //לעבור איטם איטם ולהכניס לדינמיק ויבוקס
     }
