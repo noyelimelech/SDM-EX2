@@ -262,16 +262,8 @@ public class SDMEngine {
 
 
     //remove item from store
-    public boolean removeItemFromStore(Store st, Item item) {
-        boolean flagIsOkRemove=true;
-        return(flagIsOkRemove);
-
-
-
-
-
-
-
+    public boolean removeItemFromStore(Store st, Item item) throws Exception {
+        return st.removeItem(item);
     }
 }
 
