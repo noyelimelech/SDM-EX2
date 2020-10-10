@@ -2,6 +2,7 @@ package uiComponents.SummaryOfOrderDetails;
 
 import SDM.Exception.NegativeAmountOfItemInException;
 import SDM.OneStoreOrder;
+import SDM.Order;
 import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -15,6 +16,7 @@ import uiComponents.FXMLLoaderProxy;
 import uiComponents.FinalDetailsOnStoreAndItemsFromStore.FinalDetailsOnStoreAndItemsFromStoreController;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -49,10 +51,10 @@ public class SummaryOfOrderDetailsController {
         this.dynamicAreaFlowPane = dynamicAreaFlowPane;
     }
 
-    public void updateFinalDetailsOnStoreAndItemsFromStore()
+    public void updateFinalDetailsOnStoreAndItemsFromStore(List<OneStoreOrder> oneStoreOrders)
     {
 
-        List<OneStoreOrder> oneStoreOrders = sdmEngine.getListOfOneStoreOrdersOfCurrentOrder();
+        ///List<OneStoreOrder> oneStoreOrders = sdmEngine.getListOfOneStoreOrdersOfCurrentOrder();
         for (OneStoreOrder oneStoreOrder:oneStoreOrders)
         {
             FXMLLoaderProxy loader = new FXMLLoaderProxy();
@@ -124,6 +126,25 @@ public class SummaryOfOrderDetailsController {
 
     public VBox getLeftMenuVBox() {
         return leftMenuVBox;
+    }
+
+    ///////
+    public void setLabelsShowOrders(Order order) {
+
+        totalOrderCostLabel.setText((String.format("%.2f",order.getPriceOfAllItems())));
+        totalDeliveriesCostLabel.setText((String.format("%.2f",order.getDeliveryPrice())));
+        TotalPriceLabel.setText((String.format("%.2f",order.getDeliveryPrice())));
+
+
+
+
+
+    }
+
+    public void makeUnvisibelButtons() {
+       cancelOrderButton.setVisible(false);
+       confirmButton.setVisible(false);
+
     }
 
 

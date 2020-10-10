@@ -1,9 +1,6 @@
 package uiComponents.mainComponent;
 
-import SDM.Customer;
-import SDM.Item;
-import SDM.SDMEngine;
-import SDM.Store;
+import SDM.*;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +12,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import uiComponents.FXMLLoaderProxy;
+import uiComponents.SummaryOfOrderDetails.SummaryOfOrderDetailsController;
 import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.itemComponent.itemUIController;
 import uiComponents.makeNewOrderGUI.makeNewOrderGUIController;
@@ -150,9 +148,39 @@ public class MainComponentController {
             }
 
     }
-
+///////NOY 10/10
     @FXML
     void showOrderButtonAction() {
+        dynamicAreaFlowPane.getChildren().clear();
+
+
+
+        FXMLLoaderProxy loader = new FXMLLoaderProxy();
+        URL fxmlLocation = getClass().getResource("/uiComponents/SummaryOfOrderDetails/SummaryOfOrderDetailsFXML.fxml");
+        loader.setLocation(fxmlLocation);
+
+        Node summaryOfOrderDetails = loader.load();
+
+        SummaryOfOrderDetailsController summaryOfOrderDetailsController=loader.getController();
+        summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
+        //summaryOfOrderDetailsController.setLeftMenuVBox(leftMenuVBox);
+        for (Order order:sdmEngine.getAllOrders()) {
+            summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore(order.getListOfOneStoreOrders());
+            summaryOfOrderDetailsController.setLabelsShowOrders(order);
+        }
+
+        summaryOfOrderDetailsController.makeUnvisibelButtons();
+
+
+
+
+
+        dynamicAreaFlowPane.getChildren().clear();
+
+        dynamicAreaFlowPane.getChildren().add(summaryOfOrderDetails);
+
+
 
 
 

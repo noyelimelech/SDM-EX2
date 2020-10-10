@@ -1,6 +1,7 @@
 package uiComponents.discountsInOrderHolder;
 
 import SDM.Discount;
+import SDM.OneStoreOrder;
 import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -70,7 +71,7 @@ public class DiscountsInOrderHolderController {
         summaryOfOrderDetailsController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
         summaryOfOrderDetailsController.setSdmEngine(sdmEngine);
         summaryOfOrderDetailsController.setLeftMenuVBox(leftMenuVBox);
-        summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore();
+        summaryOfOrderDetailsController.updateFinalDetailsOnStoreAndItemsFromStore(sdmEngine.getListOfOneStoreOrdersOfCurrentOrder());
         summaryOfOrderDetailsController.setLabels(sdmEngine);
 
         dynamicAreaFlowPane.getChildren().clear();
