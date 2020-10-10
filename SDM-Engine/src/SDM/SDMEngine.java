@@ -252,5 +252,26 @@ public class SDMEngine {
     {
         st.addNewItem(item,priceSt);
     }
+
+
+
+    //update item price
+    public void updatePriceOfItem(Store st, Item item, String priceSt) {
+        st.getItemsThatSellInThisStore().get(item.getId()).setPrice(Integer.parseInt(priceSt));
+    }
+
+
+    //remove item from store
+    public boolean removeItemFromStore(Store st, Item item) {
+        boolean flagIsOkRemove=true;
+        return(flagIsOkRemove);
+
+
+
+
+
+
+
+    }
 }
 
