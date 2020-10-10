@@ -52,5 +52,9 @@ public class Location
         return (int)(this.location.getY());
     }
 
+    @Override
+    public String toString() {
+        return String.format("(%.2f, %.2f)", location.getX(), location. getY());
+    }
 }
 

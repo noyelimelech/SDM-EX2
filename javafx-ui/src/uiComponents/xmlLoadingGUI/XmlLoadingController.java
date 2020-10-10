@@ -107,7 +107,15 @@ public class XmlLoadingController {
         } else if(exceptionThrown instanceof ItemNoOneSellException) {
             addNewLineToText("\nERROR: The item with ID " + ((ItemNoOneSellException)exceptionThrown).getId() + " doesnt sold by any store.");
         } else if(exceptionThrown instanceof StoreWithNoItemException) {
-            addNewLineToText("\nERROR: The store with ID " + ((StoreWithNoItemException)exceptionThrown).getId() + " doesnt sell any items");
+            addNewLineToText("\nERROR: The store with ID " + ((StoreWithNoItemException) exceptionThrown).getId() + " doesnt sell any items");
+        }else if(exceptionThrown instanceof DuplicateCustomerIdException) {
+            addNewLineToText("\nERROR: The customer with ID of " + ((DuplicateCustomerIdException) exceptionThrown).getId() + " appears more than once in the XML file");
+        }else if(exceptionThrown instanceof DuplicatedLocationException) {
+            addNewLineToText("\nERROR: There are more than one object in the location of " + ((DuplicatedLocationException) exceptionThrown).getDuplicateLocation().toString());
+        }else if(exceptionThrown instanceof DiscountWithItemNotSoldByStoreException) {
+            addNewLineToText("\nERROR: There is a discount of store " + ((DiscountWithItemNotSoldByStoreException)exceptionThrown).getStoreWithDiscount().getName() +
+            "that try to have an Item with ID of " +
+                    ((DiscountWithItemNotSoldByStoreException) exceptionThrown).getIdOfItemInDiscount() + " that this store doesnt sell");
         }else {
             addNewLineToText("\nERROR: Unknown error has happen, the error message is: " + exceptionThrown.getMessage());
         }

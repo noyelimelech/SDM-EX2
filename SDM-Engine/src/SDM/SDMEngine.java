@@ -58,7 +58,7 @@ public class SDMEngine {
     }
 
     public void updateAllStoresAndAllItemsAndAllCustomers(String stPath, Consumer<String> updateGuiWithProgressMessage, Consumer<Double> updateGuiWithProgressPercent)
-            throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException {
+            throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, JAXBException, FileNotFoundException, DuplicateItemException, FileNotEndWithXMLException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, ItemNoOneSellException, StoreWithNoItemException, DuplicatedLocationException, DuplicateCustomerIdException, DiscountWithItemNotSoldByStoreException {
         Map<Integer, Item> tempAllItems;
         Map<Integer, Store> tempAllStores = new HashMap<>();
         Map<Integer, Customer> tempAllCustomers ;
@@ -240,6 +240,10 @@ public class SDMEngine {
     public void addNewItemToStore(int storeID, Item itemToAdd, int priceOfItem) {
         //Store storeToAddItem = allStores.get(storeID).addNewItem();
         //storeToAddItem.getItemsThatSellInThisStore().
+    }
+
+    public Item getItemById(int itemId) {
+        return allItems.get(itemId);
     }
 }
 

@@ -33,8 +33,6 @@ public class StoreGUIController {
 
     private Store store;
 
-
-
     public Store getStore() {
         return store;
     }
@@ -71,6 +69,7 @@ public class StoreGUIController {
 
             Node discountGUI = loader.load();
             discountGuiController discountGuiController = loader.getController();
+            discountGuiController.setStoreOfDiscount(store);
 
 
             discountGuiController.setDiscount(discount);
