@@ -116,7 +116,7 @@ public class SummaryOfOrderDetailsController {
 
         totalOrderCostLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getPriceOfAllItems())));
         totalDeliveriesCostLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getDeliveryPrice())));
-        TotalPriceLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getDeliveryPrice())));
+        TotalPriceLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getTotalPrice())));
 
     }
 
@@ -133,7 +133,7 @@ public class SummaryOfOrderDetailsController {
 
         totalOrderCostLabel.setText((String.format("%.2f",order.getPriceOfAllItems())));
         totalDeliveriesCostLabel.setText((String.format("%.2f",order.getDeliveryPrice())));
-        TotalPriceLabel.setText((String.format("%.2f",order.getDeliveryPrice())));
+        TotalPriceLabel.setText((String.format("%.2f",order.getTotalPrice())));
 
 
 

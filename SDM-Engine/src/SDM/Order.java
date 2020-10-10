@@ -70,7 +70,7 @@ public abstract class Order
     }
 
     public double getTotalPrice() {
-        totalPrice = priceOfAllItems + deliveryPrice;
+        totalPrice = getPriceOfAllItems() + getDeliveryPrice();
         return totalPrice;
     }
 
