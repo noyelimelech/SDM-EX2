@@ -9,6 +9,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.afterOrderStoresGui.afterOrderStoresGuiController;
 import uiComponents.discountsInOrderHolder.DiscountsInOrderHolderController;
@@ -32,6 +33,7 @@ public class OrderItemChoiceController {
     private SDMEngine sdmEngine;
     private SimpleBooleanProperty buyWiseOrder = new SimpleBooleanProperty(true);
     FlowPane dynamicAreaFlowPane;
+    private VBox leftMenuVBox;
 
 
     @FXML
@@ -130,6 +132,7 @@ public class OrderItemChoiceController {
             Node afterOrderStoresGui = loader.load();
             afterOrderStoresGuiController controller=loader.getController();
             controller.setSdmEngine(sdmEngine);
+            controller.setLeftMenuVBox(leftMenuVBox);
             controller.setDynamicAreaFlowPane(dynamicAreaFlowPane);
 
             dynamicAreaFlowPane.getChildren().add(afterOrderStoresGui);
@@ -142,6 +145,7 @@ public class OrderItemChoiceController {
             Node discountsInOrderHolder = loader.load();
             DiscountsInOrderHolderController discountsInOrderHolderController=loader.getController();
             discountsInOrderHolderController.setSdmEngine(sdmEngine);
+            discountsInOrderHolderController.setLeftMenuVBox(leftMenuVBox);
             discountsInOrderHolderController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
 
             dynamicAreaFlowPane.getChildren().add(discountsInOrderHolder);
@@ -160,5 +164,13 @@ public class OrderItemChoiceController {
                 itemTableView.getItems().add(new StoreItemAdapter(item));
             }
         }
+    }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
+    }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
     }
 }

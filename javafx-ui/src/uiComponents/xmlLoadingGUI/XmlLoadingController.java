@@ -72,9 +72,11 @@ public class XmlLoadingController {
         taskOfXMLLoading.setFileAbsolutePath(selectedFile.getAbsolutePath());
         taskOfXMLLoading.setUpdateWhenLoadingIsFinished(updateWhenLoadingIsFinished);
         bindTaskOfLoading(taskOfXMLLoading);
+        loadingProgressBar.setStyle("-fx-progress-color:dodgerblue");
 
         taskOfXMLLoading.setOnFailed((observable -> {
             handleException(taskOfXMLLoading.getException());
+            loadingProgressBar.setStyle("-fx-progress-color:red");
         }));
 
         filePathLabel.setText(selectedFile.getAbsolutePath());

@@ -5,7 +5,9 @@ import SDM.OneStoreOrder;
 import SDM.SDMEngine;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
@@ -14,6 +16,7 @@ import uiComponents.FinalDetailsOnStoreAndItemsFromStore.FinalDetailsOnStoreAndI
 
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 
 public class SummaryOfOrderDetailsController {
 
@@ -27,7 +30,7 @@ public class SummaryOfOrderDetailsController {
 
     private SDMEngine sdmEngine;
     private FlowPane dynamicAreaFlowPane;
-
+    private VBox leftMenuVBox;
 
 
     public SDMEngine getSdmEngine() {
@@ -73,7 +76,20 @@ public class SummaryOfOrderDetailsController {
 
     @FXML
     void cancelOrderButtonAction() {
-        sdmEngine.cancelCurrentOrder();
+        Alert cancelAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        cancelAlert.setTitle("Order Cancel");
+        cancelAlert.setContentText("Are you sure you want to cancel this order?");
+
+        ButtonType yesButton = new ButtonType("YES");
+        ButtonType noButton = new ButtonType("NO");
+
+        cancelAlert.getButtonTypes().setAll(yesButton, noButton);
+        Optional<ButtonType> result = cancelAlert.showAndWait();
+        if(result.get() == yesButton) {
+            sdmEngine.cancelCurrentOrder();
+            dynamicAreaFlowPane.getChildren().clear();
+            leftMenuVBox.disableProperty().set(false);
+        }
     }
 
     @FXML
@@ -83,6 +99,14 @@ public class SummaryOfOrderDetailsController {
         } catch (NegativeAmountOfItemInException e) {
             e.printStackTrace();
         }
+
+        Alert confirmAlert = new Alert(Alert.AlertType.INFORMATION);
+        confirmAlert.setTitle("Order Confirmed!");
+        confirmAlert.setContentText("Your order is confirmed and you will have it shortly!");
+        confirmAlert.show();
+
+        dynamicAreaFlowPane.getChildren().clear();
+        leftMenuVBox.disableProperty().set(false);
     }
 
 
@@ -92,6 +116,14 @@ public class SummaryOfOrderDetailsController {
         totalDeliveriesCostLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getDeliveryPrice())));
         TotalPriceLabel.setText((String.format("%.2f",sdmEngine.getCurrentOrder().getDeliveryPrice())));
 
+    }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
+    }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
     }
 
 

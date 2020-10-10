@@ -55,7 +55,6 @@ public class XmlLoadingTask extends Task<Boolean> {
                 updateMessage("\nLoading is done. All the data loaded from the XML file is updated in the system.");
             } else {
                 updateMessage("\nLoading has been stopped. Please fixed the beloew issues and try again.");
-                updateProgress(0.0,1.0);
             }
             if(updateWhenLoadingIsFinished != null) {
                 updateWhenLoadingIsFinished.accept(isLoadingSucceeded);

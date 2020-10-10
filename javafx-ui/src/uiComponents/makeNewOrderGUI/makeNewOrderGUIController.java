@@ -11,6 +11,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import uiComponents.OrderItemChoiceGui.OrderItemChoiceController;
 import uiComponents.staticOrderGUI.staticOrderGUIController;
 
@@ -32,6 +33,7 @@ public class makeNewOrderGUIController {
 
     SDMEngine sdmEngine;
     FlowPane dynamicAreaFlowPane;
+    private VBox leftMenuVBox;
 
     @FXML
     public void initialize() {
@@ -59,6 +61,7 @@ public class makeNewOrderGUIController {
         Node orderItemChoiceGui = loader.load();
         OrderItemChoiceController orderItemChoiceController=loader.getController();
         orderItemChoiceController.setSdmEngine(sdmEngine);
+        orderItemChoiceController.setLeftMenuVBox(leftMenuVBox);
         orderItemChoiceController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
 
         dynamicAreaFlowPane.getChildren().add(orderItemChoiceGui);
@@ -82,6 +85,7 @@ public class makeNewOrderGUIController {
 
         staticOrderGUIController.setSDMEngine(sdmEngine);
         staticOrderGUIController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        staticOrderGUIController.setLeftMenuVBox(leftMenuVBox);
         staticOrderGUIController.setStoreComboBox();
 
         //NOY 8/10
@@ -120,6 +124,14 @@ public class makeNewOrderGUIController {
 
     public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane) {
         this.dynamicAreaFlowPane = dynamicAreaFlowPane;
+    }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
+    }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
     }
 }
 

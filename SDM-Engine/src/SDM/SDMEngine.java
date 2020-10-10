@@ -189,6 +189,14 @@ public class SDMEngine {
         return currentOrder.getDiscountsAvailable();
     }
 
+    public boolean isAnyOrderMade() {
+        return anyOrderMade.get();
+    }
+
+    public SimpleBooleanProperty anyOrderMadeProperty() {
+        return anyOrderMade;
+    }
+
     public boolean useDiscountOfCurrentOrder(Discount discountToUse) throws NegativeAmountOfItemInException {
         return currentOrder.useDiscount(discountToUse, null);
     }
@@ -201,6 +209,7 @@ public class SDMEngine {
         currentOrder.completeOrder();
         allOrders.add(currentOrder);
         currentOrder = null;
+
         if(!anyOrderMade.get()) {
             anyOrderMade.set(true);
         }

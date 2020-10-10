@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
 import uiComponents.OrderItemChoiceGui.OrderItemChoiceController;
 import uiComponents.storeGUI.StoreGUIController;
@@ -32,6 +33,7 @@ public class staticOrderGUIController {
     Date orderDate;
     Customer customer;
     Store store;
+    private VBox leftMenuVBox;
 
     @FXML
     public void initialize() {
@@ -68,6 +70,7 @@ public class staticOrderGUIController {
         OrderItemChoiceController orderItemChoiceController=loader.getController();
         orderItemChoiceController.setSdmEngine(sdmEngine);
         orderItemChoiceController.setDynamicAreaFlowPane(dynamicAreaFlowPane);
+        orderItemChoiceController.setLeftMenuVBox(leftMenuVBox);
 
         dynamicAreaFlowPane.getChildren().add(orderItemChoiceGui);
 
@@ -99,4 +102,12 @@ public class staticOrderGUIController {
         public void setDynamicAreaFlowPane(FlowPane dynamicAreaFlowPane){
             this.dynamicAreaFlowPane = dynamicAreaFlowPane;
         }
+
+    public void setLeftMenuVBox(VBox leftMenuVBox) {
+        this.leftMenuVBox = leftMenuVBox;
     }
+
+    public VBox getLeftMenuVBox() {
+        return leftMenuVBox;
+    }
+}
