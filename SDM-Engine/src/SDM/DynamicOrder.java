@@ -45,6 +45,10 @@ public class DynamicOrder extends Order{
     public void completeOrder() throws NegativeAmountOfItemInException {
         incIdCounter();
 
+        for(OneStoreOrder oneStoreOrder : innerOneStoreOrderMap.values()) {
+            oneStoreOrder.completeOrder();
+        }
+
         priceOfAllItems = calculatePriceOfOrderItems();
         totalPrice = priceOfAllItems + deliveryPrice;
         customer.addNewOrder(this);
@@ -88,7 +92,7 @@ public class DynamicOrder extends Order{
         double totalPriceOfItemsInAllOrders = 0;
 
         for (OneStoreOrder oneStoreOrder : innerOneStoreOrderMap.values()) {
-            totalPriceOfItemsInAllOrders += oneStoreOrder.getTotalPrice();
+            totalPriceOfItemsInAllOrders += oneStoreOrder.calculatePriceOfOrderItems();
         }
 
         return  totalPriceOfItemsInAllOrders;

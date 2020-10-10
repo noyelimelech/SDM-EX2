@@ -69,7 +69,8 @@ public class OneStoreOrder extends Order {
 
     @Override
     protected double calculatePriceOfOrderItems() {
-        return orderItemCart.values().stream().mapToDouble(OrderItem::getTotalPrice).sum();
+        priceOfAllItems = orderItemCart.values().stream().mapToDouble(OrderItem::getTotalPrice).sum();
+        return priceOfAllItems;
     }
 
     public double distanceBetweenCostumerAndStore() {

@@ -16,7 +16,7 @@ public class Store implements Locatable
     private int deliveryPPK;
     private Location location;
     private Map<Integer, StoreItem> itemsThatSellInThisStore=new HashMap<>();
-    private List<Order> orders= new LinkedList<>();
+    private List<OneStoreOrder> orders= new LinkedList<>();
     //NOY 26/9
     private List<Discount> discounts= new LinkedList<>();
 
@@ -75,12 +75,12 @@ public class Store implements Locatable
         this.itemsThatSellInThisStore = itemsThatSellInThisStore;
     }
 
-    public List<Order> getOrders()
+    public List<OneStoreOrder> getOrders()
     {
         return orders;
     }
 
-    public void setOrders(List<Order> orders)
+    public void setOrders(List<OneStoreOrder> orders)
     {
         this.orders = orders;
     }

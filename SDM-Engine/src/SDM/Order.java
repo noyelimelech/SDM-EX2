@@ -54,14 +54,17 @@ public abstract class Order
     }
 
     public double getDeliveryPrice() {
+        calculateDeliveryPrice();
         return deliveryPrice;
     }
 
     public double getPriceOfAllItems() {
+        calculatePriceOfOrderItems();
         return priceOfAllItems;
     }
 
     public double getTotalPrice() {
+        totalPrice = priceOfAllItems + deliveryPrice;
         return totalPrice;
     }
 
