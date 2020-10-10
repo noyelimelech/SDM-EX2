@@ -83,8 +83,9 @@ public class DiscountInOrderController {
 
             Node offerUI = loader.load();
 
-            offerGuiController discountGuiController=loader.getController();
-            discountGuiController.setOffer(offer);
+            offerGuiController offerController =loader.getController();
+            offerController.setStoreOfOffer(discount.getStoreOfDiscount());
+            offerController.setOffer(offer);
 
             offerPlaceHolder.getChildren().add(offerUI);
         }

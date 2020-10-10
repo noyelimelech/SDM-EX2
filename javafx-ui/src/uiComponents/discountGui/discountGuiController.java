@@ -7,7 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import uiComponents.FXMLLoaderProxy;
-import uiComponents.customerUIComponent.costumerUIController;
 import uiComponents.offerGui.offerGuiController;
 
 import java.net.URL;
@@ -24,6 +23,7 @@ public class discountGuiController {
 
     //noy 1/10
     private Discount discount;
+    private Store storeOfDiscount;
 
     public void setDiscount(Discount discount) {
         this.discount = discount;
@@ -31,7 +31,15 @@ public class discountGuiController {
 
     }
 
-/*
+    public Store getStoreOfDiscount() {
+        return storeOfDiscount;
+    }
+
+    public void setStoreOfDiscount(Store storeOfDiscount) {
+        this.storeOfDiscount = storeOfDiscount;
+    }
+
+    /*
     public void setDiscountNameLabel(String discountName) {
         this.discountNameLabel.setText(discountName);
     }
@@ -80,8 +88,10 @@ public class discountGuiController {
 
             Node offerUI = loader.load();
 
-            offerGuiController discountGuiController=loader.getController();
-            discountGuiController.setOffer(offer);
+            offerGuiController offerController =loader.getController();
+            offerController.setStoreOfOffer(storeOfDiscount);
+            offerController.setOffer(offer);
+
 
             discountPane.getChildren().add(offerUI);
 

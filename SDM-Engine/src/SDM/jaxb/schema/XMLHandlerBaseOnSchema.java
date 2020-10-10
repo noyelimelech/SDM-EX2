@@ -42,7 +42,7 @@ public class XMLHandlerBaseOnSchema
         return items;
     }
 
-    public void updateStoresAndItemsAndCostumers(String stPath, Consumer<String> updateGuiWithProgressMessage, Consumer<Double> updateGuiWithProgressPercent) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
+    public void updateStoresAndItemsAndCostumers(String stPath, Consumer<String> updateGuiWithProgressMessage, Consumer<Double> updateGuiWithProgressPercent) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException, DuplicateItemException, LocationIsOutOfBorderException, DuplicateStoreIDException, DuplicateStoreItemException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, DuplicateCustomerIdException, DuplicatedLocationException, DiscountWithItemNotSoldByStoreException {
         this.updateGuiWithProgressMessage = updateGuiWithProgressMessage;
         this.updateGuiWithProgressPercent = updateGuiWithProgressPercent;
 
@@ -63,6 +63,29 @@ public class XMLHandlerBaseOnSchema
         ThreadSleepProxy.goToSleep(1000);
         parseFromSDMCustomersToCustomers(sdmDescriptor);
 
+        verifyNoDuplicatedLocations();
+
+    }
+
+    private void verifyNoDuplicatedLocations() throws DuplicatedLocationException {
+        Set<Location> locations  = new HashSet<>();
+
+        for(Store store : stores) {
+            if(locations.contains(store.getLocation())) {
+                throw new DuplicatedLocationException(store.getLocation());
+            }
+            else {
+                locations.add(store.getLocation());
+            }
+        }
+        for(Customer customer : costumers.values()) {
+            if(locations.contains(customer.getLocation())){
+                throw new DuplicatedLocationException(customer.getLocation());
+            }
+            else {
+                locations.add(customer.getLocation());
+            }
+        }
     }
 
     private SuperDuperMarketDescriptor fromStringPathToDescriptor(String inpPath) throws FileNotFoundException, JAXBException, FileNotEndWithXMLException
@@ -94,7 +117,7 @@ public class XMLHandlerBaseOnSchema
 
 
     ///////NOY JOB 25/9
-    private void parseFromSDMCustomersToCustomers(SuperDuperMarketDescriptor sdmObj) throws DuplicateItemException {
+    private void parseFromSDMCustomersToCustomers(SuperDuperMarketDescriptor sdmObj) throws DuplicateItemException, LocationIsOutOfBorderException, DuplicateCustomerIdException {
 
         List<SDMCustomer> sdmCustomers= sdmObj.getSDMCustomers().getSDMCustomer();
         this.costumers=new HashMap<>();
@@ -111,6 +134,15 @@ public class XMLHandlerBaseOnSchema
             //else
             SDM.Location customerLocation =new SDM.Location(new Point(sdmCustomer.getLocation().getX(),sdmCustomer.getLocation().getY()));
             customer=new Customer(sdmCustomer.getId(),sdmCustomer.getName(),customerLocation);
+
+            if(!Location.checkIfIsLegalLocation(customer.getLocation().getXLocation(), customer.getLocation().getYLocation())) {
+                throw new LocationIsOutOfBorderException(Location.minBorder, Location.maxBorder, "Customer", customer.getId());
+            }
+
+            if(this.costumers.containsKey(customer.getId())) {
+                throw new DuplicateCustomerIdException(customer.getId());
+            }
+
             this.costumers.put(customer.getId(), customer);
         }
 
@@ -139,7 +171,7 @@ public class XMLHandlerBaseOnSchema
     }
 
 
-    private void parseFromSDMStoresToStores(SuperDuperMarketDescriptor sdmObj) throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException {
+    private void parseFromSDMStoresToStores(SuperDuperMarketDescriptor sdmObj) throws DuplicateStoreIDException, DuplicateStoreItemException, LocationIsOutOfBorderException, TryingToGivePriceOfItemWhichIDNotExistException, TryingToGiveDifferentPricesForSameStoreItemException, DiscountWithItemNotSoldByStoreException {
         List<SDMStore> sdmStores=  sdmObj.getSDMStores().getSDMStore();
         this.stores=new ArrayList<>();
         Store st;
@@ -191,8 +223,7 @@ public class XMLHandlerBaseOnSchema
 
 
     //NOY 26/9
-    private List<Discount> getDiscountsFromSDMDiscounts(SDMStore sdmSt, Store st)
-    {
+    private List<Discount> getDiscountsFromSDMDiscounts(SDMStore sdmSt, Store st) throws DiscountWithItemNotSoldByStoreException {
         List<Discount> storeDiscountsRetList=new LinkedList<>();
         Discount discount;
 
@@ -211,6 +242,7 @@ public class XMLHandlerBaseOnSchema
                 discount.setIfBuy(getClassIfBuyFromClassIfYouBuy(sdmDiscount.getIfYouBuy(), st));
                 discount.setThenGet(getClassThanGetFromClassThanYouGet(sdmDiscount.getThenYouGet(), st));
 
+
                 storeDiscountsRetList.add(discount);
             }
         }
@@ -220,7 +252,7 @@ public class XMLHandlerBaseOnSchema
 
 
     //Noy 26/9
-    private ThenGet getClassThanGetFromClassThanYouGet(ThenYouGet thenYouGet, Store st){
+    private ThenGet getClassThanGetFromClassThanYouGet(ThenYouGet thenYouGet, Store st) throws DiscountWithItemNotSoldByStoreException {
 
         List<Offer> offersList=new LinkedList<>();
 
@@ -230,6 +262,10 @@ public class XMLHandlerBaseOnSchema
             offer.setItemId(sdmOffer.getItemId());
             offer.setAmount(sdmOffer.getQuantity());
             offer.setForAdditionalPrice(sdmOffer.getForAdditional());
+
+            if(!st.getItemsThatSellInThisStore().containsKey(offer.getItemId())) {
+                throw new DiscountWithItemNotSoldByStoreException(offer.getItemId(), st);
+            }
             offersList.add(offer);
         }
 
@@ -240,8 +276,13 @@ public class XMLHandlerBaseOnSchema
 
     //Noy 26/9
     //get the class IfBuy from the class IfYouBuy
-    private IfBuy getClassIfBuyFromClassIfYouBuy(IfYouBuy ifYouBuy, Store st) {
+    private IfBuy getClassIfBuyFromClassIfYouBuy(IfYouBuy ifYouBuy, Store st) throws DiscountWithItemNotSoldByStoreException {
         StoreItem storeItem=st.getItemsThatSellInThisStore().get(ifYouBuy.getItemId());
+
+        if(storeItem == null){
+            throw new DiscountWithItemNotSoldByStoreException(ifYouBuy.getItemId(), st);
+        }
+
         IfBuy ifBuyRet=new IfBuy(storeItem, ifYouBuy.getQuantity());
         return(ifBuyRet);
 
