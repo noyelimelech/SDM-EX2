@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane id="#topGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="345.0" stylesheets="@storeOrderCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.storeOrderGUI.StoreOrderController">
+<GridPane id="topGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="205.0" prefWidth="345.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.storeGUI.storeOrderGUI.StoreOrderController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="243.3333282470703" minWidth="10.0" prefWidth="124.66666412353516" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.99999237060547" minWidth="10.0" prefWidth="220.33333587646484" />
@@ -38,4 +39,8 @@
    <padding>
       <Insets top="5.0" />
    </padding>
+   <stylesheets>
+      <URL value="@storeOrderCSS.css" />
+      <URL value="@storeOrderCSS.css" />
+   </stylesheets>
 </GridPane>
