@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane id="topGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="549.0" prefWidth="702.0" stylesheets="@FinalDetailsOnStoreAndItemsFromStoreCSS.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="uiComponents.FinalDetailsOnStoreAndItemsFromStore.FinalDetailsOnStoreAndItemsFromStoreController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="284.0" minWidth="10.0" prefWidth="248.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="267.0" minWidth="10.0" prefWidth="119.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="435.0" minWidth="10.0" prefWidth="335.0" />
+  </columnConstraints>
+  <rowConstraints>
+      <RowConstraints maxHeight="177.0" minHeight="0.0" prefHeight="18.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="177.0" minHeight="0.0" prefHeight="24.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="336.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="0.0" prefHeight="28.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="4.0" prefHeight="31.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="4.0" prefHeight="34.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="3.0" prefHeight="35.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="10.0" prefHeight="29.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="382.0" minHeight="10.0" prefHeight="262.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="336.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label styleClass="leftSideTitle" text="Store info:" GridPane.rowIndex="1" />
+      <Label styleClass="leftSideTitle" text="Items that bought from this store:" GridPane.rowIndex="8" />
+      <ScrollPane prefHeight="174.0" prefWidth="729.0" GridPane.columnSpan="3" GridPane.rowIndex="9">
+         <content>
+            <VBox fx:id="dynamicVBoxItemsInStore" prefHeight="265.0" prefWidth="702.0" />
+         </content>
+      </ScrollPane>
+      <Label styleClass="leftSideLabel" text="id:" GridPane.rowIndex="2" />
+      <Label styleClass="leftSideLabel" text="name:" GridPane.rowIndex="3" />
+      <Label styleClass="leftSideLabel" text="ppk:" GridPane.rowIndex="4" />
+      <Label styleClass="leftSideLabel" text="distance to customer:" GridPane.rowIndex="5" />
+      <Label styleClass="leftSideLabel" text="cost of delivery:" GridPane.rowIndex="6" />
+      <Label fx:id="idLabel" text="[id]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="nameLabel" text="[name]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="ppkLabel" text="[ppk]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="distanceLabel" text="[distance]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="costOfDeliveryLabel" text="[cost of delivery]" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+   </children>
+</GridPane>
