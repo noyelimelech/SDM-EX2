@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane id="topGridPane" fx:id="gridPaneItem" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="272.0" prefWidth="425.0" stylesheets="@FinalDetailsOnItemsFromStoreCSS.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="uiComponents.FinalDetailsOnItemsFromStore.FinalDetailsOnItemsFromStoreController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="300.0" minWidth="10.0" prefWidth="218.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="464.0" minWidth="10.0" prefWidth="207.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints maxHeight="40.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <Label styleClass="leftSideLabel" text="id:" />
+      <Label styleClass="leftSideLabel" text="name:" GridPane.rowIndex="1" />
+      <Label styleClass="leftSideLabel" text="type:" GridPane.rowIndex="2" />
+      <Label styleClass="leftSideLabel" text="amount:" GridPane.rowIndex="3" />
+      <Label styleClass="leftSideLabel" text="price:" GridPane.rowIndex="4" />
+      <Label prefHeight="20.0" prefWidth="241.0" styleClass="leftSideLabel" text="regular price or sale price:" GridPane.rowIndex="6" />
+      <Label styleClass="leftSideLabel" text="total price:" GridPane.rowIndex="5" />
+      <Label fx:id="idLabel" text="[id]" GridPane.columnIndex="1" />
+      <Label fx:id="nameLabel" text="[name]" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <Label fx:id="typeLabel" text="[type]" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label fx:id="amountLabel" text="[amount]" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Label fx:id="priceLabel" text="[price]" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Label fx:id="totalPriceLabel" text="[total price]" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label fx:id="regularOrSalePriceLabel" text="[regular/sale price]" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+   </children>
+</GridPane>
