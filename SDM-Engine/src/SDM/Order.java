@@ -59,7 +59,7 @@ public abstract class Order
     }
 
     public double getPriceOfAllItems() {
-        calculatePriceOfOrderItems();
+        priceOfAllItems = calculatePriceOfOrderItems();
         return priceOfAllItems;
     }
 
