@@ -48,15 +48,23 @@ public class Customer implements Locatable
     }
 
     public int getNumOfCostumerOrders() {
-        return 0;
+        return historyOrders.size();
     }
 
     public double getPriceOfCostumerOrders() {
-        return 0;
+        if(historyOrders.size() != 0) {
+            return (historyOrders.values().stream().mapToDouble(Order::getPriceOfAllItems).sum()) / historyOrders.size();
+        }else {
+            return 0;
+        }
     }
 
     public double getPriceOfCostumerOrdersDeliveries() {
-        return 0;
+        if(historyOrders.size() != 0) {
+            return (historyOrders.values().stream().mapToDouble(Order::getDeliveryPrice).sum()) / historyOrders.size();
+        }else {
+            return 0;
+        }
     }
 
     @Override

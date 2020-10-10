@@ -31,6 +31,7 @@ public class DynamicOrder extends Order{
 
     @Override
     protected void calculateDeliveryPrice() {
+        deliveryPrice = 0;
         for(OneStoreOrder oneStoreOrder : innerOneStoreOrderMap.values()) {
             deliveryPrice += oneStoreOrder.getDeliveryPrice();
         }
