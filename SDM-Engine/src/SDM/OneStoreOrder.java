@@ -8,6 +8,15 @@ public class OneStoreOrder extends Order {
 
     private final Store storeOrderMadeFrom;
     private boolean partOfDynamicOrder = false;
+    private DynamicOrder dynamicOrder;
+
+    public DynamicOrder getDynamicOrder() {
+        return dynamicOrder;
+    }
+
+    public void setDynamicOrder(DynamicOrder dynamicOrder) {
+        this.dynamicOrder = dynamicOrder;
+    }
 
     public OneStoreOrder(Customer customer, Date date, Store storeOrderMadeFrom1) {
         super(customer, date);
@@ -59,6 +68,14 @@ public class OneStoreOrder extends Order {
                 orderItem.clearAmount();
             }
         });
+        itemsBoughtWithDiscount.forEach((orderItemID, orderItem) -> {
+            try {
+                orderItem.updateItemAmountSold();
+                orderItem.updateStoreItemAmountSold();
+            } catch (NegativeAmountOfItemInException e) {
+                orderItem.clearAmount();
+            }
+        });
 
         if(!partOfDynamicOrder) {
             customer.addNewOrder(this);
@@ -70,6 +87,7 @@ public class OneStoreOrder extends Order {
     @Override
     protected double calculatePriceOfOrderItems() {
         priceOfAllItems = orderItemCart.values().stream().mapToDouble(OrderItem::getTotalPrice).sum();
+        priceOfAllItems += itemsBoughtWithDiscount.values().stream().mapToDouble(OrderItem::getTotalPrice).sum();
         return priceOfAllItems;
     }
 
@@ -83,6 +101,22 @@ public class OneStoreOrder extends Order {
         int totalItems=0;
 
         for (Map.Entry<Integer, OrderItem> iterator : orderItemCart.entrySet())
+        {
+            OrderItem orderItem = iterator.getValue();
+            Item.ItemType type=orderItem.getItemInOrder().getItem().getType();
+
+            switch (type)
+            {
+                case QUANTITY:
+                    totalItems+=(orderItem).getAmount();
+                    break;
+                case WEIGHT:
+                    totalItems+=1;
+                    break;
+            }
+        }
+
+        for (Map.Entry<Integer, OrderItem> iterator : itemsBoughtWithDiscount.entrySet())
         {
             OrderItem orderItem = iterator.getValue();
             Item.ItemType type=orderItem.getItemInOrder().getItem().getType();
@@ -160,7 +194,13 @@ public class OneStoreOrder extends Order {
 
     private void addOfferItemToCart(Offer offerToAdd) throws NegativeAmountOfItemInException {
         StoreItem itemChosen = storeOrderMadeFrom.getItemsThatSellInThisStore().get((offerToAdd.itemId));
-        orderItemCart.put(itemChosen.getItem().getId(), new OrderItem(itemChosen,true, offerToAdd.forAdditionalPrice));
-        orderItemCart.get(itemChosen.getItem().getId()).addAmount(offerToAdd.Amount);
+        if(itemsBoughtWithDiscount.containsKey(itemChosen.getItem().getId())) {
+            itemsBoughtWithDiscount.get(itemChosen.getItem().getId()).addAmount(offerToAdd.Amount);
+        }
+        else {
+            OrderItem newItemInOrder = new OrderItem(itemChosen,true, offerToAdd.forAdditionalPrice);
+            newItemInOrder.addAmount(offerToAdd.Amount);
+            itemsBoughtWithDiscount.put(itemChosen.getItem().getId(), newItemInOrder);
+        }
     }
 }

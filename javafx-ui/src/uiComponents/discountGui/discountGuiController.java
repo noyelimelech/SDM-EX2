@@ -19,6 +19,7 @@ public class discountGuiController {
     @FXML private Label itemIdLabel;
     @FXML private Label amountLabel;
     @FXML private Label itemPriceLabel;
+    @FXML private Label operatorLabel;
     @FXML private VBox discountPane;
 
     //noy 1/10
@@ -49,6 +50,10 @@ public class discountGuiController {
         itemIdLabel.setText(String.format("%d",storeItem.getItem().getId()));
         amountLabel.setText((String.format("%.2f",discount.getIfBuy().getQuantity())));
         itemPriceLabel.setText((String.format("%d",storeItem.getPrice())));
+        if(!discount.getThenGet().getOperator().equals("IRRELEVANT")) {
+            operatorLabel.setText(discount.getThenGet().getOperator());
+        }
+
         showOffers(discount);
     }
 

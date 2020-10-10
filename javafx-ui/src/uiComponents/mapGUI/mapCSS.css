@@ -2,7 +2,22 @@
     -fx-border-width: 4px;
     -fx-border-color: black;
 }
+.storePic {
+    -fx-image: url("/uiComponents/Resources/storePic.png");
+}
 
-.icon:hover {
-    -fx-background-color: deepskyblue;
+.customerPic {
+    -fx-image: url("/uiComponents/Resources/stickMan.png");
+}
+
+.storePic:hover {
+    -fx-image: url("/uiComponents/Resources/storePicHover.png");
+}
+
+.customerPic:hover {
+    -fx-image: url("/uiComponents/Resources/‏‏stickManHover.png");
+}
+
+.toolTip {
+    -fx-graphic-text-gap: 12px;
 }
