@@ -147,6 +147,7 @@ public class Store implements Locatable
         }
 
         itemsThatSellInThisStore.remove(item.getId());
+        item.getStoresSellThisItem().remove(id);
 
         return discountBeenRemoved;
     }
