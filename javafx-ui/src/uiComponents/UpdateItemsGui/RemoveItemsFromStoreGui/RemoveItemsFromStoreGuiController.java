@@ -28,7 +28,7 @@ public class RemoveItemsFromStoreGuiController {
     @FXML
     public void initialize() {
         chooseItemsComboBox.disableProperty().bind(chooseStoreComboBox.getSelectionModel().selectedItemProperty().isNull());
-
+        confirmButton.disableProperty().bind(chooseItemsComboBox.getSelectionModel().selectedItemProperty().isNull());
         chooseStoreComboBox.getSelectionModel().
                 selectedItemProperty().addListener(((observable, oldValue, newValue) -> {
             if (newValue != null) {

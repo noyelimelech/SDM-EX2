@@ -5,10 +5,7 @@ import SDM.SDMEngine;
 import SDM.Store;
 import SDM.StoreItem;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -20,6 +17,7 @@ public class UpdateItemsInStoreGuiController {
     @FXML private ComboBox<Item> chooseItemsComboBox;
     @FXML private Button confirmButton;
     @FXML private TextField priceTextField;
+    @FXML private Label textFieldErrorLabel;
 
     SDMEngine sdmEngine;
 
@@ -37,8 +35,28 @@ public class UpdateItemsInStoreGuiController {
                 setItemsComboBox(newValue);
             }
         }));
+
+        priceTextField.textProperty().addListener(((obs, oldValue, newValue) -> {
+            if(newValue == null){
+                confirmButton.disableProperty().set(true);
+                textFieldErrorLabel.visibleProperty().set(false);
+            }
+            else {
+                if(!newValue.equals("")) {
+                    textFieldErrorLabel.visibleProperty().set(!textFieldVerified());
+                    confirmButton.disableProperty().set(!textFieldVerified());
+                }
+                else{
+                    confirmButton.disableProperty().set(true);
+                    textFieldErrorLabel.visibleProperty().set(false);
+                }
+            }
+        }));
     }
 
+    private boolean textFieldVerified() {
+        return priceTextField.textProperty().get().matches("^\\d+$");
+    }
 
     @FXML
     void confirmButtonAction() {
