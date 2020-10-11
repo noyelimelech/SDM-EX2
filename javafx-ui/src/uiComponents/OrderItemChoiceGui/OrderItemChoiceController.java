@@ -4,7 +4,6 @@ import SDM.*;
 import SDM.Exception.NegativeAmountOfItemInException;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -14,8 +13,10 @@ import uiComponents.FXMLLoaderProxy;
 import uiComponents.afterOrderStoresGui.afterOrderStoresGuiController;
 import uiComponents.discountsInOrderHolder.DiscountsInOrderHolderController;
 
-import javax.xml.crypto.dsig.SignatureMethod;
 import java.net.URL;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 public class OrderItemChoiceController {
 
@@ -98,6 +99,17 @@ public class OrderItemChoiceController {
     void addItemButtonAction() {
         if(textFieldVerified()) {
             try {
+                if(!buyWiseOrder.get()){
+                    if(!(((OneStoreOrder)sdmEngine.getCurrentOrder()).getStoreOrderMadeFrom().getItemsThatSellInThisStore().containsKey
+                            (itemTableView.getSelectionModel().getSelectedItem().getId()))){
+                        Alert failAlert = new Alert(Alert.AlertType.ERROR);
+                        failAlert.setTitle("Store doesnt sell this item");
+                        failAlert.setHeaderText("This store doesnt sell this item, please try to add other items");
+                        failAlert.setContentText("This store doesnt sell this item, please try to add other items");
+                        failAlert.show();
+                        return;
+                    }
+                }
                 sdmEngine.addItemToCurrentOrder(itemTableView.getSelectionModel().getSelectedItem().getId(), Double.parseDouble(itemsCounterTextField.getText()));
                 itemTableView.getSelectionModel().clearSelection();
                 itemsCounterTextField.textProperty().set("");
@@ -158,12 +170,29 @@ public class OrderItemChoiceController {
             for(StoreItem storeItem : ((OneStoreOrder)sdmEngine.getCurrentOrder()).getStoreOrderMadeFrom().getItemsThatSellInThisStore().values()) {
                 itemTableView.getItems().add(new StoreItemAdapter(storeItem));
             }
+            for(Item item : getItemsThatNotSellInTheStore(((OneStoreOrder)sdmEngine.getCurrentOrder()).getStoreOrderMadeFrom().getItemsThatSellInThisStore())) {
+                itemTableView.getItems().add(new StoreItemAdapter(item));
+            }
         }
         else {
             for(Item item : sdmEngine.getAllItems()) {
                 itemTableView.getItems().add(new StoreItemAdapter(item));
             }
         }
+    }
+
+    private List<Item> getItemsThatNotSellInTheStore(Map<Integer, StoreItem> itemsInChoosedStore) {
+        List<Item> itemsNoSellInThisStore=new LinkedList<>();
+
+        for (Item item:sdmEngine.getAllItems())
+        {
+            if(!(itemsInChoosedStore.containsKey(item.getId())))
+            {
+                itemsNoSellInThisStore.add(item);
+            }
+        }
+
+        return(itemsNoSellInThisStore);
     }
 
     public void setLeftMenuVBox(VBox leftMenuVBox) {

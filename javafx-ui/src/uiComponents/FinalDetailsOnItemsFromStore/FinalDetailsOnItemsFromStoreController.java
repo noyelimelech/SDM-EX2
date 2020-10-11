@@ -26,7 +26,7 @@ public class FinalDetailsOnItemsFromStoreController {
         nameLabel.setText(orderItem.getItemInOrder().getItem().getName());
         typeLabel.setText(orderItem.getItemInOrder().getItem().getType().toString());
         amountLabel.setText(String.format("%.2f",orderItem.getAmount()));
-        priceLabel.setText(String.format("%d",orderItem.getItemInOrder().getPrice()));
+        priceLabel.setText(String.format("%.2f",orderItem.getPricePaid()));
         totalPriceLabel.setText(String.format("%.2f",orderItem.getTotalPrice()));
 
         if (orderItem.isBoughtInDiscount())

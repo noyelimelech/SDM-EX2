@@ -34,6 +34,6 @@ public class Offer
 
     @Override
     public String toString() {
-        return "ID: " +  itemId  + " Amount: " + getAmount() + " for: " + forAdditionalPrice;
+        return "ID: " +  itemId  + " Amount: " + getAmount() + " for: " + forAdditionalPrice + " each";
     }
 }
